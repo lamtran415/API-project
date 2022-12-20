@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
                 ],
             ],
         },
-        group: ["Reviews.id", "Spot.id"]
+        group: ["Reviews.id", "Spot.id", "SpotImages.id"]
     })
 
     let spotArray = [];
@@ -72,7 +72,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 ]
             ],
         },
-        group: ["Reviews.id", "Spot.id"]
+        group: ["Reviews.id", "Spot.id", "SpotImages.id"]
     });
 
     let currentArr = [];
