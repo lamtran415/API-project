@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
                 ]
             ],
         },
-        group: ["Spot.id"]
+        group: [["Review", "id"]]
     })
 
     let spotArray = [];
@@ -37,8 +37,7 @@ router.get("/", async (req, res) => {
         // console.log(spot.SpotImages)
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
-            if(image.url) {
-
+            if(image.preview === true) {
                 spot.previewImage = image.url
             }
         })
@@ -73,7 +72,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 ]
             ],
         },
-        group: ["Spot.id"]
+        group: [["Review", "id"]]
     });
 
     let currentArr = [];
@@ -84,7 +83,7 @@ router.get("/current", requireAuth, async (req, res) => {
     currentArr.forEach(spot => {
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
-            if(image.url) {
+            if(image.preview === true) {
 
                 spot.previewImage = image.url
             }
