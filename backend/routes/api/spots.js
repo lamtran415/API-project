@@ -34,7 +34,6 @@ router.get("/", async (req, res) => {
     })
 
     spotArray.forEach(spot => {
-        console.log(spot)
         // console.log(spot.SpotImages)
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
@@ -52,6 +51,56 @@ router.get("/", async (req, res) => {
 
     // console.log(spotArray)
     res.json({Spots: spotArray})
+})
+
+router.get("/current", requireAuth, async (req, res) => {
+
+    let user = req.user;
+
+    let currentUserSpot = await user.getSpots({
+        include: [
+            {
+                model: Review,
+            },
+            {
+                model: SpotImage,
+            }
+        ],
+        attributes: {
+            include: [
+                [
+                    sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"
+                ]
+            ],
+        },
+        group: ["Spot.id"]
+    });
+
+    let currentArr = [];
+    currentUserSpot.forEach(spot => {
+        currentArr.push(spot.toJSON())
+    })
+
+    currentArr.forEach(spot => {
+        spot.SpotImages.forEach(image => {
+            // console.log(image.url)
+            if(image.url) {
+
+                spot.previewImage = image.url
+            }
+        })
+        if (!spot.previewImage) {
+            spot.previewImage = "No image url found"
+        }
+        delete spot.Reviews
+        delete spot.SpotImages
+    })
+
+    if (!currentArr.length) {
+        res.json("User does not have any spots")
+    }
+
+    res.json({Spots: currentArr})
 })
 
 module.exports = router;
