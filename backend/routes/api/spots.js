@@ -22,10 +22,10 @@ router.get("/", async (req, res) => {
             include: [
                 [
                     sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"
-                ]
+                ],
             ],
         },
-        group: [["Review", "id"]]
+        group: ["Reviews.id"]
     })
 
     let spotArray = [];
@@ -72,7 +72,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 ]
             ],
         },
-        group: [["Review", "id"]]
+        group: ["Reviews.id"]
     });
 
     let currentArr = [];
