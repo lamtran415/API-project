@@ -12,6 +12,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Spot, { foreignKey: "ownerId" });
+      // Reviews JOIN table
+      User.belongsToMany(models.Spot, {
+        through: models.Review,
+        foreignKey: "userId",
+        otherKey: "spotId"
+      });
+      // Bookings JOIN table
+      User.belongsToMany(models.Spot, {
+        through: models.Booking,
+        foreignKey: "userId",
+        otherKey: "spotId"
+      });
+
     };
     toSafeObject() {
       const { id, firstName, lastName, username, email } = this; // context will be the User instance
