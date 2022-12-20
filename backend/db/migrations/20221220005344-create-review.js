@@ -1,5 +1,5 @@
 'use strict';
-// /** @type {import('sequelize-cli').Migration} */
+/** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -18,13 +18,20 @@ module.exports = {
       spotId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Spots" },
+        references: {
+          model: "Spots",
+          key: "id"
+        },
         onDelete: "CASCADE"
       },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Users" }
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       review: {
         allowNull: false,
