@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, User, SpotImage, Review, Booking, sequelize } = require('../../db/models');
+const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleSpotValidationErrors } = require('../../utils/validation');
-const e = require('express');
+
 
 const validateCreateSpot = [
     check("address")
@@ -310,7 +310,7 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
         findSpot.lng = lng;
         findSpot.name = name;
         findSpot.description = description;
-        findSpot.price = price
+        findSpot.price = price;
 
         await findSpot.save();
 
@@ -349,6 +349,38 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
             message: "Must be an owner to delete spot",
             statusCode: res.statusCode
         })
+    }
+})
+
+// Get all Reviews by a Spot's ID /api/spots/:spotId/reviews
+router.get("/:spotId/reviews", async (req, res, next) => {
+    const { spotId } = req.params;
+
+    const findSpot = await Spot.findByPk(spotId)
+
+    let reviewSpot = await Review.findAll({
+        where: {
+            spotId: spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: {exclude: ['reviewId', 'createdAt', 'updatedAt']}
+            }
+        ]
+    })
+
+    if (!findSpot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: res.statusCode
+        })
+    } else {
+        return res.json({Reviews: reviewSpot})
     }
 })
 
