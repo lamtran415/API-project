@@ -5,7 +5,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, Booking, sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleSpotValidationErrors } = require('../../utils/validation');
 
 const validateCreateSpot = [
     check("address")
@@ -48,7 +48,7 @@ const validateCreateSpot = [
         .isNumeric()
         .withMessage("Price per day is required")
     ,
-    handleValidationErrors
+    handleSpotValidationErrors
 ]
 
 
@@ -262,7 +262,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
 })
 
 // Create a Spot /api/spots
-router.post("/", requireAuth, validateCreateSpot, async (req, res) => {
+router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
     let user = req.user;
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
