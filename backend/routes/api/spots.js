@@ -8,7 +8,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 
-// GET ALL SPOTS
+// GET ALL SPOTS api/spots
 router.get("/", async (req, res) => {
 
     let spots = await Spot.findAll({
@@ -37,6 +37,10 @@ router.get("/", async (req, res) => {
 
     spotArray.forEach(spot => {
         // console.log(spot.SpotImages)
+        spot.lat = parseFloat(spot.lat)
+        spot.lng = parseFloat(spot.lng)
+        spot.price = parseFloat(spot.price)
+        spot.avgRating = parseFloat(spot.avgRating)
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
             if(image.preview === true) {
@@ -54,12 +58,16 @@ router.get("/", async (req, res) => {
     res.json({Spots: spotArray})
 })
 
-
+// Get api/spots/current
 router.get("/current", requireAuth, async (req, res) => {
 
     let user = req.user;
+    // console.log(user)
 
-    let currentUserSpot = await user.getSpots({
+    let currentUserSpot = await Spot.findAll({
+        where: {
+            ownerId: user.id
+        },
         include: [
             {
                 model: Review,
@@ -84,6 +92,10 @@ router.get("/current", requireAuth, async (req, res) => {
     })
 
     currentArr.forEach(spot => {
+        spot.lat = parseFloat(spot.lat)
+        spot.lng = parseFloat(spot.lng)
+        spot.price = parseFloat(spot.price)
+        spot.avgRating = parseFloat(spot.avgRating)
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
             if(image.preview === true) {
@@ -105,6 +117,8 @@ router.get("/current", requireAuth, async (req, res) => {
     res.json({Spots: currentArr})
 })
 
+
+// GET api/spots/:spotId
 router.get("/:spotId", async (req, res) => {
     const { spotId } = req.params;
 
@@ -152,7 +166,7 @@ router.get("/:spotId", async (req, res) => {
             statusCode: res.statusCode
         })
     }
-
 })
+
 
 module.exports = router;
