@@ -7,6 +7,50 @@ const { Spot, User, SpotImage, Review, Booking, sequelize } = require('../../db/
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const validateCreateSpot = [
+    check("address")
+        .exists({ checkFalsy: true })
+        .withMessage("Street address is required")
+    ,
+    check("city")
+        .exists({ checkFalsy: true })
+        .withMessage("City is required")
+    ,
+    check("state")
+        .exists({ checkFalsy: true })
+        .withMessage("State is required")
+    ,
+    check("country")
+        .exists({ checkFalsy: true })
+        .withMessage("Country is required")
+    ,
+    check("lat")
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Latitude is not valid")
+    ,
+    check("lng")
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Longitude is not valid")
+    ,
+    check("name")
+        .exists({ checkFalsy: true })
+        .isLength({ max: 49 })
+        .withMessage("Name must be less than 50 characters")
+    ,
+    check("description")
+        .exists({ checkFalsy: true })
+        .withMessage("Description is required")
+    ,
+    check("price")
+        .exists({ checkFalsy: true })
+        .isNumeric()
+        .withMessage("Price per day is required")
+    ,
+    handleValidationErrors
+]
+
 
 // GET ALL SPOTS api/spots
 router.get("/", async (req, res) => {
@@ -49,6 +93,10 @@ router.get("/", async (req, res) => {
         })
         if (!spot.previewImage) {
             spot.previewImage = "No image url found"
+        }
+
+        if (!spot.avgRating) {
+            spot.avgRating = "No ratings"
         }
         delete spot.Reviews
         delete spot.SpotImages
@@ -105,6 +153,9 @@ router.get("/current", requireAuth, async (req, res) => {
         })
         if (!spot.previewImage) {
             spot.previewImage = "No image url found"
+        }
+        if (!spot.avgRating) {
+            spot.avgRating = "No ratings"
         }
         delete spot.Reviews
         delete spot.SpotImages
@@ -167,6 +218,76 @@ router.get("/:spotId", async (req, res) => {
         })
     }
 })
+
+// Add an Image to a Spot based on the Spot's ID /:spotId/images
+router.post("/:spotId/images", requireAuth, async (req, res) => {
+    let user = req.user;
+
+    const { url, preview } = req.body;
+    const { spotId } = req.params;
+
+    // Find current user
+    const userSpot = await Spot.findByPk(user.id, {
+        include: [
+            {
+                model: SpotImage
+            }
+        ]
+    })
+
+    // Find the spotId
+    const findSpot = await Spot.findByPk(spotId)
+
+    // If current user is owner && spot is found
+    if (userSpot && findSpot) {
+        const createSpotImage = await SpotImage.create({
+            spotId: spotId,
+            url,
+            preview
+        })
+        userSpot.SpotImages += createSpotImage;
+        const spotImage = await SpotImage.findAll({
+            where: {
+                id: createSpotImage.id
+            },
+            attributes: ["id", "url", "preview"]
+        })
+        res.json(spotImage[0])
+    } else {
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: res.statusCode
+        })
+    }
+})
+
+// Create a Spot /api/spots
+router.post("/", requireAuth, validateCreateSpot, async (req, res) => {
+    let user = req.user;
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const createSpot = await Spot.create({
+        ownerId: user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    if (createSpot) {
+        res.status(201).json(createSpot)
+    }
+
+})
+
+
+
 
 
 module.exports = router;
