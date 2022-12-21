@@ -134,11 +134,17 @@ router.get("/:spotId", async (req, res) => {
                 ]
             ]
         },
-        group: ["Reviews.id", "Spot.id", "SpotImages.id", "ownerId"]
+        group: ["Reviews.id", "Spot.id", "SpotImages.id", "Owner.id"]
     })
 
     if (spots) {
-        res.json(spots)
+        let spot = spots.toJSON();
+        spot.lat = parseFloat(spot.lat)
+        spot.lng = parseFloat(spot.lng)
+        spot.price = parseFloat(spot.price)
+        spot.avgStarRating = parseFloat(spot.avgStarRating)
+        spot.numReviews = parseFloat(spot.numReviews)
+        res.json(spot)
     } else {
         res.status(404)
         res.json({
@@ -146,7 +152,6 @@ router.get("/:spotId", async (req, res) => {
             statusCode: res.statusCode
         })
     }
-
 
 })
 
