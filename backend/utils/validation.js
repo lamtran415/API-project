@@ -24,17 +24,18 @@ const handleValidationErrors = (req, res, next) => {
 
 const handleSpotValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
+  // console.log(validationErrors)
 
   if (!validationErrors.isEmpty()) {
     const errors = validationErrors
       .array()
-      .map((error) => `${error.msg}`);
+      .map((error) => `${error.param}: ${error.msg}`);
 
     const err = Error("Validation Error");
     err.title = "Validation Error"
     err.errors = errors;
     res.status(400);
-    return res.json({
+    res.json({
       message: err.title,
       statusCode: res.statusCode,
       errors: err.errors

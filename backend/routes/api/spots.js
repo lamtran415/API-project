@@ -261,6 +261,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     }
 })
 
+
 // Create a Spot /api/spots
 router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
     let user = req.user;
@@ -286,6 +287,38 @@ router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
 
 })
 
+// Edit a Spot /api/spots/:spotId
+router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) => {
+    let user = req.user;
+    const { spotId } = req.params;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const findOwner = await Spot.findByPk(user.id);
+
+    const findSpot = await Spot.findByPk(spotId);
+
+    if (findOwner && findSpot) {
+        findSpot.address = address;
+        findSpot.city = city;
+        findSpot.state = state;
+        findSpot.country = country;
+        findSpot.lat = lat;
+        findSpot.lng = lng;
+        findSpot.name = name;
+        findSpot.description = description;
+        findSpot.price = price
+
+        await findSpot.save();
+
+        res.json(findSpot)
+    }
+    else if (!findSpot) {
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: res.statusCode
+        })
+    }
+})
 
 
 
