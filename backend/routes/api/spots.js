@@ -52,6 +52,19 @@ const validateCreateSpot = [
     handleSpotValidationErrors
 ]
 
+const validateReviews = [
+    check("review")
+        .exists({ checkFalsy: true })
+        .withMessage("Review text is required")
+    ,
+    check("stars")
+        .exists({ checkFalsy: true })
+        .isFloat({ min: 1, max: 5})
+        .withMessage("Stars must be an integer from 1 to 5")
+    ,
+    handleSpotValidationErrors
+]
+
 
 // GET ALL SPOTS api/spots
 router.get("/", async (req, res, next) => {
@@ -384,5 +397,47 @@ router.get("/:spotId/reviews", async (req, res, next) => {
     }
 })
 
+// Create a Review for a Spot based on the Spot's id
+router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, next) => {
+    let user = req.user;
+
+    const { spotId } = req.params;
+
+    const { review, stars } = req.body;
+
+    const findSpot = await Spot.findByPk(spotId)
+
+    const reviewExist = await Review.findOne({
+        where: {
+            spotId: spotId,
+            userId: user.id
+        }
+    })
+    // console.log(findSpot)
+
+    if (!findSpot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: res.statusCode
+        })
+    }
+
+    if(reviewExist) {
+        return res.status(403).json({
+            message: "User already has a review for this spot",
+            statusCode: res.statusCode
+        })
+    }
+
+    const createReview = await Review.create({
+        spotId: spotId,
+        userId: user.id,
+        review,
+        stars
+    })
+
+    res.status(201).json(createReview)
+
+})
 
 module.exports = router;
