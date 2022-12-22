@@ -540,7 +540,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
           },
         });
 
-        console.log(getCurrentBookings)
+        // console.log(getCurrentBookings)
 
     if (getCurrentBookings.length) {
         return res.status(403).json({
