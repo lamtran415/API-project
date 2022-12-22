@@ -52,4 +52,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
     return res.json({Bookings: currBookingArr});
 })
 
+
+
 module.exports = router;
