@@ -56,9 +56,9 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 
     currReviewArr.forEach(review => {
-        review.Spot.SpotImages.forEach(spot => {
-            if (spot.preview === true) {
-                review.Spot.previewImage = spot.url
+        review.Spot.SpotImages.forEach(image => {
+            if (image.preview === true) {
+                review.Spot.previewImage = image.url
             }
         })
         if (!review.Spot.previewImage) {
