@@ -3,9 +3,22 @@ const router = express.Router();
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, Booking, ReviewImage, sequelize } = require('../../db/models');
+const { Op } = require("sequelize");
 
 const { check } = require('express-validator');
 const { handleSpotValidationErrors } = require('../../utils/validation');
+
+const validateBookings = [
+    check("startDate")
+        .isDate()
+        .withMessage("startDate is not valid")
+    ,
+    check("endDate")
+        .isDate()
+        .withMessage("endDate is not valid")
+    ,
+    handleSpotValidationErrors
+]
 
 // Get all of the Current User's Bookings /api/bookings/current
 router.get("/current", requireAuth, async (req, res, next) => {
@@ -52,6 +65,85 @@ router.get("/current", requireAuth, async (req, res, next) => {
     return res.json({Bookings: currBookingArr});
 })
 
+// Edit a Booking /api/bookings/:bookingId
+router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) => {
+    let user = req.user;
 
+    const { bookingId } = req.params;
+
+    const { startDate, endDate } = req.body;
+
+    const findBooking = await Booking.findByPk(bookingId);
+
+    if (!findBooking) {
+        return res.status(404).json({
+            message: "Booking couldn't be found",
+            statusCode: res.statusCode
+        })
+    };
+
+    if (user.id !== findBooking.userId) {
+        return res.status(400).json({
+            message: "Only the owner of this booking can make edits",
+            statusCode: res.statusCode
+        })
+    }
+
+    if(endDate < startDate) {
+        res.status(400).json({
+            message: "Validation error",
+            statusCode: res.statusCode,
+            errors: {
+                endDate: "endDate cannot come before startDate"
+            }
+        })
+    };
+
+    if (new Date(findBooking.endDate) < new Date()) {
+        return res.status(403).json({
+            message: "Past bookings can't be modified",
+            statusCode: res.statusCode
+        })
+    }
+
+    const getCurrentBookings = await Booking.findAll({
+        where: {
+            spotId: findBooking.spotId,
+            [Op.and]: [
+              {
+                startDate: {
+                    [Op.lte]: endDate,
+                },
+              },
+              {
+                endDate: {
+                    [Op.gte]: startDate,
+                },
+              },
+            ],
+          },
+        });
+
+    if (getCurrentBookings.length) {
+        return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            statusCode: res.statusCode,
+            errors: {
+                startDate: "Start date conflicts with an existing booking",
+                endDate: "End date conflicts with an existing booking"
+            }
+        })
+    };
+
+    if (user.id === findBooking.userId) {
+        findBooking.startDate = startDate;
+        findBooking.endDate = endDate;
+        findBooking.updatedAt = new Date();
+
+        await findBooking.save();
+        return res.status(200).json(findBooking)
+    }
+
+})
 
 module.exports = router;
