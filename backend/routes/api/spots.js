@@ -429,6 +429,13 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
         })
     }
 
+    if (findSpot.ownerId === user.id) {
+        return res.status(400).json({
+            message: "You cannot write reviews for your own spot",
+            statusCode: res.statusCode
+        })
+    }
+
     const createReview = await Review.create({
         spotId: spotId,
         userId: user.id,

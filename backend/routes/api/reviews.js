@@ -22,7 +22,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
             },
             {
                 model: Spot,
-                attributes: {exclude: ['createdAt', 'updatedAt', 'description']}
+                attributes: {exclude: ['createdAt', 'updatedAt', 'description']},
+                include: [
+                    {
+                        model: SpotImage
+                    }
+                ]
+
             },
             {
                 model: ReviewImage,
@@ -37,14 +43,16 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 
     currReviewArr.forEach(review => {
-        review.ReviewImages.forEach(image => {
-            if (image.url) {
-                review.Spot.previewImage = image.url
+        review.Spot.SpotImages.forEach(spot => {
+            if (spot.preview === true) {
+                review.Spot.previewImage = spot.url
             }
         })
         if (!review.Spot.previewImage) {
             review.Spot.previewImage = "No image available"
         }
+
+        delete review.Spot.SpotImages;
     })
 
     res.json({Reviews: currReviewArr})
@@ -77,7 +85,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
         })
     }
 
-    if (findReview.ReviewImages.length > 10) {
+    if (findReview.ReviewImages.length >= 10) {
         return res.status(403).json({
             message: "Maximum number of images for this resource was reached",
             statusCode: res.statusCode
