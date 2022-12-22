@@ -7,6 +7,19 @@ const { Spot, User, SpotImage, Review, Booking, ReviewImage, sequelize } = requi
 const { check } = require('express-validator');
 const { handleSpotValidationErrors } = require('../../utils/validation');
 
+const validateReviews = [
+    check("review")
+        .exists({ checkFalsy: true })
+        .withMessage("Review text is required")
+    ,
+    check("stars")
+        .exists({ checkFalsy: true })
+        .isFloat({ min: 1, max: 5})
+        .withMessage("Stars must be an integer from 1 to 5")
+    ,
+    handleSpotValidationErrors
+]
+
 // Get all Reviews of the Current User /api/reviews/current
 router.get("/current", requireAuth, async (req, res, next) => {
     let user = req.user;
@@ -108,6 +121,65 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
             statusCode: res.statusCode
         })
     }
+})
+
+
+// Edit a Review /api/reviews/:reviewId
+router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
+    let user = req.user;
+
+    const { reviewId } = req.params;
+
+    const { review, stars } = req.body;
+
+    let userReview = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId: user.id
+        }
+    })
+
+    if (!userReview) {
+        return res.status(404).json({
+            message: "Review couldn't be found",
+            statusCode: res.statusCode
+        })
+    }
+
+    userReview.review = review;
+    userReview.stars = stars;
+
+    await userReview.save()
+
+    return res.status(200).json(userReview)
+
+})
+
+// Delete a Review /api/reviews/:reviewid
+router.delete("/:reviewId", requireAuth, async (req, res, next) => {
+    let user = req.user;
+    const { reviewId } = req.params;
+
+    let userReview = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId: user.id
+        }
+    })
+
+    if (!userReview) {
+        return res.status(404).json({
+            message: "Review couldn't be found",
+            statusCode: res.statusCode
+        })
+    } else {
+        await userReview.destroy();
+        return res.status(200).json({
+            message: "Successfully deleted",
+            statusCode: res.statusCode
+        })
+    }
+
 })
 
 
