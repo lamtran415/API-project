@@ -34,19 +34,22 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 
     currBookingArr.forEach(booking => {
+        booking.Spot.lat = parseFloat(booking.Spot.lat);
+        booking.Spot.lng = parseFloat(booking.Spot.lng);
+        booking.Spot.price = parseFloat(booking.Spot.price);
         booking.Spot.SpotImages.forEach(image => {
             if (image.preview === true) {
                 booking.Spot.previewImage = image.url;
             }
         })
         if (!booking.Spot.previewImage){
-            booking.Spot.previewImage = "No image available"
+            booking.Spot.previewImage = "No image available";
         }
 
         delete booking.Spot.SpotImages;
     })
 
-    res.json({Bookings: currBookingArr})
+    return res.json({Bookings: currBookingArr});
 })
 
 module.exports = router;

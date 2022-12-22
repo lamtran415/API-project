@@ -150,27 +150,27 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     let currentArr = [];
     currentUserSpot.forEach(spot => {
-        currentArr.push(spot.toJSON())
+        currentArr.push(spot.toJSON());
     })
 
     currentArr.forEach(spot => {
-        spot.lat = parseFloat(spot.lat)
-        spot.lng = parseFloat(spot.lng)
-        spot.price = parseFloat(spot.price)
-        spot.avgRating = parseFloat(spot.avgRating)
+        spot.lat = parseFloat(spot.lat);
+        spot.lng = parseFloat(spot.lng);
+        spot.price = parseFloat(spot.price);
+        spot.avgRating = parseFloat(spot.avgRating);
         spot.SpotImages.forEach(image => {
             // console.log(image.url)
             if(image.preview === true) {
 
                 spot.previewImage = image.url
-            }
+            };
         })
         if (!spot.previewImage) {
             spot.previewImage = "No image url found"
-        }
+        };
         if (!spot.avgRating) {
             spot.avgRating = "No ratings"
-        }
+        };
         delete spot.Reviews
         delete spot.SpotImages
     })
@@ -218,18 +218,18 @@ router.get("/:spotId", async (req, res, next) => {
 
     if (spots) {
         let spot = spots.toJSON();
-        spot.lat = parseFloat(spot.lat)
-        spot.lng = parseFloat(spot.lng)
-        spot.price = parseFloat(spot.price)
-        spot.avgStarRating = parseFloat(spot.avgStarRating)
-        spot.numReviews = parseFloat(spot.numReviews)
-        return res.json(spot)
+        spot.lat = parseFloat(spot.lat);
+        spot.lng = parseFloat(spot.lng);
+        spot.price = parseFloat(spot.price);
+        spot.avgStarRating = parseFloat(spot.avgStarRating);
+        spot.numReviews = parseFloat(spot.numReviews);
+        return res.json(spot);
     } else {
-        res.status(404)
+        res.status(404);
         return res.json({
             message: "Spot couldn't be found",
             statusCode: res.statusCode
-        })
+        });
     }
 })
 
@@ -241,13 +241,13 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
 
     // Find the spotId
-    const findSpot = await Spot.findByPk(spotId)
+    const findSpot = await Spot.findByPk(spotId);
 
     if(!findSpot) {
         return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: res.statusCode
-        })
+        });
     }
 
     // If spot belongs to the current user
@@ -263,12 +263,12 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
             },
             attributes: ["id", "url", "preview"]
         })
-        return res.json(spotImage[0])
+        return res.json(spotImage[0]);
     } else {
         return res.status(400).json({
             message: "Only owners can add images for spot",
             statusCode: res.statusCode
-        })
+        });
     }
 
 })
@@ -294,7 +294,7 @@ router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
     })
 
     if (createSpot) {
-        return res.status(201).json(createSpot)
+        return res.status(201).json(createSpot);
     }
 
 })
@@ -327,12 +327,12 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
 
         await findSpot.save();
 
-        return res.json(findSpot)
+        return res.json(findSpot);
     } else {
         return res.status(400).json({
             message: "Only owner can make changes to the spot",
             statusCode: res.statusCode
-        })
+        });
     }
 
 })
@@ -348,7 +348,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
         return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: res.statusCode
-        })
+        });
     }
 
     if (user.id === findSpot.ownerId) {
@@ -356,12 +356,12 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
         return res.status(200).json({
             message: "Successfully deleted",
             statusCode: res.statusCode
-        })
+        });
     } else {
         return res.status(400).json({
             message: "Must be an owner to delete spot",
             statusCode: res.statusCode
-        })
+        });
     }
 })
 
@@ -369,7 +369,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
 router.get("/:spotId/reviews", async (req, res, next) => {
     const { spotId } = req.params;
 
-    const findSpot = await Spot.findByPk(spotId)
+    const findSpot = await Spot.findByPk(spotId);
 
     let reviewSpot = await Review.findAll({
         where: {
@@ -393,7 +393,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
             statusCode: res.statusCode
         })
     } else {
-        return res.json({Reviews: reviewSpot})
+        return res.json({Reviews: reviewSpot});
     }
 })
 
@@ -405,7 +405,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
 
     const { review, stars } = req.body;
 
-    const findSpot = await Spot.findByPk(spotId)
+    const findSpot = await Spot.findByPk(spotId);
 
     const reviewExist = await Review.findOne({
         where: {
@@ -413,27 +413,26 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
             userId: user.id
         }
     })
-    // console.log(findSpot)
 
     if (!findSpot) {
         return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: res.statusCode
-        })
+        });
     }
 
     if(reviewExist) {
         return res.status(403).json({
             message: "User already has a review for this spot",
             statusCode: res.statusCode
-        })
+        });
     }
 
     if (findSpot.ownerId === user.id) {
         return res.status(400).json({
             message: "You cannot write reviews for your own spot",
             statusCode: res.statusCode
-        })
+        });
     }
 
     const createReview = await Review.create({
@@ -441,9 +440,9 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
         userId: user.id,
         review,
         stars
-    })
+    });
 
-    res.status(201).json(createReview)
+    return res.status(201).json(createReview);
 
 })
 
