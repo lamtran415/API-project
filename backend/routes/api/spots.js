@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
 const { Op } = require("sequelize");
 
@@ -80,11 +80,13 @@ const validateBookings = [
 
 const validateQuery = [
     check("page")
-        .isInt()
+        .optional()
+        .isInt({min:1})
         .withMessage("Page must be greater than or equal to 1")
     ,
     check("size")
-        .isInt()
+        .optional()
+        .isInt({min:1})
         .withMessage("Size must be greater than or equal to 1")
     ,
     check("minLat")
@@ -124,49 +126,84 @@ const validateQuery = [
 // GET ALL SPOTS api/spots
 router.get("/", validateQuery, async (req, res, next) => {
 
-    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
-    if (!page) page = 1;
-    if (!size) size = 20;
-    if (page > 10) page = 10;
-    if (size > 20) size = 20
+    let pagination = { query: [] };
 
     page = +page;
     size = +size;
 
-    const pagination = {};
+    if (!page) page = 1;
+    if (!size) size = 20;
+
     if (page >= 1 && size >= 1) {
         pagination.limit = size;
         pagination.offset = size * (page - 1);
     }
 
+    if (minLat) pagination.query.push({ lat: { [Op.gte]: parseFloat(minLat) } });
+
+    if (maxLat) pagination.query.push({ lat: { [Op.lte]: parseFloat(maxLat) } });
+
+    if (minLng) pagination.query.push({ lng: { [Op.gte]: parseFloat(minLng) } });
+
+    if (maxLng) pagination.query.push({ lng: { [Op.lte]: parseFloat(maxLng) } });
+
+    if (minPrice) pagination.query.push({ price: { [Op.gte]: parseFloat(minPrice) } });
+
+    if (maxPrice) pagination.query.push({ price: { [Op.lte]: parseFloat(maxPrice) } });
+
+    // console.log(pagination)
+    // {
+    //     query: [
+    //       { lat: [Object] },
+    //       { lat: [Object] },
+    //       { lng: [Object] },
+    //       { lng: [Object] },
+    //       { price: [Object] },
+    //       { price: [Object] }
+    //     ],
+    //     limit: 3,
+    //     offset: 0
+    //   }
 
     let spots = await Spot.findAll({
+        where: {
+            [Op.and]: pagination.query
+        },
         include: [
-            {
-                model: Review,
-            },
             {
                 model: SpotImage,
             }
         ],
-        attributes: {
-            include: [
-                [
-                    sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"
-                ],
-            ],
-        },
-        group: ["Reviews.id", "Spot.id", "SpotImages.id"]
+        ...pagination
     })
+
+    // console.log(spots)
+
 
     let spotArray = [];
-    spots.forEach(spot => {
+
+    for (let spot of spots) {
+        const avgReview = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: [
+                [
+                    sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
+                ]
+            ]
+        });
+
+        for (let average of avgReview) {
+            spot.dataValues.avgRating = average.dataValues.avgRating
+        }
         spotArray.push(spot.toJSON())
-    })
+    }
+
 
     spotArray.forEach(spot => {
-        // console.log(spot.SpotImages)
         spot.lat = parseFloat(spot.lat)
         spot.lng = parseFloat(spot.lng)
         spot.price = parseFloat(spot.price)
@@ -184,12 +221,10 @@ router.get("/", validateQuery, async (req, res, next) => {
         if (!spot.avgRating) {
             spot.avgRating = "No ratings"
         }
-        delete spot.Reviews
         delete spot.SpotImages
     })
 
-    // console.log(spotArray)
-    return res.json({Spots: spotArray})
+    return res.json({Spots: spotArray, page: page, size: size})
 })
 
 // Get api/spots/current
@@ -584,32 +619,21 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
     const getCurrentBookings = await Booking.findAll({
         where: {
             spotId: spotId,
-            [Op.and]: [
-              {
-                startDate: {
-                    [Op.lte]: endDate,
-                },
-              },
-              {
-                endDate: {
-                    [Op.gte]: startDate,
-                },
-              },
-            ],
+            [Op.and]: [ {startDate: {[Op.lte]: endDate}}, {endDate: {[Op.gte]: startDate}} ],
           },
         });
 
-        // console.log(getCurrentBookings)
 
     if (getCurrentBookings.length) {
-        return res.status(403).json({
-            message: "Sorry, this spot is already booked for the specified dates",
-            statusCode: res.statusCode,
-            errors: {
-                startDate: "Start date conflicts with an existing booking",
-                endDate: "End date conflicts with an existing booking"
-            }
-        })
+    // console.log(getCurrentBookings)
+    return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        statusCode: res.statusCode,
+        errors: {
+            startDate: "Start date conflicts with an existing booking",
+            endDate: "End date conflicts with an existing booking"
+        }
+    })
     };
 
     if (endDate <= startDate) {
@@ -618,6 +642,16 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
             statusCode: res.statusCode,
             errors: {
                 endDate: "endDate cannot be on or before startDate"
+            }
+        })
+    }
+
+    if (new Date(startDate) < new Date()) {
+        return res.status(400).json({
+            message: "Validation error",
+            statusCode: res.statusCode,
+            errors: {
+                startDate: "startDate cannot be set in the past from today"
             }
         })
     }

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, User, SpotImage, Review, Booking, ReviewImage, sequelize } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
+const { Spot, SpotImage, Booking, sequelize } = require('../../db/models');
 const { Op } = require("sequelize");
 
 const { check } = require('express-validator');
@@ -109,22 +109,12 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
     const getCurrentBookings = await Booking.findAll({
         where: {
             spotId: findBooking.spotId,
-            [Op.and]: [
-              {
-                startDate: {
-                    [Op.lte]: endDate,
-                },
-              },
-              {
-                endDate: {
-                    [Op.gte]: startDate,
-                },
-              },
-            ],
+            [Op.and]: [ {startDate: {[Op.lte]: endDate}}, {endDate: {[Op.gte]: startDate}} ],
           },
         });
 
     if (getCurrentBookings.length) {
+        // console.log(getCurrentBookings)
         return res.status(403).json({
             message: "Sorry, this spot is already booked for the specified dates",
             statusCode: res.statusCode,
