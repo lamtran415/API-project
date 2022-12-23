@@ -32,11 +32,11 @@ const handleSpotValidationErrors = (req, res, next) => {
       .map((error) => `${error.param}: ${error.msg}`);
 
     const err = Error("Validation Error");
-    err.title = "Validation Error"
+    err.message = "Validation Error"
     err.errors = errors;
     res.status(400);
     res.json({
-      message: err.title,
+      message: err.message,
       statusCode: res.statusCode,
       errors: err.errors
     })
