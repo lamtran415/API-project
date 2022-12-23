@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
-const { Op } = require("sequelize");
+const {requireAuth } = require('../../utils/auth');
+const { Review, ReviewImage } = require('../../db/models');
 
-const { check } = require('express-validator');
-const { handleSpotValidationErrors } = require('../../utils/validation');
 
 // Delete a Review Image ---- URL: /api/review-images/:imageId
 router.delete("/:imageId", requireAuth, async (req, res, next) => {
