@@ -90,7 +90,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
     }
 
     if(endDate < startDate) {
-        res.status(400).json({
+        return res.status(400).json({
             message: "Validation error",
             statusCode: res.statusCode,
             errors: {
@@ -141,9 +141,51 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
         findBooking.updatedAt = new Date();
 
         await findBooking.save();
-        return res.status(200).json(findBooking)
+        return res.status(200).json(findBooking);
     }
 
+})
+
+// Delete a Booking /api/bookings/:bookingId
+router.delete("/:bookingId", requireAuth, async (req, res, next) => {
+    let user = req.user;
+
+    const { bookingId } = req.params;
+
+    const findBooking = await Booking.findByPk(bookingId);
+
+    const findSpotOwner = await Spot.findAll({
+        where: {
+            ownerId: user.id
+        }
+    })
+
+    if (!findBooking) {
+        return res.status(404).json({
+            message: "Booking couldn't be found",
+            statusCode: res.statusCode
+        });
+    };
+
+    if (new Date(findBooking.startDate) < new Date()) {
+        return res.status(403).json({
+            message: "Bookings that have been started can't be deleted",
+            statusCode: res.statusCode
+        });
+    }
+
+    if (user.id === findBooking.userId || findSpotOwner.id === findBooking.spotId) {
+        await findBooking.destroy();
+        return res.status(200).json({
+            message: "Successfully deleted",
+            statusCode: res.statusCode
+        })
+    } else {
+        return res.status(400).json({
+            message: "Must be owner of booking or spot to delete booking",
+            statusCode: res.statusCode
+        });
+    }
 })
 
 module.exports = router;
