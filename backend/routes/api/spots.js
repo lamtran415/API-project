@@ -29,23 +29,23 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     let where = {};
 
-    if (minLat) where.lat = {[Op.gte]: minLat};
+    if (minLat) where.lat = {[Op.gte]: parseFloat(minLat)};
 
-    if (maxLat) where.lat = {[Op.lte]: maxLat};
+    if (maxLat) where.lat = {[Op.lte]: parseFloat(maxLat)};
 
-    if (minLat && maxLat) where.lat = {[Op.between]: [minLat, maxLat]};
+    if (minLat && maxLat) where.lat = {[Op.between]: [parseFloat(minLat),parseFloat(maxLat)]};
 
-    if (minLng) where.lng = {[Op.gte]: minLng};
+    if (minLng) where.lng = {[Op.gte]: parseFloat(minLng)};
 
-    if (maxLng) where.lng = {[Op.lte]: maxLng};
+    if (maxLng) where.lng = {[Op.lte]: parseFloat(maxLng)};
 
-    if (minLng && maxLng) where.lng = {[Op.between]: [minLng, maxLng]};
+    if (minLng && maxLng) where.lng = {[Op.between]: [parseFloat(minLng), parseFloat(maxLng)]};
 
-    if (minPrice) where.price = {[Op.gte]: minPrice};
+    if (minPrice) where.price = {[Op.gte]: parseFloat(minPrice)};
 
-    if (maxPrice) where.price = {[Op.gte]: maxPrice};
+    if (maxPrice) where.price = {[Op.gte]: parseFloat(maxPrice)};
 
-    if (minPrice && maxPrice) where.price = {[Op.between]: [minPrice, maxPrice]};
+    if (minPrice && maxPrice) where.price = {[Op.between]: [parseFloat(minPrice), parseFloat(maxPrice)]};
 
     let spots = await Spot.findAll({
         where,
