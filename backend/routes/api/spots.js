@@ -5,125 +5,9 @@ const { requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
 const { Op } = require("sequelize");
 
-const { check } = require('express-validator');
-const { handleSpotValidationErrors } = require('../../utils/validation');
+const { validateCreateSpot, validateReviews, validateBookings, validateQuery } = require('../../utils/validation');
 
-
-const validateCreateSpot = [
-    check("address")
-        .exists({ checkFalsy: true })
-        .withMessage("Street address is required")
-    ,
-    check("city")
-        .exists({ checkFalsy: true })
-        .withMessage("City is required")
-    ,
-    check("state")
-        .exists({ checkFalsy: true })
-        .withMessage("State is required")
-    ,
-    check("country")
-        .exists({ checkFalsy: true })
-        .withMessage("Country is required")
-    ,
-    check("lat")
-        // .exists({ checkFalsy: true })
-        .isFloat()
-        .withMessage("Latitude is not valid")
-    ,
-    check("lng")
-        // .exists({ checkFalsy: true })
-        .isFloat()
-        .withMessage("Longitude is not valid")
-    ,
-    check("name")
-        // .exists({ checkFalsy: true })
-        .isLength({ max: 49 })
-        .withMessage("Name must be less than 50 characters")
-    ,
-    check("description")
-        .exists({ checkFalsy: true })
-        .withMessage("Description is required")
-    ,
-    check("price")
-        // .exists({ checkFalsy: true })
-        .isFloat()
-        .withMessage("Price per day is required")
-    ,
-    handleSpotValidationErrors
-]
-
-const validateReviews = [
-    check("review")
-        .exists({ checkFalsy: true })
-        .withMessage("Review text is required")
-    ,
-    check("stars")
-        // .exists({ checkFalsy: true })
-        .isFloat({ min: 1, max: 5})
-        .withMessage("Stars must be an integer from 1 to 5")
-    ,
-    handleSpotValidationErrors
-]
-
-const validateBookings = [
-    check("startDate")
-        .isDate()
-        .withMessage("startDate is not valid")
-    ,
-    check("endDate")
-        .isDate()
-        .withMessage("endDate is not valid")
-    ,
-    handleSpotValidationErrors
-]
-
-const validateQuery = [
-    check("page")
-        .optional()
-        .isInt({min:1})
-        .withMessage("Page must be greater than or equal to 1")
-    ,
-    check("size")
-        .optional()
-        .isInt({min:1})
-        .withMessage("Size must be greater than or equal to 1")
-    ,
-    check("minLat")
-        .optional()
-        .isDecimal()
-        .withMessage("Minimum latitude is invalid")
-    ,
-    check("maxLat")
-        .optional()
-        .isDecimal()
-        .withMessage("Maximum latitude is invalid")
-    ,
-    check("minLng")
-        .optional()
-        .isDecimal()
-        .withMessage("Minimum longitude is invalid")
-    ,
-    check("maxLng")
-        .optional()
-        .isDecimal()
-        .withMessage("Maximum longitude is invalid")
-    ,
-    check("minPrice")
-        .optional()
-        .isFloat({min: 0})
-        .withMessage("Minimum price must be greater than or equal to 0")
-    ,
-    check("maxPrice")
-        .optional()
-        .isFloat({min: 0})
-        .withMessage("Maximum price must be greater than or equal to 0")
-    ,
-    handleSpotValidationErrors
-]
-
-
-// GET ALL SPOTS api/spots
+// GET ALL SPOTS ---------------- URL: /api/spots
 router.get("/", validateQuery, async (req, res, next) => {
 
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
@@ -179,9 +63,6 @@ router.get("/", validateQuery, async (req, res, next) => {
         ...pagination
     })
 
-    // console.log(spots)
-
-
     let spotArray = [];
 
     for (let spot of spots) {
@@ -209,7 +90,6 @@ router.get("/", validateQuery, async (req, res, next) => {
         spot.price = parseFloat(spot.price)
         spot.avgRating = parseFloat(spot.avgRating)
         spot.SpotImages.forEach(image => {
-            // console.log(image.url)
             if(image.preview === true) {
                 spot.previewImage = image.url
             }
@@ -227,11 +107,10 @@ router.get("/", validateQuery, async (req, res, next) => {
     return res.json({Spots: spotArray, page: page, size: size})
 })
 
-// Get api/spots/current
+// Get all Spots owned by the Current User ------------- URL: /api/spots/current
 router.get("/current", requireAuth, async (req, res, next) => {
 
     let user = req.user;
-    // console.log(user)
 
     let currentUserSpot = await Spot.findAll({
         where: {
@@ -239,26 +118,30 @@ router.get("/current", requireAuth, async (req, res, next) => {
         },
         include: [
             {
-                model: Review,
-            },
-            {
                 model: SpotImage,
             }
-        ],
-        attributes: {
-            include: [
-                [
-                    sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"
-                ]
-            ],
-        },
-        group: ["Reviews.id", "Spot.id", "SpotImages.id"]
+        ]
     });
 
     let currentArr = [];
-    currentUserSpot.forEach(spot => {
-        currentArr.push(spot.toJSON());
-    })
+
+    for (let spot of currentUserSpot) {
+        const avgReview = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: [
+                [
+                    sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
+                ]
+            ]
+        });
+
+        for (let average of avgReview) {
+            spot.dataValues.avgRating = average.dataValues.avgRating
+        }
+        currentArr.push(spot.toJSON())
+    }
 
     currentArr.forEach(spot => {
         spot.lat = parseFloat(spot.lat);
@@ -266,7 +149,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         spot.price = parseFloat(spot.price);
         spot.avgRating = parseFloat(spot.avgRating);
         spot.SpotImages.forEach(image => {
-            // console.log(image.url)
             if(image.preview === true) {
 
                 spot.previewImage = image.url
@@ -278,7 +160,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         if (!spot.avgRating) {
             spot.avgRating = "No ratings"
         };
-        delete spot.Reviews
         delete spot.SpotImages
     })
 
@@ -290,16 +171,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 })
 
 
-// GET api/spots/:spotId
+// Get details of a Spot from an id --------------- URL: /api/spots/:spotId
 router.get("/:spotId", async (req, res, next) => {
     const { spotId } = req.params;
 
     let spots = await Spot.findByPk(spotId, {
         include: [
-            {
-                model: Review,
-                attributes: []
-            },
             {
                 model: SpotImage,
                 attributes: ["id", "url", "preview"]
@@ -309,19 +186,35 @@ router.get("/:spotId", async (req, res, next) => {
                 as: "Owner",
                 attributes: ["id", "firstName", "lastName"]
             }
-        ],
-        attributes: {
-            include: [
+        ]
+    });
+
+    if (!spots) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: res.statusCode
+        });
+    }
+
+    const avgReview = await Review.findAll({
+            where: {
+                spotId: spots.id
+            },
+            attributes: [
                 [
-                    sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"
+                    sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"
                 ],
                 [
-                    sequelize.fn("COUNT", sequelize.col("Reviews.spotId")), "numReviews"
+                    sequelize.fn("COUNT", sequelize.col("spotId")), "numReviews"
                 ]
             ]
-        },
-        group: ["Reviews.id", "Spot.id", "SpotImages.id", "Owner.id"]
-    })
+    });
+
+    for (let average of avgReview) {
+            spots.dataValues.avgStarRating = average.dataValues.avgStarRating;
+            spots.dataValues.numReviews = average.dataValues.numReviews;
+    }
 
     if (spots) {
         let spot = spots.toJSON();
@@ -331,16 +224,10 @@ router.get("/:spotId", async (req, res, next) => {
         spot.avgStarRating = parseFloat(spot.avgStarRating);
         spot.numReviews = parseFloat(spot.numReviews);
         return res.json(spot);
-    } else {
-        res.status(404);
-        return res.json({
-            message: "Spot couldn't be found",
-            statusCode: res.statusCode
-        });
     }
 })
 
-// Add an Image to a Spot based on the Spot's ID /:spotId/images
+// Add an Image to a Spot based on the Spot's ID ----------- URL: /api/spots/:spotId/images
 router.post("/:spotId/images", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -381,7 +268,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
 })
 
 
-// Create a Spot /api/spots
+// Create a Spot ------------------ URL: /api/spots
 router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
     let user = req.user;
 
@@ -406,7 +293,7 @@ router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
 
 })
 
-// Edit a Spot /api/spots/:spotId
+// Edit a Spot --------------- URL: /api/spots/:spotId
 router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) => {
     let user = req.user;
     const { spotId } = req.params;
@@ -444,7 +331,7 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
 
 })
 
-// Delete a Spot /api/spots/:spotId
+// Delete a Spot ------------- URL: /api/spots/:spotId
 router.delete("/:spotId", requireAuth, async (req, res, next) => {
     let user = req.user;
     const { spotId } = req.params;
@@ -472,7 +359,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
     }
 })
 
-// Get all Reviews by a Spot's ID /api/spots/:spotId/reviews
+// Get all Reviews by a Spot's ID -------------------------- URL: /api/spots/:spotId/reviews
 router.get("/:spotId/reviews", async (req, res, next) => {
     const { spotId } = req.params;
 
@@ -504,7 +391,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
     }
 })
 
-// Create a Review for a Spot based on the Spot's id
+// Create a Review for a Spot based on the Spot's id --------------- URL: /api/spots/:spotId/reviews
 router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, next) => {
     let user = req.user;
 
@@ -553,7 +440,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
 
 })
 
-// Get all bookings for a Spot based on the Spot /api/spots/:spotId/bookings
+// Get all bookings for a Spot based on the Spot --------------------- URL: /api/spots/:spotId/bookings
 router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -592,7 +479,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
     }
 })
 
-// Create a Booking from a Spot based on the Spot's id
+// Create a Booking from a Spot based on the Spot's id -------------- URL: URL: /api/spots/:spotId/bookings
 router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res, next) => {
     let user = req.user;
 
