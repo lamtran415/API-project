@@ -71,7 +71,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     let findReview = await Review.findOne({
         where: {
             id: reviewId,
-            userId: user.id
+            // userId: user.id
         },
         include: [
             {
@@ -86,6 +86,13 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
             statusCode: res.statusCode
         });
     };
+
+    if (findReview.userId !== user.id) {
+        return res.status(403).json({
+            message: "Only the owner of this review can add an image",
+            statusCode: res.statusCode
+        })
+    }
 
     if (findReview.ReviewImages.length >= 10) {
         return res.status(403).json({
@@ -124,7 +131,7 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
     let userReview = await Review.findOne({
         where: {
             id: reviewId,
-            userId: user.id
+            // userId: user.id
         }
     });
 
@@ -133,6 +140,13 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
             message: "Review couldn't be found",
             statusCode: res.statusCode
         });
+    }
+
+    if (userReview.userId !== user.id) {
+        return res.status(400).json({
+            message: "Only the owner of this review can make edits",
+            statusCode: res.statusCode
+        })
     }
 
     userReview.review = review;
@@ -152,7 +166,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
     let userReview = await Review.findOne({
         where: {
             id: reviewId,
-            userId: user.id
+            // userId: user.id
         }
     })
 
@@ -161,6 +175,13 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
             message: "Review couldn't be found",
             statusCode: res.statusCode
         });
+    }
+
+    if (userReview.userId !== user.id) {
+        return res.status(400).json({
+            message: "Only the owner of this review can delete",
+            statusCode: res.statusCode
+        })
     } else {
         await userReview.destroy();
         return res.status(200).json({

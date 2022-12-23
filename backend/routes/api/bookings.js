@@ -70,7 +70,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
     };
 
     if (user.id !== findBooking.userId) {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Only the owner of this booking can make edits",
             statusCode: res.statusCode
         })
@@ -151,14 +151,14 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
         });
     }
 
-    if (user.id === findBooking.userId || findSpotOwner.id === findBooking.spotId) {
+    if (user.id === findBooking.userId || findSpotOwner.ownerId === user.id) {
         await findBooking.destroy();
         return res.status(200).json({
             message: "Successfully deleted",
             statusCode: res.statusCode
         })
     } else {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Must be owner of booking or spot to delete booking",
             statusCode: res.statusCode
         });
