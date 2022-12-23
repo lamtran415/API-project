@@ -5,22 +5,9 @@ const { requireAuth } = require('../../utils/auth');
 const { Spot, SpotImage, Booking, sequelize } = require('../../db/models');
 const { Op } = require("sequelize");
 
-const { check } = require('express-validator');
-const { handleSpotValidationErrors } = require('../../utils/validation');
+const { validateBookings } = require('../../utils/validation');
 
-const validateBookings = [
-    check("startDate")
-        .isDate()
-        .withMessage("startDate is not valid")
-    ,
-    check("endDate")
-        .isDate()
-        .withMessage("endDate is not valid")
-    ,
-    handleSpotValidationErrors
-]
-
-// Get all of the Current User's Bookings /api/bookings/current
+// Get all of the Current User's Bookings ------------------- URL: /api/bookings/current
 router.get("/current", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -65,7 +52,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     return res.json({Bookings: currBookingArr});
 })
 
-// Edit a Booking /api/bookings/:bookingId
+// Edit a Booking ------------------- URL: /api/bookings/:bookingId
 router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) => {
     let user = req.user;
 
@@ -136,7 +123,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
 
 })
 
-// Delete a Booking /api/bookings/:bookingId
+// Delete a Booking ----------------- URL: /api/bookings/:bookingId
 router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     let user = req.user;
 
