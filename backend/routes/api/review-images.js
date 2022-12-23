@@ -1,0 +1,53 @@
+const express = require('express');
+const router = express.Router();
+
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
+const { Op } = require("sequelize");
+
+const { check } = require('express-validator');
+const { handleSpotValidationErrors } = require('../../utils/validation');
+
+// Delete a Review Image ---- URL: /api/review-images/:imageId
+router.delete("/:imageId", requireAuth, async (req, res, next) => {
+    let user = req.user;
+
+    const { imageId } = req.params;
+
+    const findReviewImage = await ReviewImage.findByPk(imageId);
+
+    if (!findReviewImage) {
+        return res.status(404).json({
+            message: "Review Image couldn't be found"
+        })
+    };
+
+    const findReviewUser = await Review.findOne({
+        where: {
+            userId: user.id
+        },
+        include: [
+            {
+                model: ReviewImage,
+                where: {
+                    id: imageId
+                }
+            }
+        ]
+    });
+
+    if (findReviewUser) {
+        await findReviewUser.ReviewImages[0].destroy();
+        return res.status(200).json({
+            message: "Successfully deleted",
+            statusCode: res.statusCode
+        })
+    } else {
+        return res.status(400).json({
+            message: "Only reviews made by current user can delete this review",
+            statusCode: res.statusCode
+        });
+    }
+})
+
+module.exports = router;
