@@ -41,7 +41,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
         })
     } else {
         return res.status(403).json({
-            message: "Only reviews made by current user can delete this review",
+            message: "Forbidden",
             statusCode: res.statusCode
         });
     }

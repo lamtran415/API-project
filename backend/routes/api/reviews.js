@@ -89,7 +89,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
     if (findReview.userId !== user.id) {
         return res.status(403).json({
-            message: "Only the owner of this review can add an image",
+            message: "Forbidden",
             statusCode: res.statusCode
         })
     }
@@ -144,7 +144,7 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
 
     if (userReview.userId !== user.id) {
         return res.status(400).json({
-            message: "Only the owner of this review can make edits",
+            message: "Forbidden",
             statusCode: res.statusCode
         })
     }
@@ -179,7 +179,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
 
     if (userReview.userId !== user.id) {
         return res.status(400).json({
-            message: "Only the owner of this review can delete",
+            message: "Forbidden",
             statusCode: res.statusCode
         })
     } else {

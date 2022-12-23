@@ -12,35 +12,43 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
-    let pagination = { query: [] };
+    let pagination = {};
 
     page = +page;
     size = +size;
 
     if (!page) page = 1;
     if (!size) size = 20;
+    if (page > 10) page = 10;
+    if (size > 20) size = 20;
 
     if (page >= 1 && size >= 1) {
         pagination.limit = size;
         pagination.offset = size * (page - 1);
     }
 
-    if (minLat) pagination.query.push({ lat: { [Op.gte]: parseFloat(minLat) } });
+    let where = {};
 
-    if (maxLat) pagination.query.push({ lat: { [Op.lte]: parseFloat(maxLat) } });
+    if (minLat) where.lat = {[Op.gte]: minLat};
 
-    if (minLng) pagination.query.push({ lng: { [Op.gte]: parseFloat(minLng) } });
+    if (maxLat) where.lat = {[Op.lte]: maxLat};
 
-    if (maxLng) pagination.query.push({ lng: { [Op.lte]: parseFloat(maxLng) } });
+    if (minLat && maxLat) where.lat = {[Op.between]: [minLat, maxLat]};
 
-    if (minPrice) pagination.query.push({ price: { [Op.gte]: parseFloat(minPrice) } });
+    if (minLng) where.lng = {[Op.gte]: minLng};
 
-    if (maxPrice) pagination.query.push({ price: { [Op.lte]: parseFloat(maxPrice) } });
+    if (maxLng) where.lng = {[Op.lte]: maxLng};
+
+    if (minLng && maxLng) where.lng = {[Op.between]: [minLng, maxLng]};
+
+    if (minPrice) where.price = {[Op.gte]: minPrice};
+
+    if (maxPrice) where.price = {[Op.gte]: maxPrice};
+
+    if (minPrice && maxPrice) where.price = {[Op.between]: [minPrice, maxPrice]};
 
     let spots = await Spot.findAll({
-        where: {
-            [Op.and]: pagination.query
-        },
+        where,
         include: [
             {
                 model: SpotImage,
@@ -150,7 +158,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 
     if (!currentArr.length) {
-        res.json("User does not have any spots");
+        return res.json("User does not have any spots");
     }
 
     return res.json({Spots: currentArr});
@@ -253,7 +261,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         return res.json(spotImage[0]);
     } else {
         return res.status(403).json({
-            message: "Only owners can add images for spot",
+            message: "Forbidden",
             statusCode: res.statusCode
         });
     }
@@ -317,7 +325,7 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
         return res.json(findSpot);
     } else {
         return res.status(403).json({
-            message: "Only owner can make changes to the spot",
+            message: "Forbidden",
             statusCode: res.statusCode
         });
     }
@@ -346,7 +354,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
         });
     } else {
         return res.status(403).json({
-            message: "Must be an owner to delete spot",
+            message: "Forbidden",
             statusCode: res.statusCode
         });
     }
@@ -417,7 +425,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
 
     if (findSpot.ownerId === user.id) {
         return res.status(403).json({
-            message: "You cannot write reviews for your own spot",
+            message: "Forbidden",
             statusCode: res.statusCode
         });
     }
@@ -491,7 +499,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
 
     if (user.id === findSpot.ownerId) {
         return res.status(403).json({
-            message: "You cannot book your own spot",
+            message: "Forbidden",
             statusCode: res.statusCode
         })
     }
