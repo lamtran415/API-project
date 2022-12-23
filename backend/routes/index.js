@@ -4,6 +4,13 @@ const router = express.Router();
 
 const apiRouter = require('./api');
 
+router.get("/", (req, res) => {
+  res.status(200).json({
+    message: "WOOOOO MY SERVER IS RUNNING!",
+    statusCode: res.statusCode
+  })
+})
+
 router.use('/api', apiRouter);
 
 // router.get('/hello/world', function(req, res) {
