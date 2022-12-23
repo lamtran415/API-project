@@ -37,20 +37,6 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     if (maxPrice) pagination.query.push({ price: { [Op.lte]: parseFloat(maxPrice) } });
 
-    // console.log(pagination)
-    // {
-    //     query: [
-    //       { lat: [Object] },
-    //       { lat: [Object] },
-    //       { lng: [Object] },
-    //       { lng: [Object] },
-    //       { price: [Object] },
-    //       { price: [Object] }
-    //     ],
-    //     limit: 3,
-    //     offset: 0
-    //   }
-
     let spots = await Spot.findAll({
         where: {
             [Op.and]: pagination.query
@@ -244,6 +230,13 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         });
     }
 
+    if (!url.length) {
+        return res.status(400).json({
+            message: "URL is required",
+            statusCode: res.statusCode
+        })
+    }
+
     // If spot belongs to the current user
     if (user.id === findSpot.ownerId) {
         const createSpotImage = await SpotImage.create({
@@ -259,7 +252,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         })
         return res.json(spotImage[0]);
     } else {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Only owners can add images for spot",
             statusCode: res.statusCode
         });
@@ -323,7 +316,7 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
 
         return res.json(findSpot);
     } else {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Only owner can make changes to the spot",
             statusCode: res.statusCode
         });
@@ -352,7 +345,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
             statusCode: res.statusCode
         });
     } else {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Must be an owner to delete spot",
             statusCode: res.statusCode
         });
@@ -423,7 +416,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
     }
 
     if (findSpot.ownerId === user.id) {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "You cannot write reviews for your own spot",
             statusCode: res.statusCode
         });
@@ -440,7 +433,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
 
 })
 
-// Get all bookings for a Spot based on the Spot --------------------- URL: /api/spots/:spotId/bookings
+// Get all bookings for a Spot based on the spotId --------------------- URL: /api/spots/:spotId/bookings
 router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -497,7 +490,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
     };
 
     if (user.id === findSpot.ownerId) {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "You cannot book your own spot",
             statusCode: res.statusCode
         })

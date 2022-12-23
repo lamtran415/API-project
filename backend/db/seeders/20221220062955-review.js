@@ -40,8 +40,8 @@ module.exports = {
       },
       {
         spotId: 1,
-        userId: 3,
-        review: "Awesome spot",
+        userId: 2,
+        review: "OMG! Cool spot",
         stars: 4
       }
     ], {});
