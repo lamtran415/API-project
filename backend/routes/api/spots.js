@@ -78,9 +78,68 @@ const validateBookings = [
     handleSpotValidationErrors
 ]
 
+const validateQuery = [
+    check("page")
+        .isInt()
+        .withMessage("Page must be greater than or equal to 1")
+    ,
+    check("size")
+        .isInt()
+        .withMessage("Size must be greater than or equal to 1")
+    ,
+    check("minLat")
+        .optional()
+        .isDecimal()
+        .withMessage("Minimum latitude is invalid")
+    ,
+    check("maxLat")
+        .optional()
+        .isDecimal()
+        .withMessage("Maximum latitude is invalid")
+    ,
+    check("minLng")
+        .optional()
+        .isDecimal()
+        .withMessage("Minimum longitude is invalid")
+    ,
+    check("maxLng")
+        .optional()
+        .isDecimal()
+        .withMessage("Maximum longitude is invalid")
+    ,
+    check("minPrice")
+        .optional()
+        .isFloat({min: 0})
+        .withMessage("Minimum price must be greater than or equal to 0")
+    ,
+    check("maxPrice")
+        .optional()
+        .isFloat({min: 0})
+        .withMessage("Maximum price must be greater than or equal to 0")
+    ,
+    handleSpotValidationErrors
+]
+
 
 // GET ALL SPOTS api/spots
-router.get("/", async (req, res, next) => {
+router.get("/", validateQuery, async (req, res, next) => {
+
+    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
+    if (!page) page = 1;
+    if (!size) size = 20;
+    if (page > 10) page = 10;
+    if (size > 20) size = 20
+
+    page = +page;
+    size = +size;
+
+    const pagination = {};
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    }
+
 
     let spots = await Spot.findAll({
         include: [
