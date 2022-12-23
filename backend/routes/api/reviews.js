@@ -4,23 +4,9 @@ const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
-const { check } = require('express-validator');
-const { handleSpotValidationErrors } = require('../../utils/validation');
+const { validateReviews } = require('../../utils/validation');
 
-const validateReviews = [
-    check("review")
-        .exists({ checkFalsy: true })
-        .withMessage("Review text is required")
-    ,
-    check("stars")
-        // .exists({ checkFalsy: true })
-        .isFloat({ min: 1, max: 5})
-        .withMessage("Stars must be an integer from 1 to 5")
-    ,
-    handleSpotValidationErrors
-]
-
-// Get all Reviews of the Current User /api/reviews/current
+// Get all Reviews of the Current User ---------------------------- URL: /api/reviews/current
 router.get("/current", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -74,7 +60,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     return res.json({Reviews: currReviewArr});
 })
 
-// Add an Image to a Review based on the Review's id
+// Add an Image to a Review based on the Review's id ----------------- URL: /api/reviews/:reviewId/images
 router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     let user = req.user;
 
@@ -127,7 +113,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 })
 
 
-// Edit a Review /api/reviews/:reviewId
+// Edit a Review ----------------------------- URL: /api/reviews/:reviewId
 router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
     let user = req.user;
 
@@ -158,7 +144,7 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
 
 })
 
-// Delete a Review /api/reviews/:reviewid
+// Delete a Review -------------------------------------- URL: /api/reviews/:reviewId
 router.delete("/:reviewId", requireAuth, async (req, res, next) => {
     let user = req.user;
     const { reviewId } = req.params;
