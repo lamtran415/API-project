@@ -43,7 +43,7 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     if (minPrice) where.price = {[Op.gte]: parseFloat(minPrice)};
 
-    if (maxPrice) where.price = {[Op.gte]: parseFloat(maxPrice)};
+    if (maxPrice) where.price = {[Op.lte]: parseFloat(maxPrice)};
 
     if (minPrice && maxPrice) where.price = {[Op.between]: [parseFloat(minPrice), parseFloat(maxPrice)]};
 
