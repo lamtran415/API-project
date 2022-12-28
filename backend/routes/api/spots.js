@@ -289,9 +289,9 @@ router.post("/", requireAuth, validateCreateSpot, async (req, res, next) => {
     })
 
     if (createSpot) {
-        createSpot.dataValues.lat = parseInt(createSpot.dataValues.lat);
-        createSpot.dataValues.lng = parseInt(createSpot.dataValues.lng);
-        createSpot.dataValues.price = parseInt(createSpot.dataValues.price)
+        createSpot.dataValues.lat = parseFloat(createSpot.dataValues.lat);
+        createSpot.dataValues.lng = parseFloat(createSpot.dataValues.lng);
+        createSpot.dataValues.price = parseFloat(createSpot.dataValues.price)
         return res.status(201).json(createSpot);
     }
 
