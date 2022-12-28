@@ -93,15 +93,15 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
         })
     }
 
+
     const getCurrentBookings = await Booking.findAll({
         where: {
             spotId: findBooking.spotId,
             [Op.and]: [ {startDate: {[Op.lte]: endDate}}, {endDate: {[Op.gte]: startDate}} ],
-          },
-        });
+        },
+    });
 
     if (getCurrentBookings.length) {
-        // console.log(getCurrentBookings)
         return res.status(403).json({
             message: "Sorry, this spot is already booked for the specified dates",
             statusCode: res.statusCode,
@@ -110,18 +110,17 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
                 endDate: "End date conflicts with an existing booking"
             }
         })
-    };
+        };
 
     if (user.id === findBooking.userId) {
         findBooking.startDate = startDate;
         findBooking.endDate = endDate;
         findBooking.updatedAt = new Date();
-
         await findBooking.save();
         return res.status(200).json(findBooking);
-    }
+        }
 
-})
+    })
 
 // Delete a Booking ----------------- URL: /api/bookings/:bookingId
 router.delete("/:bookingId", requireAuth, async (req, res, next) => {
