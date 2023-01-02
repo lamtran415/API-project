@@ -35,14 +35,14 @@ const handleSpotValidationErrors = (req, res, next) => {
     err.message = "Validation Error"
     err.errors = errors;
     res.status(400);
-    res.json({
+    return res.json({
       message: err.message,
       statusCode: res.statusCode,
       errors: err.errors
     })
   }
 
-  next();
+  next()
 };
 
 const validateSignup = [

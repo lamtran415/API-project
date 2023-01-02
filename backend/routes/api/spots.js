@@ -238,15 +238,15 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         });
     }
 
-    if (!url.length) {
-        return res.status(400).json({
-            message: "URL is required",
-            statusCode: res.statusCode
-        })
-    }
 
     // If spot belongs to the current user
     if (user.id === findSpot.ownerId) {
+        if (!url.length) {
+            return res.status(400).json({
+                message: "URL is required",
+                statusCode: res.statusCode
+            })
+        }
         const createSpotImage = await SpotImage.create({
             spotId: spotId,
             url,
@@ -258,6 +258,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
             },
             attributes: ["id", "url", "preview"]
         })
+
         return res.json(spotImage[0]);
     } else {
         return res.status(403).json({
