@@ -74,7 +74,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
             message: "Forbidden",
             statusCode: res.statusCode
         })
-    }
+    };
 
     if(endDate < startDate) {
         return res.status(400).json({
@@ -91,7 +91,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
             message: "Past bookings can't be modified",
             statusCode: res.statusCode
         })
-    }
+    };
 
 
     const getCurrentBookings = await Booking.findAll({
@@ -110,7 +110,7 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
                 endDate: "End date conflicts with an existing booking"
             }
         })
-        };
+    };
 
     if (user.id === findBooking.userId) {
         findBooking.startDate = startDate;
@@ -118,9 +118,9 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
         findBooking.updatedAt = new Date();
         await findBooking.save();
         return res.status(200).json(findBooking);
-        }
+    };
 
-    })
+})
 
 // Delete a Booking ----------------- URL: /api/bookings/:bookingId
 router.delete("/:bookingId", requireAuth, async (req, res, next) => {

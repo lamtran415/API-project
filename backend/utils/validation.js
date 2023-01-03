@@ -24,7 +24,6 @@ const handleValidationErrors = (req, res, next) => {
 
 const handleSpotValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
-  // console.log(validationErrors)
 
   if (!validationErrors.isEmpty()) {
     const errors = validationErrors
@@ -35,14 +34,14 @@ const handleSpotValidationErrors = (req, res, next) => {
     err.message = "Validation Error"
     err.errors = errors;
     res.status(400);
-    res.json({
+    return res.json({
       message: err.message,
       statusCode: res.statusCode,
       errors: err.errors
     })
   }
 
-  next();
+  next()
 };
 
 const validateSignup = [

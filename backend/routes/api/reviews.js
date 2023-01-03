@@ -101,7 +101,13 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
         });
     };
 
-    if (findReview && url.length) {
+    if (findReview) {
+        if (!url.length) {
+            return res.status(400).json({
+                message: "A url is required to add an image",
+                statusCode: res.statusCode
+        })
+    }
         const createReviewImage = await ReviewImage.create({
             reviewId: reviewId,
             url
@@ -111,14 +117,8 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
             id: createReviewImage.id,
             url: createReviewImage.url
         });
-    } else {
-        return res.status(400).json({
-            message: "A url is required to add an image",
-            statusCode: res.statusCode
-        });
-    };
+    }
 })
-
 
 // Edit a Review ----------------------------- URL: /api/reviews/:reviewId
 router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
