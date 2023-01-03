@@ -24,7 +24,6 @@ const handleValidationErrors = (req, res, next) => {
 
 const handleSpotValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
-  // console.log(validationErrors)
 
   if (!validationErrors.isEmpty()) {
     const errors = validationErrors

@@ -120,7 +120,6 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     }
 })
 
-
 // Edit a Review ----------------------------- URL: /api/reviews/:reviewId
 router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
     let user = req.user;

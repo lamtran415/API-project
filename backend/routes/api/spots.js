@@ -228,7 +228,6 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
     const { url, preview } = req.body;
     const { spotId } = req.params;
 
-    // Find the spotId
     const findSpot = await Spot.findByPk(spotId);
 
     if(!findSpot) {
@@ -238,8 +237,6 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         });
     }
 
-
-    // If spot belongs to the current user
     if (user.id === findSpot.ownerId) {
         if (!url.length) {
             return res.status(400).json({
@@ -517,7 +514,6 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
 
 
     if (getCurrentBookings.length) {
-    // console.log(getCurrentBookings)
     return res.status(403).json({
         message: "Sorry, this spot is already booked for the specified dates",
         statusCode: res.statusCode,
