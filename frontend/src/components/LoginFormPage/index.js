@@ -27,7 +27,7 @@ function LoginFormPage() {
   }
 
   return (
-    <>
+    <div>
     <h2>Welcome to AltBnb</h2>
     <form
         onSubmit={handleSubmit}
@@ -55,7 +55,7 @@ function LoginFormPage() {
       </label>
       <button type="submit">Log In</button>
     </form>
-    </>
+    </div>
   );
 }
 

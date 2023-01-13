@@ -1,14 +1,15 @@
 
 h2 {
     text-align: center;
-    margin: 0 300px 10px 0;
+    width: 80%;
+    margin: 0 0 0 0;
     padding-top: 25px;
 }
 
 ul {
     display: flex;
     justify-content: center;
-    margin: 0 300px 10px 0;
+    width: 80%;
 }
 
 form {
@@ -29,7 +30,7 @@ input {
   padding: 10px;
   padding-left: 20px;
   line-height: 25px;
-  width: 500px;
+  width: 30%;
   font-size: 14px;
   border-style: solid;
   border-color: gray;
@@ -45,7 +46,7 @@ button {
     height: 45px;
     font-weight: bold;
     font-size: 14px;
-    width: 530px;
+    width: 32%;
     margin-top: 10px;
     align-self: center;
 }
