@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lamtran415/API-project.git"
+    "url": "git+https://github.com/lamtran415/ChillinBnb.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lamtran415/API-project/issues"
+    "url": "https://github.com/lamtran415/ChillinBnb/issues"
   },
-  "homepage": "https://github.com/lamtran415/API-project#readme",
+  "homepage": "https://github.com/lamtran415/ChillinBnb#readme",
   "description": ""
 }
