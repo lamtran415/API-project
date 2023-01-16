@@ -19,7 +19,6 @@
 .spot-description-wrapper {
     display: flex;
     flex-direction: column;
-
 }
 
 .spot-description {
@@ -36,6 +35,11 @@
 .avg-rating-wrapper, .spot-price{
     color: black;
     padding-bottom: 10px;
+}
+
+.avg-rating-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 .average-rating {

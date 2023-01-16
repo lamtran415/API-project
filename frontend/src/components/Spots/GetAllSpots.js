@@ -39,11 +39,11 @@ const GetAllSpots = () => {
                                         <span className="average-rating">{spot.avgRating}</span>
                                     </div>
                                 </div>
+                            </div>
                                 <div className="spot-price">
                                     <span className="pricing">{`$${spot.price} `}</span>
                                     <span>night</span>
                                 </div>
-                            </div>
                         </NavLink>
                     )
                 })}
