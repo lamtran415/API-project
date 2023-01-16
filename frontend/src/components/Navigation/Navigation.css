@@ -1,5 +1,11 @@
-
-
 .hidden {
     display: none
 }
+
+.navigation-bar {
+    border: solid green;
+    display:flex;
+    justify-content: space-between;
+}
+
+

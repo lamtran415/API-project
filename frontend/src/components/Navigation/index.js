@@ -10,13 +10,15 @@ function Navigation({ isLoaded }){
 
   return (
     <ul className='navigation-bar'>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
+      {/* <li> */}
+        <NavLink exact to="/">
+          ChillinBnb
+        </NavLink>
+      {/* </li> */}
       {isLoaded && (
-        <li>
+        // <li>
           <ProfileButton user={sessionUser} />
-        </li>
+        // </li>
       )}
     </ul>
   );
