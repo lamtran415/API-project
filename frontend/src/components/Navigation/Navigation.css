@@ -1,5 +1,52 @@
-
-
 .hidden {
     display: none
+}
+
+.navigation-bar {
+    border: solid green;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.website-name {
+    font-size: 25px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    color: rgb(255, 56, 92);
+}
+
+.website-logo {
+    height: 55px;
+    width: 55px;
+    margin: 0;
+    padding: 0;
+}
+
+
+.user-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 42px;
+    width: 77px;
+    background-color: white;
+    border-color: lightgray;
+    border-radius: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+
+.fa-bars{
+    color: rgb(75, 75, 75);
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 40px;
+    padding-left: 5px;
+}
+
+.fas {
+    color: rgb(87, 86, 86);
 }

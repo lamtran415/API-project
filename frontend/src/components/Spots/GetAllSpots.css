@@ -1,0 +1,47 @@
+.spots-div-wrapper {
+    border: solid;
+    border-color: red;
+}
+
+.spotsUl {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.spotImages {
+    height: 275px;
+    width: 275px;
+    border-radius: 10px;
+}
+
+.spot-description-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.spot-description {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.city-state, .pricing {
+    color: black;
+    font-weight: bold;
+}
+
+.avg-rating-wrapper, .spot-price{
+    color: black;
+    padding-bottom: 10px;
+}
+
+.avg-rating-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.average-rating {
+    margin-left: 3px;
+}
