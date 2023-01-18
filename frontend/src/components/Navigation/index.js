@@ -9,7 +9,6 @@ import OpenModalButton from '../OpenModalButton';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  // console.log(sessionUser)
 
   let session;
 
@@ -28,6 +27,7 @@ function Navigation({ isLoaded }){
       </div>
     )
   }
+
 
   return (
     <ul className='navigation-bar'>

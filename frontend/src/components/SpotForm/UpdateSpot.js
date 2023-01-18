@@ -7,7 +7,8 @@ import { thunkUpdateSpot } from "../../store/spotReducer";
 const UpdateSpot = ({spotById}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const spotId = spotById.id
+    const spotId = spotById.id;
+    // console.log("UPDATE SPOT COMPONENT PROP PLZ HAVE==========!!!!!",spotById)
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
@@ -37,7 +38,7 @@ const UpdateSpot = ({spotById}) => {
             price
         };
 
-        const spot = await dispatch(thunkUpdateSpot(spotDetails))
+        const spot = await dispatch(thunkUpdateSpot(spotDetails, spotById))
             // .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
@@ -47,7 +48,6 @@ const UpdateSpot = ({spotById}) => {
         console.log("3) UPDATE SPOT COMPONENT ==========", spot)
         history.push(`/spots/${spotId}`)
         closeModal()
-
     }
 
     return (
