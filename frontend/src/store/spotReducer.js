@@ -3,7 +3,8 @@ import { csrfFetch } from './csrf';
 const GET_SPOTS = 'spots/getSpots';
 const GET_SPOT_ID = 'spots/getSpotsById';
 const CREATE_SPOT = 'spots/createSpot';
-const UPDATE_SPOT = 'spots/updateSpot'
+const UPDATE_SPOT = 'spots/updateSpot';
+const DELETE_SPOT = 'spots/deleteSpot';
 
 // Action Creators
 const loadAllSpots = (spots) => ({
@@ -26,6 +27,10 @@ const updateSpot = (spot) => ({
     spot
 })
 
+const deleteSpot = (spotId) => ({
+    type: DELETE_SPOT,
+    spots: spotId
+})
 
 // Thunks
 // GET ALL SPOTS ---- /api/spots
@@ -45,10 +50,12 @@ export const thunkLoadOneSpot = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`)
 
     if (res.ok) {
-        const spotById = await res.json();
+        const singleSpotId = await res.json();
         // console.log(spotById)
-        dispatch(loadSpotById(spotById));
-        return spotById;
+        // const spotIdAndSpotObj = {singleSpotId}
+        // console.log("GET SPOT BY ID COMBINED OBJECT ============", spotIdAndSpotObj)
+        dispatch(loadSpotById(singleSpotId));
+        return singleSpotId;
     }
 }
 
@@ -92,7 +99,8 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
 }
 
 // EDIT A SPOT ---- /api/spots/:spotId
-export const thunkUpdateSpot = (spot) => async (dispatch) => {
+export const thunkUpdateSpot = (spot, spotById) => async (dispatch) => {
+    console.log("SPOT THUNK UPDATER =================",spot)
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
         method: 'PUT',
         headers: {'Content-Type':'application/json'},
@@ -101,10 +109,25 @@ export const thunkUpdateSpot = (spot) => async (dispatch) => {
 
     if(res.ok) {
         const updatedSpot = await res.json();
-        dispatch(updateSpot(updatedSpot))
-        console.log("2) UPDATE SPOT THUNKER =============", updatedSpot)
-        return updatedSpot;
+        const newUpdatedSpot = {...spotById, ...updatedSpot}
+        // console.log("INSIDE OF RES.JSON  NEW UPDATED SPOT EDIT SPOT THUNK==========", newUpdatedSpot)
+        dispatch(updateSpot(newUpdatedSpot))
+        // console.log("2) UPDATE SPOT THUNKER =============", updatedSpot)
     }
+    return res;
+}
+
+// DELETE A SPOT --- /api/spots/:spotId
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+
+    if(res.ok) {
+        await dispatch(deleteSpot(spotId));
+    }
+
+    return res
 }
 
 // // Reducer
@@ -133,6 +156,11 @@ const spotReducer = (state = initialState, action) => {
             const updateSpot = {...state};
             updateSpot[action.spot.id] = action.spot;
             return updateSpot;
+        }
+        case DELETE_SPOT: {
+            const removeSpot = {...state};
+            delete removeSpot[action.spots];
+            return removeSpot
         }
         default:
             return state;

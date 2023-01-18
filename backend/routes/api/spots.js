@@ -304,42 +304,7 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
     const { spotId } = req.params;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-    // Just added relationship to SpotImage and added Reviews
-    const findSpot = await Spot.findByPk(spotId, {
-        include: [
-            {
-                model: SpotImage,
-                attributes: ["id", "url", "preview"]
-            },
-            {
-                model: User,
-                as: "Owner",
-                attributes: ["id", "firstName", "lastName"]
-            }
-        ]
-    });
-
-    const avgReview = await Review.findAll({
-        where: {
-            spotId: findSpot.id
-        },
-        attributes: [
-            [
-                sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"
-            ],
-            [
-                sequelize.fn("COUNT", sequelize.col("spotId")), "numReviews"
-            ]
-        ]
-});
-
-    for (let average of avgReview) {
-            findSpot.dataValues.avgStarRating = average.dataValues.avgStarRating;
-            findSpot.dataValues.numReviews = average.dataValues.numReviews;
-            if(!findSpot.dataValues.avgStarRating) {
-                findSpot.dataValues.avgStarRating = 0
-            }
-    }
+    const findSpot = await Spot.findByPk(spotId)
 
     if (!findSpot) {
         return res.status(404).json({
