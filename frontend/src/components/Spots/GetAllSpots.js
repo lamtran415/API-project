@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllSpots } from "../../store/spotReducer";
+import { thunkLoadAllSpots } from "../../store/spotReducer";
 import './GetAllSpots.css'
 
 
@@ -9,7 +9,7 @@ const GetAllSpots = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllSpots())
+        dispatch(thunkLoadAllSpots())
     }, [dispatch])
 
     let spots = useSelector(state => state.spots);
@@ -23,7 +23,7 @@ const GetAllSpots = () => {
             <ul className="spotsUl">
                 {spotsArr.map(spot => {
                     return (
-                        <NavLink style={{textDecoration: 'none'}} className='spots' to={`/spots/${spot.id}`}>
+                        <NavLink style={{textDecoration: 'none'}} className='spots' key={spot.id} to={`/spots/${spot.id}`}>
                             <img
                                 className="spotImages"
                                 src={spot.previewImage}

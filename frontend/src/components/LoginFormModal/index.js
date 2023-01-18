@@ -25,6 +25,13 @@ function LoginFormModal() {
       );
   };
 
+  // const handleDemoUser = () => {
+  //   setCredential("demo@user.io");
+  //   setPassword("password");
+  //   return dispatch(sessionActions.login({ credential, password }))
+  //     .then(closeModal)
+  // }
+
   return (
     <>
       <h1>Log In</h1>
@@ -53,6 +60,15 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button
+            type="submit"
+            onClick={() => {
+              setCredential("demo@user.io");
+              setPassword("password");
+            }}
+          >
+            Demo User
+        </button>
       </form>
     </>
   );
