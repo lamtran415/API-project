@@ -93,7 +93,7 @@ router.get("/", validateQuery, async (req, res, next) => {
         }
 
         if (!spot.avgRating) {
-            spot.avgRating = "No ratings"
+            spot.avgRating = 0
         }
         delete spot.SpotImages
     })
@@ -152,7 +152,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
             spot.previewImage = "No image url found"
         };
         if (!spot.avgRating) {
-            spot.avgRating = "No ratings"
+            spot.avgRating = 0
         };
         delete spot.SpotImages
     })
@@ -208,6 +208,9 @@ router.get("/:spotId", async (req, res, next) => {
     for (let average of avgReview) {
             spots.dataValues.avgStarRating = average.dataValues.avgStarRating;
             spots.dataValues.numReviews = average.dataValues.numReviews;
+            if(!spots.dataValues.avgStarRating) {
+                spots.dataValues.avgStarRating = 0
+            }
     }
 
     if (spots) {
@@ -301,7 +304,42 @@ router.put("/:spotId", requireAuth, validateCreateSpot, async (req, res, next) =
     const { spotId } = req.params;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-    const findSpot = await Spot.findByPk(spotId);
+    // Just added relationship to SpotImage and added Reviews
+    const findSpot = await Spot.findByPk(spotId, {
+        include: [
+            {
+                model: SpotImage,
+                attributes: ["id", "url", "preview"]
+            },
+            {
+                model: User,
+                as: "Owner",
+                attributes: ["id", "firstName", "lastName"]
+            }
+        ]
+    });
+
+    const avgReview = await Review.findAll({
+        where: {
+            spotId: findSpot.id
+        },
+        attributes: [
+            [
+                sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"
+            ],
+            [
+                sequelize.fn("COUNT", sequelize.col("spotId")), "numReviews"
+            ]
+        ]
+});
+
+    for (let average of avgReview) {
+            findSpot.dataValues.avgStarRating = average.dataValues.avgStarRating;
+            findSpot.dataValues.numReviews = average.dataValues.numReviews;
+            if(!findSpot.dataValues.avgStarRating) {
+                findSpot.dataValues.avgStarRating = 0
+            }
+    }
 
     if (!findSpot) {
         return res.status(404).json({

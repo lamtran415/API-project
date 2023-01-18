@@ -4,9 +4,30 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import CreateNewSpot from '../SpotForm/CreateSpot';
+import OpenModalButton from '../OpenModalButton';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  // console.log(sessionUser)
+
+  let session;
+
+  if (!sessionUser) {
+    session = (
+      <ProfileButton user={sessionUser} />
+    )
+  } else {
+    session = (
+      <div>
+        <OpenModalButton
+          buttonText="Create Spot"
+          modalComponent={<CreateNewSpot />}
+          />
+        <ProfileButton user={sessionUser} />
+      </div>
+    )
+  }
 
   return (
     <ul className='navigation-bar'>
@@ -22,11 +43,13 @@ function Navigation({ isLoaded }){
             </span>
         </NavLink>
       {/* </li> */}
-      {isLoaded && (
-        // <li>
-          <ProfileButton user={sessionUser} />
-        // </li>
-      )}
+      {isLoaded && session
+      // (
+      //   <>
+      //     <ProfileButton user={sessionUser} />
+      //   </>
+      // )
+      }
     </ul>
   );
 }
