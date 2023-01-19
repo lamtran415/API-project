@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
 import OpenModalButton from "../OpenModalButton";
+import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
 import UpdateSpot from "../SpotForm/UpdateSpot";
 import DeleteSpot from "./DeleteSpot";
 import "./GetSpotById.css"
@@ -60,7 +61,8 @@ const GetSpotById = () => {
                 className="spot-images"
                 src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : "No Image"}
                 alt=""
-                />
+            />
+            <ReviewsForSpot spotById={spotById}/>
         </div>
         )}
         </>
