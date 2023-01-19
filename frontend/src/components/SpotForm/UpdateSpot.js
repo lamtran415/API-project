@@ -8,16 +8,17 @@ const UpdateSpot = ({spotById}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const spotId = spotById.id;
+    // console.log(spotById)
     // console.log("UPDATE SPOT COMPONENT PROP PLZ HAVE==========!!!!!",spotById)
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
+    const [address, setAddress] = useState(spotById.address);
+    const [city, setCity] = useState(spotById.city);
+    const [state, setState] = useState(spotById.state);
+    const [country, setCountry] = useState(spotById.country);
     // const [lat, setLat] = useState("");
     // const [lng, setLng] = useState("");
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
+    const [name, setName] = useState(spotById.name);
+    const [description, setDescription] = useState(spotById.description);
+    const [price, setPrice] = useState(spotById.price);
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
@@ -45,7 +46,7 @@ const UpdateSpot = ({spotById}) => {
                 if (data && data.errors) setErrors(data.errors)
             });
 
-        console.log("3) UPDATE SPOT COMPONENT ==========", spot)
+        // console.log("3) UPDATE SPOT COMPONENT ==========", spot)
         history.push(`/spots/${spotId}`)
         closeModal()
     }

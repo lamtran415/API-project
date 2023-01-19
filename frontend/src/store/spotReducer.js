@@ -51,9 +51,6 @@ export const thunkLoadOneSpot = (spotId) => async (dispatch) => {
 
     if (res.ok) {
         const singleSpotId = await res.json();
-        // console.log(spotById)
-        // const spotIdAndSpotObj = {singleSpotId}
-        // console.log("GET SPOT BY ID COMBINED OBJECT ============", spotIdAndSpotObj)
         dispatch(loadSpotById(singleSpotId));
         return singleSpotId;
     }
@@ -102,7 +99,7 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
 export const thunkUpdateSpot = (spot, spotById) => async (dispatch) => {
     console.log("SPOT THUNK UPDATER =================",spot)
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
-        method: 'PUT',
+        method: 'put',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(spot)
     });
@@ -113,6 +110,7 @@ export const thunkUpdateSpot = (spot, spotById) => async (dispatch) => {
         // console.log("INSIDE OF RES.JSON  NEW UPDATED SPOT EDIT SPOT THUNK==========", newUpdatedSpot)
         dispatch(updateSpot(newUpdatedSpot))
         // console.log("2) UPDATE SPOT THUNKER =============", updatedSpot)
+        return newUpdatedSpot
     }
     return res;
 }
