@@ -51,12 +51,12 @@ function ProfileButton({ user }) {
             <li style={{cursor:'default'}}>{user.username}</li>
             <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>
             <li style={{cursor:'default'}}>{user.email}</li>
-            <li>
+            <div>
               <button
                 className="user-logout-button"
                 onClick={logout}
               >Log Out</button>
-            </li>
+            </div>
           </div>
         ) : (
           <div className="modal-menu-items">

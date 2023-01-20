@@ -84,12 +84,15 @@
     background-color: rgb(240, 240, 240);
 }
 
+
 .user-logout-button {
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     background-color: white;
     border-radius: 1em;
-    font-size: 1em;
-    padding: 0.3em;
+    height: 1em;
+    font-size: 0.5em;
 }
 
 .right-section-nav {

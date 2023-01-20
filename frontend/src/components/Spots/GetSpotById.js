@@ -49,7 +49,7 @@ const GetSpotById = () => {
             <div className="spot-name">{spotById.name}</div>
             <div className="description-for-spots">
                 <i className="fa fa-star fa-xs"></i>
-                <div className="avg-star-rating">{" "}{spotById.avgStarRating}{" "}</div>
+                <div className="avg-star-rating">{" "}{parseFloat(spotById.avgStarRating).toFixed(2)}{" "}</div>
                 <div>&#x2022;{" "}{`${spotById.numReviews} reviews`}{" "}</div>
                 <div>&#x2022;{" "}{`${spotById.city}, ${spotById.state}, ${spotById.country}`}{" "}</div>
                 {session}
@@ -59,6 +59,10 @@ const GetSpotById = () => {
                 src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : "No Image"}
                 alt=""
             />
+            <div className="host-name">
+                <h3 >Entire home hosted by {spotById.Owner.firstName}</h3>
+                <i className="fas fa-user-circle fa-2x" />
+            </div>
             {spotById.description}
             <ReviewsForSpot spotById={spotById}/>
         </div>

@@ -55,7 +55,7 @@ const CreateNewSpot = () => {
                 className="spot-form-container"
                 onSubmit={handleSubmit}
             >
-                <ul>
+                <ul className="error-map">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div className="spot-input-container">
