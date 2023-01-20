@@ -12,8 +12,8 @@ const CreateNewSpot = () => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-    // const [lat, setLat] = useState("");
-    // const [lng, setLng] = useState("");
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -39,7 +39,6 @@ const CreateNewSpot = () => {
         };
 
         const spot = await dispatch(thunkCreateSpot(spotDetails))
-            // console.log("AFTER CREATING A SPOT===========", spot)
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors)
@@ -146,7 +145,7 @@ const CreateNewSpot = () => {
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
                             placeholder="Enter an image URL (http://www.example.com/)"
-                            // required
+                            required
                             />
                     </label>
                     <button type="submit">Submit</button>

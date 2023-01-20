@@ -60,7 +60,6 @@ const ReviewsForSpot = ({ spotById }) => {
             </div>
             <div className="review-with-delete">
               <div>{review.User.firstName}</div>
-              {/* {console.log(review)} */}
               <div>{new Date(review.createdAt).toDateString()}</div>
               {review.review}
             </div>
@@ -73,7 +72,6 @@ const ReviewsForSpot = ({ spotById }) => {
                 />
               ) : null}
             </div>
-            {/* {console.log(review)} */}
           </div>
         ))}
       </div>
