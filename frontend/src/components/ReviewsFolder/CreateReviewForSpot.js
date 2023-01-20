@@ -12,6 +12,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
     const [review, setReview] = useState("");
     const [stars, setStars] = useState(1);
     const [errors, setErrors] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const { closeModal } = useModal();
     const userObj = {User: {...copySessionUser.user}}
@@ -42,6 +43,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
         return await dispatch(thunkCreateReviewForSpot(reviewDetails, spotId, userObj))
             .then(() => history.push(`/spots/${spotId}`))
+            .then(setIsLoaded(true))
             .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
@@ -49,6 +51,12 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
             });
 
     }
+
+    useEffect(() => {
+        dispatch(thunkLoadOneSpot(spotId))
+        setIsLoaded(false);
+
+    }, [dispatch, spotId, isLoaded]);
 
     return (
         <div className="create-review-container">
