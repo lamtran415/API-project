@@ -28,7 +28,7 @@ const ReviewsForSpot = ({ spotById }) => {
         {copySessionUser.user.id !== spotById.ownerId ? (
           <div>
             <OpenModalButton
-              buttonText="Leave a Review"
+              buttonText="Leave Review"
               modalComponent={
                 <CreateReviewForSpots
                   spotId={spotId}
@@ -43,9 +43,6 @@ const ReviewsForSpot = ({ spotById }) => {
   }
 
   if (!reviewsArr) return null;
-  const date = new Date();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
 
   return (
     <div className="whole-reviews-container">
@@ -63,7 +60,7 @@ const ReviewsForSpot = ({ spotById }) => {
             </div>
             <div className="review-with-delete">
               <div>{review.User.firstName}</div>
-              <div>{new Date(review.createdAt).toDateString()}</div>
+              <div>{new Date(review.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
               {review.review}
             </div>
             <div>

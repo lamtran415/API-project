@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
@@ -12,8 +12,8 @@ const CreateNewSpot = () => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
+    // const [lat, setLat] = useState("");
+    // const [lng, setLng] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -50,7 +50,7 @@ const CreateNewSpot = () => {
 
     return (
         <div className="create-spot-container">
-            <h1 className="create-spot-header">Create A Spot</h1>
+            <h1 className="create-spot-header">Host A Spot</h1>
             <form
                 className="spot-form-container"
                 onSubmit={handleSubmit}

@@ -21,7 +21,7 @@ function Navigation({ isLoaded }){
       <div className='right-section-nav'>
           <OpenModalButton
             styles={{cursor:'pointer'}}
-            buttonText="Create Spot"
+            buttonText={`Host Spot`}
             modalComponent={<CreateNewSpot/>}
             />
         <ProfileButton user={sessionUser} />

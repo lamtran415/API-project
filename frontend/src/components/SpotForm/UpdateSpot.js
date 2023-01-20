@@ -9,8 +9,6 @@ const UpdateSpot = ({spotById}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const spotId = spotById.id;
-    // console.log(spotById)
-    // console.log("UPDATE SPOT COMPONENT PROP PLZ HAVE==========!!!!!",spotById)
     const [address, setAddress] = useState(spotById.address);
     const [city, setCity] = useState(spotById.city);
     const [state, setState] = useState(spotById.state);
@@ -51,7 +49,7 @@ const UpdateSpot = ({spotById}) => {
 
     return (
     <div className="update-spot-container">
-        <h1 className="update-spot-header">Update Spot Information</h1>
+        <h1 className="update-spot-header">Update Spot</h1>
         <form
             className="update-form-container"
             onSubmit={handleSubmit}
