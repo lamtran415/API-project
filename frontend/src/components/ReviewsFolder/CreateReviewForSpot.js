@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkCreateReviewForSpot } from "../../store/reviewReducer";
@@ -12,11 +12,24 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
     const [review, setReview] = useState("");
     const [stars, setStars] = useState(1);
     const [errors, setErrors] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const { closeModal } = useModal();
     const userObj = {User: {...copySessionUser.user}}
+    let reviews = useSelector((state) => state.reviews);
+    let reviewsArr = Object.values(reviews)
 
-    // console.log(copySessionUser)
+
+    useEffect(() => {
+        const newErrors = [];
+        reviewsArr.forEach(review => {
+            if (review.User.id === copySessionUser.user.id) {
+                newErrors.push("Cannot submit another review");
+                setIsButtonDisabled(true)
+            }
+        })
+        setErrors(newErrors)
+    }, [reviews])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +42,6 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
         return await dispatch(thunkCreateReviewForSpot(reviewDetails, spotId, userObj))
             .then(() => history.push(`/spots/${spotId}`))
-            .then(setIsLoaded(true))
             .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
@@ -38,15 +50,9 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
     }
 
-    useEffect(() => {
-        dispatch(thunkLoadOneSpot(spotId))
-        setIsLoaded(false);
-
-    }, [dispatch, spotId, isLoaded]);
-
     return (
         <div className="create-review-container">
-            <h1 className="create-review-header">Leave A Review</h1>
+            <h1 className="create-review-header">Leave Review</h1>
                 <form
                     className="review-form-container"
                     onSubmit={handleSubmit}
@@ -77,7 +83,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                             // required
                         />
                     </label>
-                    <button type="submit">Submit</button>
+                    <button disabled={isButtonDisabled} type="submit">Submit</button>
                 </div>
             </form>
         </div>

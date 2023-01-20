@@ -37,9 +37,9 @@ function SignupFormModal() {
         onSubmit={handleSubmit}
       >
         <h2 className="welcome-header">Welcome to ChillinBnb</h2>
-        <ul>
+        {errors.length > 0 ? <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        </ul> : null}
         <div className="input-label-container">
           <label>
             Email:
