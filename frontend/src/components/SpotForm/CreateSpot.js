@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
-import { thunkCreateSpot } from "../../store/spotReducer";
+import { thunkCreateSpot, thunkLoadOneSpot } from "../../store/spotReducer";
 import './CreateSpot.css'
 
 const CreateNewSpot = () => {
@@ -19,7 +19,10 @@ const CreateNewSpot = () => {
     const [price, setPrice] = useState("");
     const [url, setUrl] = useState("")
     const [errors, setErrors] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
     const { closeModal } = useModal();
+
+    let spotId;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,11 +46,19 @@ const CreateNewSpot = () => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors)
         });
-
+        spotId = spot.id
         history.push(`/spots/${spot.id}`)
         closeModal()
+        setSubmitted(true);
     }
 
+
+    useEffect(() => {
+        if (spotId){
+            dispatch(thunkLoadOneSpot(spotId))
+            setSubmitted(false);
+        }
+    }, [dispatch, spotId, submitted])
 
 
     return (

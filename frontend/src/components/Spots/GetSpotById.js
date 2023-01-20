@@ -15,13 +15,13 @@ const GetSpotById = () => {
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
     const sessionUser = useSelector(state => state.session)
+    // console.log(spotById)
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
             .then(() => (setIsLoaded(true)))
 
     }, [dispatch, spotId])
-
 
     let session;
     if (sessionUser.user !== null) {
@@ -54,13 +54,13 @@ const GetSpotById = () => {
                 <div>&#x2022;{" "}{`${spotById.city}, ${spotById.state}, ${spotById.country}`}{" "}</div>
                 {session}
             </div>
-            <img
+            {spotById.SpotImages ?<img
                 className="spot-images"
-                src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : "No Image"}
+                src={spotById.SpotImages ? spotById.SpotImages[0].url : `image-url`}
                 alt=""
-            />
+            /> : null}
             <div className="host-name">
-                <h3 >Entire home hosted by {spotById.Owner.firstName}</h3>
+                <h3 >Entire home hosted by {spotById.Owner ? spotById.Owner.firstName : "N/A"}</h3>
                 <i className="fas fa-user-circle fa-2x" />
             </div>
             {spotById.description}
