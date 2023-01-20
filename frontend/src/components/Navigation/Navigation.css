@@ -32,6 +32,7 @@
 .user-button, .right-section-nav button{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     height: 42px;
     width: 77px;

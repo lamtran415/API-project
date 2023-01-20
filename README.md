@@ -1,4 +1,4 @@
-# AirBnB Clone
+# ChillinBnb
 
 ## Database Schema Design
 

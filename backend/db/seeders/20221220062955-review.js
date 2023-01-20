@@ -43,6 +43,18 @@ module.exports = {
         userId: 2,
         review: "OMG! Cool spot",
         stars: 4
+      },
+      {
+        spotId: 3,
+        userId: 4,
+        review: "This spot smells terrible",
+        stars: 1
+      },
+      {
+        spotId: 1,
+        userId: 5,
+        review: "This place is so magical",
+        stars: 5
       }
     ], {});
   },

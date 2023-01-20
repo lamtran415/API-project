@@ -64,9 +64,9 @@ module.exports = {
         country: "United States",
         lat: 37.7645358,
         lng: -122.4730327,
-        name: "Sunset Spot",
+        name: "Knoxville Central",
         description: "This place is really cool",
-        price: 123
+        price: 110
       },
       {
         ownerId: 2,
@@ -76,9 +76,9 @@ module.exports = {
         country: "United States",
         lat: 34.7675358,
         lng: -110.4730327,
-        name: "Austinville",
+        name: "Cleveland Town",
         description: "This spot is really awesome",
-        price: 500
+        price: 45
       },
       {
         ownerId: 3,
@@ -88,9 +88,9 @@ module.exports = {
         country: "United States",
         lat: 67.1234358,
         lng: -105.1234327,
-        name: "Philly Vibes",
+        name: "Anchorage Destination",
         description: "This place has the vibes",
-        price: 360
+        price: 150
       },
       {
         ownerId: 1,
@@ -100,9 +100,9 @@ module.exports = {
         country: "United States",
         lat: 37.7645358,
         lng: -122.4730327,
-        name: "Sunset Spot",
+        name: "Saint Paul Central",
         description: "This place is really cool",
-        price: 123
+        price: 55
       },
       {
         ownerId: 2,
@@ -112,9 +112,9 @@ module.exports = {
         country: "United States",
         lat: 34.7675358,
         lng: -110.4730327,
-        name: "Austinville",
+        name: "Anaheim Angels",
         description: "This spot is really awesome",
-        price: 500
+        price: 200
       },
       {
         ownerId: 3,
@@ -124,9 +124,9 @@ module.exports = {
         country: "United States",
         lat: 67.1234358,
         lng: -105.1234327,
-        name: "Philly Vibes",
+        name: "Oklahoma City Thunders",
         description: "This place has the vibes",
-        price: 360
+        price: 85
       },
       {
         ownerId: 1,
@@ -136,9 +136,9 @@ module.exports = {
         country: "United States",
         lat: 37.7645358,
         lng: -122.4730327,
-        name: "Sunset Spot",
+        name: "Bridgerton",
         description: "This place is really cool",
-        price: 123
+        price: 75
       },
       {
         ownerId: 2,
@@ -150,7 +150,7 @@ module.exports = {
         lng: -110.4730327,
         name: "Austinville",
         description: "This spot is really awesome",
-        price: 500
+        price: 200
       },
       {
         ownerId: 3,
@@ -160,9 +160,9 @@ module.exports = {
         country: "United States",
         lat: 67.1234358,
         lng: -105.1234327,
-        name: "Philly Vibes",
+        name: "Vallejo Valley",
         description: "This place has the vibes",
-        price: 360
+        price: 150
       }
     ], {});
   },
