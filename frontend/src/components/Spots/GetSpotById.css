@@ -1,11 +1,12 @@
 .spot-id-wrapper {
-    border: solid red;
+    /* border: solid red; */
     display: flex;
     flex-direction: column;
     row-gap: 5px;
     margin-left: auto;
     margin-right: auto;
     max-width: 65%;
+    padding: 1em;
 }
 
 .spot-name {
@@ -30,6 +31,19 @@
     height: 50vh;
     width: 100%;
     border-radius: 20px;
+    object-fit: cover;
+}
+
+.host-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+    border-bottom: solid rgb(204, 204, 204);
+    border-width: 1px;
+    margin-right: 1em;
 }
 
 .edit-delete-button {

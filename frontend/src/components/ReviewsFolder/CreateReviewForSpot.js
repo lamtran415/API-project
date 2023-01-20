@@ -16,6 +16,8 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
     const { closeModal } = useModal();
     const userObj = {User: {...copySessionUser.user}}
 
+    // console.log(copySessionUser)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -38,6 +40,8 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
+        setIsLoaded(false);
+
     }, [dispatch, spotId, isLoaded]);
 
     return (
@@ -47,7 +51,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                     className="review-form-container"
                     onSubmit={handleSubmit}
                 >
-                    <ul>
+                    <ul className="error-map">
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <div className="review-input-container">
