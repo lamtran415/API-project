@@ -43,12 +43,15 @@ const ReviewsForSpot = ({ spotById }) => {
   }
 
   if (!reviewsArr) return null;
+  const date = new Date();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
 
   return (
     <div className="whole-reviews-container">
-      <div className="description-for-spots">
+      <div className="description-for-reviews">
         <i className="fa fa-star fa-s"></i>
-        <h3 className="avg-star-rating">{spotById.avgStarRating} </h3>
+        <h3 className="avg-star-rating">{parseFloat(spotById.avgStarRating).toFixed(2)} </h3>
         <h3>&#x2022; {`${spotById.numReviews} reviews`} </h3>
         {userLoggedIn}
       </div>

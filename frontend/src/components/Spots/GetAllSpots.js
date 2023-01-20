@@ -20,7 +20,7 @@ const GetAllSpots = () => {
 
     return (
         <div className="spots-div-wrapper">
-            <ul className="spotsUl">
+            <div className="spotsDiv">
                 {spotsArr.map(spot => {
                     return (
                         <NavLink style={{textDecoration: 'none'}} className='spots' key={spot.id} to={`/spots/${spot.id}`}>
@@ -36,7 +36,7 @@ const GetAllSpots = () => {
                                     </div>
                                     <div className="avg-rating-wrapper">
                                         <i className="fa fa-star fa-xs"></i>
-                                        <span className="average-rating">{spot.avgRating}</span>
+                                        <span className="average-rating">{parseFloat(spot.avgRating).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@ const GetAllSpots = () => {
                         </NavLink>
                     )
                 })}
-            </ul>
+            </div>
         </div>
     )
 }

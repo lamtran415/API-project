@@ -1,6 +1,6 @@
 .create-spot-container {
     padding: 1em;
-    height: 55em;
+    height: 53em;
 }
 
 .create-spot-header {
@@ -26,9 +26,16 @@
     margin-bottom: 10px;
 }
 
+.error-map {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: 2.5em;
+}
+
 .spot-input-container input, .spot-input-container button {
     display: flex;
-    height: 3.5vh;
+    height: 3vh;
     width: 21vw;
     font-size: 1em;
     margin-bottom: 1em;
@@ -49,4 +56,3 @@
     font-weight: bold;
     margin-bottom: 1em;
 }
-

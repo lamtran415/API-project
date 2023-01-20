@@ -53,12 +53,12 @@ const UpdateSpot = ({spotById}) => {
     <div className="update-spot-container">
         <h1 className="update-spot-header">Update Spot Information</h1>
         <form
-            className="update-spot-container"
+            className="update-form-container"
             onSubmit={handleSubmit}
         >
-            {errors.length > 0 ? <ul>
+            <ul className="error-map">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul> : null}
+            </ul>
             <div className="update-input-container">
                 <label>
                     Address:
@@ -132,6 +132,7 @@ const UpdateSpot = ({spotById}) => {
                         type='number'
                         name="price"
                         value={price}
+                        min='0'
                         placeholder="Enter a price"
                         onChange={(e) => setPrice(e.target.value)}
                         // required

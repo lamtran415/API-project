@@ -96,7 +96,6 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
 
 // EDIT A SPOT ---- /api/spots/:spotId
 export const thunkUpdateSpot = (spot, spotById) => async (dispatch) => {
-    console.log("SPOT THUNK UPDATER =================",spot)
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
         method: 'put',
         headers: {'Content-Type':'application/json'},
