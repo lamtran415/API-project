@@ -26,17 +26,23 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="whole-login-container">
+      <h3 className="log-in-header">Log In</h3>
+      <h2 className="welcome-header">Welcome to ChillinBnb</h2>
+      <form
+        onSubmit={handleSubmit}
+        className='form-container'
+        >
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
-          ))}
+            ))}
         </ul>
+        <div className="label-tag-container">
         <label>
-          Username or Email
           <input
+            placeholder="Username or Email"
+            className="username-email-tag"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -44,16 +50,21 @@ function LoginFormModal() {
           />
         </label>
         <label>
-          Password
           <input
+            placeholder="Password"
+            className="password-tag"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <button type="submit">Log In</button>
+
         <button
+          className="log-in-demo-button"
+          type="submit">Log In</button>
+        <button
+            className="log-in-demo-button"
             type="submit"
             onClick={() => {
               setCredential("demo@user.io");
@@ -62,8 +73,9 @@ function LoginFormModal() {
           >
             Demo User
         </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

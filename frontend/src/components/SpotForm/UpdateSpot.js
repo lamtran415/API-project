@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateSpot } from "../../store/spotReducer";
+import "./UpdateSpot.css"
 
 const UpdateSpot = ({spotById}) => {
     const dispatch = useDispatch();
@@ -39,101 +40,107 @@ const UpdateSpot = ({spotById}) => {
             price
         };
 
-        const spot = await dispatch(thunkUpdateSpot(spotDetails, spotById))
-            // .then(closeModal)
+        return await dispatch(thunkUpdateSpot(spotDetails, spotById))
+            .then(() => history.push(`/spots/${spotId}`))
+            .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors)
             });
-
-        // console.log("3) UPDATE SPOT COMPONENT ==========", spot)
-        history.push(`/spots/${spotId}`)
-        closeModal()
     }
 
     return (
-        <>
-        <h1>Update Spot Information</h1>
+    <div className="update-spot-container">
+        <h1 className="update-spot-header">Update Spot Information</h1>
         <form
-            className="create-spot-form"
+            className="update-spot-container"
             onSubmit={handleSubmit}
         >
-            <ul>
+            {errors.length > 0 ? <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-            <label>
-                Address:
-                <input
-                    type='text'
-                    name="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                City:
-                <input
-                    type='text'
-                    name="city"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                State:
-                <input
-                    type='text'
-                    name="state"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Country:
-                <input
-                    type='text'
-                    name="country"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Name:
-                <input
-                    type='text'
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Description:
-                <input
-                    type='text'
-                    name="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Price:
-                <input
-                    type='number'
-                    name="price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Submit</button>
+            </ul> : null}
+            <div className="update-input-container">
+                <label>
+                    Address:
+                    <input
+                        type='text'
+                        name="address"
+                        value={address}
+                        placeholder="Enter an address"
+                        onChange={(e) => setAddress(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    City:
+                    <input
+                        type='text'
+                        name="city"
+                        value={city}
+                        placeholder="Enter a city"
+                        onChange={(e) => setCity(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    State:
+                    <input
+                        type='text'
+                        name="state"
+                        value={state}
+                        placeholder="Enter a state"
+                        onChange={(e) => setState(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    Country:
+                    <input
+                        type='text'
+                        name="country"
+                        value={country}
+                        placeholder="Enter a country"
+                        onChange={(e) => setCountry(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    Name:
+                    <input
+                        type='text'
+                        name="name"
+                        value={name}
+                        placeholder="Enter a name"
+                        onChange={(e) => setName(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    Description:
+                    <input
+                        type='text'
+                        name="description"
+                        value={description}
+                        placeholder="Enter a description"
+                        onChange={(e) => setDescription(e.target.value)}
+                        // required
+                    />
+                </label>
+                <label>
+                    Price:
+                    <input
+                        type='number'
+                        name="price"
+                        value={price}
+                        placeholder="Enter a price"
+                        onChange={(e) => setPrice(e.target.value)}
+                        // required
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </div>
         </form>
-    </>
+    </div>
     )
 }
 

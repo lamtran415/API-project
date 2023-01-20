@@ -14,10 +14,7 @@ const GetSpotById = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
-    // console.log(copySpotDetails)
-    // console.log("1) GET SPOT BY ID COMPONENT================", spotById)
     const sessionUser = useSelector(state => state.session)
-    // console.log(spotById.ownerId)
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
@@ -29,7 +26,7 @@ const GetSpotById = () => {
     let session;
     if (sessionUser.user !== null) {
         session = (
-            <div>
+            <div className="edit-delete-button">
                 {sessionUser.user.id === copySpotDetails.ownerId ?
                     <OpenModalButton
                         buttonText="Edit Spot"
@@ -62,6 +59,7 @@ const GetSpotById = () => {
                 src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : "No Image"}
                 alt=""
             />
+            {spotById.description}
             <ReviewsForSpot spotById={spotById}/>
         </div>
         )}

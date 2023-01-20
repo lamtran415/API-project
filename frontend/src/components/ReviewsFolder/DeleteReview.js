@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { thunkDeleteReview } from "../../store/reviewReducer";
-import { thunkLoadReviewsForSpot } from "../../store/reviewReducer";
+import { thunkLoadOneSpot } from "../../store/spotReducer";
+import "./DeleteReview.css"
 
 const DeleteReview = ({review}) => {
     const dispatch = useDispatch();
@@ -17,13 +18,14 @@ const DeleteReview = ({review}) => {
     }
 
     useEffect(() => {
-        dispatch(thunkLoadReviewsForSpot(spotId))
+        dispatch(thunkLoadOneSpot(spotId))
+        setIsLoaded(false);
     },[dispatch, spotId, isLoaded])
 
     return (
-            <div>
-                <button onClick={handleClick}>Delete</button>
-            </div>
+            <>
+                <button className="delete-review" onClick={handleClick}>Delete</button>
+            </>
     )
 }
 
