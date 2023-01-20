@@ -1,0 +1,52 @@
+.create-spot-container {
+    padding: 1em;
+    height: 55em;
+}
+
+.create-spot-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.5em;
+    border-bottom: solid lightgray 1px;
+}
+
+.spot-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    height: 65vh;
+    width: 30vw;
+}
+
+.spot-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.spot-input-container input, .spot-input-container button {
+    display: flex;
+    height: 3.5vh;
+    width: 21vw;
+    font-size: 1em;
+    margin-bottom: 1em;
+    border: solid rgb(151, 151, 151);
+    border-width: 1px;
+    border-radius: 12px;
+}
+
+.spot-input-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 72%;
+    cursor: pointer;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+

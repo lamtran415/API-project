@@ -2,7 +2,6 @@
     border: solid red;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     row-gap: 5px;
     margin-left: auto;
     margin-right: auto;
@@ -31,4 +30,29 @@
     height: 50vh;
     width: 100%;
     border-radius: 20px;
+}
+
+.edit-delete-button {
+    margin-left: auto;
+}
+
+.review-modal-button {
+    margin-left: auto;
+}
+
+.edit-delete-button button, .review-modal-button button {
+    align-items: center;
+    height: 42px;
+    width: 77px;
+    background-color: white;
+    border-color: lightgray;
+    border-radius: 20px;
+    border-width: thin;
+    cursor: pointer;
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+.edit-delete-button button:hover, .review-modal-button button:hover {
+    background-color: rgb(240, 240, 240);
 }

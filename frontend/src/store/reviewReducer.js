@@ -10,9 +10,9 @@ const loadReviewsForSpot = (reviews) => ({
     reviews
 });
 
-const createReviewForSpot = (spot) => ({
+const createReviewForSpot = (review) => ({
     type: CREATE_REVIEW_SPOT,
-    spot
+    review
 })
 
 const deleteReviewForSpot = (reviewId) => ({
@@ -33,7 +33,7 @@ export const thunkLoadReviewsForSpot = (spotId) => async (dispatch) => {
 };
 
 // CREATE REVIEW FOR A SPOT ---- /api/spots/:spotId/reviews
-export const thunkCreateReviewForSpot = (reviewDetails, spotId, spotById, reviews) => async (dispatch) => {
+export const thunkCreateReviewForSpot = (reviewDetails, spotId, userObj) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: "POST",
         headers: {'Content-Type':'application/json'},
@@ -41,11 +41,12 @@ export const thunkCreateReviewForSpot = (reviewDetails, spotId, spotById, review
     });
 
     if (res.ok) {
-        const reviewDetails = await res.json();
-        const combineReviewObj = {...reviewDetails, ...spotById, ...reviews}
-        await dispatch(createReviewForSpot(combineReviewObj));
-        return combineReviewObj;
+        const review = await res.json();
+        const reviewObj = {...review, ...userObj}
+        await dispatch(createReviewForSpot(reviewObj));
+        return reviewObj;
     }
+    return res;
 }
 
 // DELETE REVIEW FROM SPOT ---- /api/reviews/:reviewId
@@ -55,7 +56,6 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
     })
 
     if(res.ok) {
-        // const reviewSessionObj = {...reviewId, ...copySessionUser}
         await dispatch(deleteReviewForSpot(reviewId))
     }
 
@@ -75,7 +75,7 @@ const reviewReducer = (state = initialState, action) => {
         }
         case CREATE_REVIEW_SPOT: {
             const createSpotReview = {...state};
-            createSpotReview[action.spot.id] = action.spot;
+            createSpotReview[action.review.id] = action.review;
             return createSpotReview;
         }
         case DELETE_REVIEW: {

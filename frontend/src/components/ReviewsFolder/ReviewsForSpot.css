@@ -1,0 +1,24 @@
+.whole-reviews-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+}
+
+.upper-section-reviews {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lower-section-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-right: 30%;
+}
+
+.review-and-pic {
+    display: flex;
+    flex-direction: row;
+}

@@ -39,7 +39,6 @@ export const thunkLoadAllSpots = () => async (dispatch) => {
 
     if (res.ok) {
         const spots = await res.json();
-        // console.log("getAllSpots Thunk", spots)
         dispatch(loadAllSpots(spots))
         return spots;
     }
@@ -107,9 +106,7 @@ export const thunkUpdateSpot = (spot, spotById) => async (dispatch) => {
     if(res.ok) {
         const updatedSpot = await res.json();
         const newUpdatedSpot = {...spotById, ...updatedSpot}
-        // console.log("INSIDE OF RES.JSON  NEW UPDATED SPOT EDIT SPOT THUNK==========", newUpdatedSpot)
         dispatch(updateSpot(newUpdatedSpot))
-        // console.log("2) UPDATE SPOT THUNKER =============", updatedSpot)
         return newUpdatedSpot
     }
     return res;
