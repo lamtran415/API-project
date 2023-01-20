@@ -18,11 +18,9 @@
 }
 
 .lower-section-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-right: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
 }
 
 .review-and-pic {
@@ -33,5 +31,6 @@
 .review-with-delete {
     display: flex;
     flex-direction: column;
-    padding-left: 10px;
+    padding-left: 1em;
+    margin-bottom: 1em;
 }

@@ -65,7 +65,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                     className="review-form-container"
                     onSubmit={handleSubmit}
                 >
-                    <ul className="error-map">
+                    <ul className="review-error-map">
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <div className="review-input-container">

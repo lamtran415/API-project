@@ -37,6 +37,11 @@
     border-radius: 12px;
 }
 
+.review-input-container input {
+    /* margin-top: 0; */
+    padding: 0.3em;
+}
+
 .review-input-container button {
     display: flex;
     justify-content: center;
@@ -58,5 +63,15 @@ input[type='button']:disabled, button:disabled
 }
 
 .cannot-submit-text {
+    display: flex;
     color: red;
+    margin-left: 5%;
+}
+
+.review-error-map {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
 }
