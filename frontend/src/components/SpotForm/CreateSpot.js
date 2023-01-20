@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
@@ -39,14 +39,16 @@ const CreateNewSpot = () => {
         };
 
         const spot = await dispatch(thunkCreateSpot(spotDetails))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            });
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors)
+        });
 
-            history.push(`/spots/${spot.id}`)
-            closeModal();
+        history.push(`/spots/${spot.id}`)
+        closeModal()
     }
+
+
 
     return (
         <div className="create-spot-container">
@@ -60,7 +62,7 @@ const CreateNewSpot = () => {
                 </ul>
                 <div className="spot-input-container">
                     <label>
-                        Address:
+                        {/* Address: */}
                         <input
                             type='text'
                             name="address"
@@ -71,7 +73,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        City:
+                        {/* City: */}
                         <input
                             type='text'
                             name="city"
@@ -82,7 +84,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        State:
+                        {/* State: */}
                         <input
                             type='text'
                             name="state"
@@ -93,7 +95,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        Country:
+                        {/* Country: */}
                         <input
                             type='text'
                             name="country"
@@ -104,7 +106,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        Name:
+                        {/* Name: */}
                         <input
                             type='text'
                             name="name"
@@ -115,7 +117,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        Description:
+                        {/* Description: */}
                         <input
                             type='text'
                             name="description"
@@ -126,7 +128,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        Price:
+                        {/* Price: */}
                         <input
                             type='number'
                             name="price"
@@ -138,7 +140,7 @@ const CreateNewSpot = () => {
                         />
                     </label>
                     <label>
-                        Image URL:
+                        {/* Image URL: */}
                         <input
                             type="url"
                             name="url"

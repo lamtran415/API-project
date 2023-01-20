@@ -1,6 +1,5 @@
 .update-spot-container {
     padding: 1em;
-    height: 50em;
 }
 
 .update-spot-header {
@@ -15,7 +14,6 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-    height: 65vh;
     width: 30vw;
 }
 
@@ -31,10 +29,14 @@
     height: 3vh;
     width: 21vw;
     font-size: 1em;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
     border: solid rgb(151, 151, 151);
     border-width: 1px;
     border-radius: 12px;
+}
+
+.update-input-container input {
+    padding: 0.3em;
 }
 
 .update-input-container button {
@@ -48,4 +50,5 @@
     color: white;
     font-weight: bold;
     margin-bottom: 1em;
+    margin-top: 0.5em;
 }
