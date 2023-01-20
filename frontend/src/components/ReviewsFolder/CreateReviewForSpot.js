@@ -24,7 +24,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
         const newErrors = [];
         reviewsArr.forEach(review => {
             if (review.User.id === copySessionUser.user.id) {
-                newErrors.push("Cannot submit another review");
+                newErrors.push(<li className="cannot-submit-text">Cannot submit another review</li>);
                 setIsButtonDisabled(true)
             }
         })
@@ -77,7 +77,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                             value={review}
                             placeholder='Enter a review'
                             onChange={(e) => setReview(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -88,7 +88,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                             onChange={(e) => setStars(e.target.value)}
                             max='5'
                             min='1'
-                            // required
+                            required
                         />
                     </label>
                     <button disabled={isButtonDisabled} type="submit">Submit</button>
