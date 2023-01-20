@@ -67,7 +67,7 @@ const CreateNewSpot = () => {
                             placeholder="Enter an address"
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -78,7 +78,7 @@ const CreateNewSpot = () => {
                             value={city}
                             placeholder="Enter a city"
                             onChange={(e) => setCity(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -89,7 +89,7 @@ const CreateNewSpot = () => {
                             value={state}
                             placeholder="Enter a state"
                             onChange={(e) => setState(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -100,7 +100,7 @@ const CreateNewSpot = () => {
                             value={country}
                             placeholder="Enter a country"
                             onChange={(e) => setCountry(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -111,7 +111,7 @@ const CreateNewSpot = () => {
                             value={name}
                             placeholder="Enter a name"
                             onChange={(e) => setName(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -122,7 +122,7 @@ const CreateNewSpot = () => {
                             placeholder="Enter a description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>
@@ -134,7 +134,7 @@ const CreateNewSpot = () => {
                             placeholder="Enter a price"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            // required
+                            required
                         />
                     </label>
                     <label>

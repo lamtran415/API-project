@@ -66,7 +66,7 @@ const UpdateSpot = ({spotById}) => {
                         value={address}
                         placeholder="Enter an address"
                         onChange={(e) => setAddress(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -77,7 +77,7 @@ const UpdateSpot = ({spotById}) => {
                         value={city}
                         placeholder="Enter a city"
                         onChange={(e) => setCity(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -88,7 +88,7 @@ const UpdateSpot = ({spotById}) => {
                         value={state}
                         placeholder="Enter a state"
                         onChange={(e) => setState(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -99,7 +99,7 @@ const UpdateSpot = ({spotById}) => {
                         value={country}
                         placeholder="Enter a country"
                         onChange={(e) => setCountry(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -110,7 +110,7 @@ const UpdateSpot = ({spotById}) => {
                         value={name}
                         placeholder="Enter a name"
                         onChange={(e) => setName(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -121,7 +121,7 @@ const UpdateSpot = ({spotById}) => {
                         value={description}
                         placeholder="Enter a description"
                         onChange={(e) => setDescription(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <label>
@@ -133,7 +133,7 @@ const UpdateSpot = ({spotById}) => {
                         min='0'
                         placeholder="Enter a price"
                         onChange={(e) => setPrice(e.target.value)}
-                        // required
+                        required
                     />
                 </label>
                 <button type="submit">Submit</button>
