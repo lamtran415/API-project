@@ -1,0 +1,50 @@
+.update-spot-container {
+    padding: 1em;
+    height: 50em;
+}
+
+.update-spot-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.5em;
+    border-bottom: solid lightgray 1px;
+}
+
+.update-spot-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 30vw;
+}
+
+.update-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.update-input-container input, .update-input-container button {
+    display: flex;
+    height: 3vh;
+    width: 25vw;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    border: solid rgb(151, 151, 151);
+    border-width: 1px;
+    border-radius: 12px;
+}
+
+.update-input-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 85%;
+    cursor: pointer;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+}

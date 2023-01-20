@@ -1,0 +1,16 @@
+.delete-review {
+    align-items: center;
+    height: 21px;
+    width: 77px;
+    background-color: white;
+    border-color: lightgray;
+    border-radius: 20px;
+    border-width: thin;
+    cursor: pointer;
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+.delete-review:hover {
+    background-color: rgb(240, 240, 240);
+}

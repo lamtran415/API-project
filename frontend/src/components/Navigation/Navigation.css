@@ -3,10 +3,15 @@
 }
 
 .navigation-bar {
-    border: solid green;
+    /* border: solid green; */
+    border-top: solid rgb(204, 204, 204);
+    border-bottom: solid rgb(204, 204, 204);
+    border-width: 1px;
     display:flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .website-name {
@@ -24,8 +29,7 @@
     padding: 0;
 }
 
-
-.user-button{
+.user-button, .right-section-nav button{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -36,6 +40,8 @@
     border-radius: 20px;
     border-width: thin;
     cursor: pointer;
+    margin-right: 1em;
+    font-weight: bold;
 }
 
 .fa-bars{
@@ -49,4 +55,43 @@
 
 .fas {
     color: rgb(87, 86, 86);
+}
+
+.modal-menu-items, .user-menu-items {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 0.5em;
+    position: absolute;
+    right: 1px;
+    top: 2.5em;
+    width: 13vw;
+    margin-top: 2%;
+    margin-right: 10px;
+    list-style-type: none;
+}
+
+.modal-menu-items li, .user-menu-items li{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.modal-menu-items li:hover, .user-logout-button:hover, .right-section-nav button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.user-logout-button {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 1em;
+    font-size: 1em;
+    padding: 0.3em;
+}
+
+.right-section-nav {
+    display: flex;
 }

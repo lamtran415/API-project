@@ -18,11 +18,12 @@ function Navigation({ isLoaded }){
     )
   } else {
     session = (
-      <div>
-        <OpenModalButton
-          buttonText="Create Spot"
-          modalComponent={<CreateNewSpot />}
-          />
+      <div className='right-section-nav'>
+          <OpenModalButton
+            styles={{cursor:'pointer'}}
+            buttonText="Create Spot"
+            modalComponent={<CreateNewSpot/>}
+            />
         <ProfileButton user={sessionUser} />
       </div>
     )
