@@ -59,7 +59,7 @@ const UpdateSpot = ({spotById}) => {
             </ul>
             <div className="update-input-container">
                 <label>
-                    Address:
+                    {/* Address: */}
                     <input
                         type='text'
                         name="address"
@@ -70,7 +70,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    City:
+                    {/* City: */}
                     <input
                         type='text'
                         name="city"
@@ -81,7 +81,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    State:
+                    {/* State: */}
                     <input
                         type='text'
                         name="state"
@@ -92,7 +92,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    Country:
+                    {/* Country: */}
                     <input
                         type='text'
                         name="country"
@@ -103,7 +103,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    Name:
+                    {/* Name: */}
                     <input
                         type='text'
                         name="name"
@@ -114,7 +114,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    Description:
+                    {/* Description: */}
                     <input
                         type='text'
                         name="description"
@@ -125,7 +125,7 @@ const UpdateSpot = ({spotById}) => {
                     />
                 </label>
                 <label>
-                    Price:
+                    {/* Price: */}
                     <input
                         type='number'
                         name="price"
