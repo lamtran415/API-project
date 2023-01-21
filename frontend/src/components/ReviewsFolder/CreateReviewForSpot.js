@@ -29,7 +29,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
             }
         })
         setErrors(newErrors)
-    }, [reviews])
+    }, [reviews, copySessionUser.user.id, reviewsArr])
 
 
     const handleSubmit = async (e) => {
@@ -60,7 +60,8 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
     return (
         <div className="create-review-container">
-            <h1 className="create-review-header">Leave Review</h1>
+            <div className="x-button" onClick={closeModal}>X</div>
+            <h2 className="create-review-header">Leave Review</h2>
                 <form
                     className="review-form-container"
                     onSubmit={handleSubmit}

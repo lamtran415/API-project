@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { thunkDeleteSpot } from "../../store/spotReducer";
+import { thunkDeleteSpot, thunkLoadAllSpots } from "../../store/spotReducer";
 
 const DeleteSpot = ({spotById}) => {
     const dispatch = useDispatch();
@@ -9,8 +9,11 @@ const DeleteSpot = ({spotById}) => {
 
     const handleClick = async () => {
         dispatch(thunkDeleteSpot(spotId))
+        .then(() => thunkLoadAllSpots())
         history.push('/')
     }
+
+
 
     return (
         <button onClick={handleClick}>Delete</button>
