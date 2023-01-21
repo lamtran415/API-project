@@ -8,9 +8,9 @@ const DeleteSpot = ({spotById}) => {
     const spotId = spotById.id
 
     const handleClick = async () => {
-        dispatch(thunkDeleteSpot(spotId))
+        return await dispatch(thunkDeleteSpot(spotId))
         .then(() => thunkLoadAllSpots())
-        history.push('/')
+        .then(() => history.push('/'))
     }
 
 
