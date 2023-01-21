@@ -1,6 +1,6 @@
 .create-review-container {
     padding: 1em;
-    height: 25em;
+    height: 27em;
 }
 
 .create-review-header {
@@ -28,7 +28,6 @@
 
 .review-input-container input, .review-input-container button {
     display: flex;
-    height: 3vh;
     width: 21vw;
     font-size: 1em;
     margin-bottom: 1em;
@@ -38,8 +37,8 @@
 }
 
 .review-input-container input {
-    /* margin-top: 0; */
     padding: 0.3em;
+    height: 2.5em;
 }
 
 .review-input-container button {
@@ -60,12 +59,14 @@ input[type='button']:disabled, button:disabled
     background-color: rgb(141, 141, 141);
     color:rgb(172, 172, 172);
     text-decoration:underline;
+    cursor:default;
 }
 
 .cannot-submit-text {
     display: flex;
     color: red;
-    margin-left: 5%;
+    font-weight: bold;
+    margin-left: 6%;
 }
 
 .review-error-map {
