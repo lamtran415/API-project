@@ -6,6 +6,7 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import CreateNewSpot from '../SpotForm/CreateSpot';
 import OpenModalButton from '../OpenModalButton';
+import snowflakeImage from "./images/red-snowflake-PhotoRoom.png-PhotoRoom.png"
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -31,7 +32,6 @@ function Navigation({ isLoaded }){
     )
   }
 
-
   return (
     <ul className='navigation-bar'>
       {/* <li> */}
@@ -39,7 +39,7 @@ function Navigation({ isLoaded }){
           <span className='website-name'>
           <img
             className='website-logo'
-            src="https://www.publicdomainpictures.net/pictures/130000/nahled/red-snowflake.jpg"
+            src={snowflakeImage}
             alt=""
           ></img>
             ChillinBnb

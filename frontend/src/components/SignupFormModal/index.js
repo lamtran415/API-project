@@ -31,19 +31,18 @@ function SignupFormModal() {
 
   return (
     <div className="whole-signup-container">
-      <div className="x-button" onClick={closeModal}>X</div>
-      <h3 className="sign-up-header">Sign Up</h3>
+      <h3 className="sign-up-header"><div className="x-button" onClick={closeModal}>X</div><span>Sign up</span></h3>
       <form
         className="signup-form-container"
         onSubmit={handleSubmit}
       >
       <h2 className="welcome-header">Welcome to ChillinBnb</h2>
-        {errors.length > 0 ? <ul>
+        {errors.length > 0 ? <ul className="errors-map">
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul> : null}
         <div className="input-label-container">
           <label>
-            Email:
+            {/* Email: */}
             <input
               type="text"
               placeholder="Enter an email"
@@ -53,7 +52,7 @@ function SignupFormModal() {
             />
           </label>
           <label>
-            Username:
+            {/* Username: */}
             <input
               type="text"
               placeholder="Enter a username"
@@ -63,7 +62,7 @@ function SignupFormModal() {
             />
           </label>
           <label>
-            First Name:
+            {/* First Name: */}
             <input
               type="text"
               value={firstName}
@@ -73,7 +72,7 @@ function SignupFormModal() {
             />
           </label>
           <label>
-            Last Name:
+            {/* Last Name: */}
             <input
               type="text"
               value={lastName}
@@ -83,7 +82,7 @@ function SignupFormModal() {
             />
           </label>
           <label>
-            Password:
+            {/* Password: */}
             <input
               type="password"
               value={password}
@@ -93,7 +92,7 @@ function SignupFormModal() {
             />
           </label>
           <label>
-            Confirm Password:
+            {/* Confirm Password: */}
             <input
               type="password"
               value={confirmPassword}
