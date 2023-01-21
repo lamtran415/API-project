@@ -10,14 +10,14 @@
     justify-content: space-around;
     line-break: strict;
     list-style: none;
-    width: auto;
+    width: 93%;
     margin: auto;
-    gap: 20px 25px;
+    gap: 1.5em 10px;
 }
 
 .spotImages {
-    height: 275px;
-    width: 285px;
+    height: 250px;
+    width: 270px;
     border-radius: 5%;
     object-fit: cover;
 }
