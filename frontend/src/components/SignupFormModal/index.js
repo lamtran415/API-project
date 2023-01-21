@@ -31,12 +31,13 @@ function SignupFormModal() {
 
   return (
     <div className="whole-signup-container">
-      <h1 className="sign-up-header">Sign Up</h1>
+      <div className="x-button" onClick={closeModal}>X</div>
+      <h3 className="sign-up-header">Sign Up</h3>
       <form
         className="signup-form-container"
         onSubmit={handleSubmit}
       >
-        <h2 className="welcome-header">Welcome to ChillinBnb</h2>
+      <h2 className="welcome-header">Welcome to ChillinBnb</h2>
         {errors.length > 0 ? <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul> : null}

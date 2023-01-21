@@ -34,3 +34,11 @@
     padding-left: 1em;
     margin-bottom: 1em;
 }
+
+.review-user-firstname {
+    font-weight: bold;
+}
+
+.review-date {
+    color: rgb(104, 104, 104);
+}

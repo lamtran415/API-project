@@ -2,6 +2,14 @@
     padding: 1em;
 }
 
+.x-button {
+    cursor: pointer;
+    width: 20px;
+    margin-left: 2%;
+    font-weight: bold;
+    color: rgb(95, 95, 95);
+}
+
 .log-in-header {
     display: flex;
     align-items: center;
@@ -12,7 +20,8 @@
 
 .welcome-header {
     display: flex;
-    justify-content: center;
+    margin-left: 13%;
+
 }
 
 .form-container {
@@ -27,7 +36,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    display: flex;
+    height: 5.4vh;
+    width: 21.5vw;
+    font-size: 1em;
+    border: solid rgb(151, 151, 151);
+    border-width: 1px;
+    border-radius: 12px;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+    cursor: pointer;
 }
 
 .label-tag-container {
@@ -37,7 +57,7 @@
     margin-bottom: 10px;
 }
 
-.label-tag-container input, .label-tag-container button{
+.label-tag-container input {
     display: flex;
     height: 5vh;
     width: 21vw;
@@ -45,14 +65,6 @@
     border: solid rgb(151, 151, 151);
     border-width: 1px;
     border-radius: 12px;
-}
-
-.label-tag-container button {
-    background-color: rgb(255, 56, 92);
-    color: white;
-    font-weight: bold;
-    margin-bottom: 1em;
-    cursor: pointer;
 }
 
 .username-email-tag, .password-tag {

@@ -49,7 +49,8 @@ const UpdateSpot = ({spotById}) => {
 
     return (
     <div className="update-spot-container">
-        <h1 className="update-spot-header">Update Spot</h1>
+      <div className="x-button" onClick={closeModal}>X</div>
+        <h2 className="update-spot-header">Update Spot</h2>
         <form
             className="update-form-container"
             onSubmit={handleSubmit}
