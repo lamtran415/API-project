@@ -1,26 +1,27 @@
 .whole-login-container {
-    padding: 1em;
+    padding: 0em 1em 0em;
 }
 
 .x-button {
     cursor: pointer;
     width: 20px;
-    margin-left: 2%;
     font-weight: bold;
     color: rgb(95, 95, 95);
 }
 
 .log-in-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 0.5em;
+    padding-bottom: 1.2em;
     border-bottom: solid lightgray 1px;
+}
+
+.log-in-header span {
+    margin-left: 40%;
 }
 
 .welcome-header {
     display: flex;
-    margin-left: 13%;
+    margin-left: 14%;
 
 }
 
@@ -28,7 +29,7 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-    height: 50vh;
+    height: 55vh;
     width: 30vw;
 }
 
@@ -38,7 +39,7 @@
     align-items: center;
     display: flex;
     height: 5.4vh;
-    width: 21.5vw;
+    width: 21.8vw;
     font-size: 1em;
     border: solid rgb(151, 151, 151);
     border-width: 1px;
@@ -49,6 +50,26 @@
     margin-bottom: 1em;
     cursor: pointer;
 }
+
+.demo-button {
+    background-color: white;
+    color: black;
+}
+
+.demo-button:hover {
+    background-color: rgb(228, 228, 228);
+    color: rgb(255, 56, 92);
+}
+
+.demo-button:hover span {
+    visibility: hidden;
+    text-indent: -9999px;
+}
+
+.demo-button:hover::after {
+    content: 'Test me out';
+}
+
 
 .label-tag-container {
     display: flex;
@@ -65,8 +86,19 @@
     border: solid rgb(151, 151, 151);
     border-width: 1px;
     border-radius: 12px;
+    padding-left: 10px;
 }
 
 .username-email-tag, .password-tag {
     margin-bottom: 1em;
+}
+
+.errors-map {
+    display: flex;
+    flex-wrap: wrap;
+    width: 77%;
+    margin-left: 7%;
+    list-style: none;
+    color: red;
+    font-weight: bold;
 }

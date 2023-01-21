@@ -60,8 +60,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
 
     return (
         <div className="create-review-container">
-            <div className="x-button" onClick={closeModal}>X</div>
-            <h2 className="create-review-header">Leave Review</h2>
+            <h3 className="create-review-header"><div className="x-button" onClick={closeModal}>X</div><span>Leave Review</span></h3>
                 <form
                     className="review-form-container"
                     onSubmit={handleSubmit}

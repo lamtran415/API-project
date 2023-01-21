@@ -1,14 +1,16 @@
 .whole-signup-container {
-    padding: 1em;
-    height: 50em;
+    padding: 0em 1em 0em;
+    height: 47em;
 }
 
 .sign-up-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 0.5em;
+    padding-bottom: 1.2em;
     border-bottom: solid lightgray 1px;
+}
+
+.sign-up-header span {
+    margin-left: 40%;
 }
 
 .signup-form-container {
@@ -35,6 +37,7 @@
     border: solid rgb(151, 151, 151);
     border-width: 1px;
     border-radius: 12px;
+    padding-left: 10px;
 }
 
 .sign-up-button {
@@ -43,7 +46,7 @@
     align-items: center;
     display: flex;
     height: 5.4vh;
-    width: 21.5vw;
+    width: 21.8vw;
     font-size: 1em;
     border: solid rgb(151, 151, 151);
     border-width: 1px;

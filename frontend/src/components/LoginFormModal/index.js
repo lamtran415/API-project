@@ -27,14 +27,13 @@ function LoginFormModal() {
 
   return (
     <div className="whole-login-container">
-      <div className="x-button" onClick={closeModal}>X</div>
-      <h3 className="log-in-header">Log In</h3>
+      <h3 className="log-in-header"><div className="x-button" onClick={closeModal}>X</div><span>Log In</span></h3>
       <form
         onSubmit={handleSubmit}
         className='form-container'
         >
       <h2 className="welcome-header">Welcome to ChillinBnb</h2>
-        <ul>
+        <ul className="errors-map">
           {errors.length > 0 ? errors.map((error, idx) => (
             <li key={idx}>{error}</li>
             )) : null}
@@ -65,14 +64,14 @@ function LoginFormModal() {
           className="log-in-demo-button"
           type="submit">Log In</button>
         <button
-            className="log-in-demo-button"
+            className="log-in-demo-button demo-button"
             type="submit"
             onClick={() => {
               setCredential("demo@user.io");
               setPassword("password");
             }}
           >
-            Demo User
+            <span>Demo User</span>
         </button>
         </div>
       </form>

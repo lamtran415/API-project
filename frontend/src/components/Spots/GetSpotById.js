@@ -15,7 +15,6 @@ const GetSpotById = () => {
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
     const sessionUser = useSelector(state => state.session)
-    // console.log(spotById)
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
@@ -29,6 +28,7 @@ const GetSpotById = () => {
             <div className="edit-delete-button">
                 {sessionUser.user.id === copySpotDetails.ownerId ?
                     <OpenModalButton
+                        className="edit-button"
                         buttonText="Edit Spot"
                         modalComponent={<UpdateSpot spotById={spotById}/>}
                     />
@@ -50,8 +50,10 @@ const GetSpotById = () => {
             <div className="description-for-spots">
                 <i className="fa fa-star fa-xs"></i>
                 <div className="avg-star-rating">{" "}{parseFloat(spotById.avgStarRating).toFixed(2)}{" "}</div>
-                <div>&#x2022;{" "}{`${spotById.numReviews} reviews`}{" "}</div>
-                <div>&#x2022;{" "}{`${spotById.city}, ${spotById.state}, ${spotById.country}`}{" "}</div>
+                <div>&#x2022;</div>
+                <div className="spot-details">{" "}{`${spotById.numReviews} reviews`}{" "}</div>
+                <div>&#x2022;</div>
+                <div className="spot-details">{" "}{`${spotById.city}, ${spotById.state}, ${spotById.country}`}{" "}</div>
                 {session}
             </div>
             {spotById.SpotImages ?<img
@@ -64,7 +66,7 @@ const GetSpotById = () => {
                 <div className="spot-price-div">{`$ ${spotById.price} night`}</div>
                 <i className="fas fa-user-circle fa-2x" />
             </div>
-            {spotById.description}
+            <div className="spot-id-description">{spotById.description}</div>
             <ReviewsForSpot spotById={spotById}/>
         </div>
         )}
