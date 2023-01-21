@@ -20,14 +20,21 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 2px;
+    margin: 5px 0px;
 }
 
 .avg-star-rating {
     font-weight: bold;
 }
 
+.spot-details {
+    text-decoration: underline;
+    font-weight: lighter;
+}
+
 .spot-images {
+    margin-top: 20px;
+    margin-bottom: px;
     height: 50vh;
     width: 100%;
     border-radius: 20px;
@@ -44,7 +51,10 @@
     border-bottom: solid rgb(204, 204, 204);
     border-width: 1px;
     padding-bottom: 0.5em;
-    margin-right: 1em;
+}
+
+.spot-id-description {
+    margin-top: 1em;
 }
 
 .spot-price-div {
@@ -61,17 +71,20 @@
     margin-left: auto;
 }
 
-.edit-delete-button button, .review-modal-button button {
+.edit-delete-button button {
     align-items: center;
-    height: 42px;
+    padding: 3px;
     width: 77px;
     background-color: white;
     border-color: lightgray;
     border-radius: 20px;
     border-width: thin;
     cursor: pointer;
-    margin-right: 1em;
     font-weight: bold;
+}
+
+.edit-button {
+    margin-right: 10px;
 }
 
 .edit-delete-button button:hover, .review-modal-button button:hover {

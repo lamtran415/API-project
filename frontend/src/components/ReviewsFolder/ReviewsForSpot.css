@@ -42,3 +42,15 @@
 .review-date {
     color: rgb(104, 104, 104);
 }
+
+.review-button {
+    align-items: center;
+    padding: 5px;
+    background-color: white;
+    border-color: lightgray;
+    border-radius: 20px;
+    border-width: thin;
+    cursor: pointer;
+    /* margin-right: 1em; */
+    font-weight: bold;
+}

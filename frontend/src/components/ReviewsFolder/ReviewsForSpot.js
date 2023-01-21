@@ -28,6 +28,7 @@ const ReviewsForSpot = ({ spotById }) => {
         {copySessionUser.user.id !== spotById.ownerId ? (
           <div>
             <OpenModalButton
+              className="review-button"
               buttonText="Leave Review"
               modalComponent={
                 <CreateReviewForSpots
@@ -49,7 +50,8 @@ const ReviewsForSpot = ({ spotById }) => {
       <div className="description-for-reviews">
         <i className="fa fa-star fa-s"></i>
         <h3 className="avg-star-rating">{parseFloat(spotById.avgStarRating).toFixed(2)} </h3>
-        <h3>&#x2022; {`${spotById.numReviews} reviews`} </h3>
+        <div>&#x2022;</div>
+        <h3>{`${spotById.numReviews} reviews`} </h3>
         {userLoggedIn}
       </div>
       <div className="lower-section-container">
