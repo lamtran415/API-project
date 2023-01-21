@@ -33,7 +33,6 @@
 
 .spot-input-container input, .spot-input-container button {
     display: flex;
-    height: 3vh;
     width: 21vw;
     font-size: 1em;
     margin-bottom: 1em;
@@ -44,6 +43,7 @@
 
 .spot-input-container input {
     padding: 0.3em;
+    height: 2.5em;
 }
 
 .spot-input-container button {
