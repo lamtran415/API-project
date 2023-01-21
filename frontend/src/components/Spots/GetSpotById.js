@@ -35,7 +35,7 @@ const GetSpotById = () => {
                     : null
                 }
                 {sessionUser.user.id === copySpotDetails.ownerId ?
-                    <DeleteSpot spotById={spotById}/>
+                    <DeleteSpot />
                     : null
                 }
             </div>
