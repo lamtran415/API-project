@@ -38,7 +38,7 @@
     border-radius: 4px;
 }
 
-.user-button, .right-section-nav button{
+.user-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -52,6 +52,17 @@
     cursor: pointer;
     margin-right: 1em;
     font-weight: bold;
+}
+
+.host-spot-button {
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    margin-right: 0.5em;
+    padding: 1em;
 }
 
 .fa-bars{

@@ -56,11 +56,12 @@ const GetSpotById = () => {
             </div>
             {spotById.SpotImages ?<img
                 className="spot-images"
-                src={spotById.SpotImages ? spotById.SpotImages[0].url : `image-url`}
+                src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
                 alt=""
-            /> : null}
+            /> : <img className="spot-images" alt=""/>}
             <div className="host-name">
-                <h3 >Entire home hosted by {spotById.Owner ? spotById.Owner.firstName : "N/A"}</h3>
+                <div >Entire home hosted by {spotById.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
+                <div className="spot-price-div">{`$ ${spotById.price} night`}</div>
                 <i className="fas fa-user-circle fa-2x" />
             </div>
             {spotById.description}

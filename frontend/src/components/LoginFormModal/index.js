@@ -27,16 +27,17 @@ function LoginFormModal() {
 
   return (
     <div className="whole-login-container">
+      <div className="x-button" onClick={closeModal}>X</div>
       <h3 className="log-in-header">Log In</h3>
-      <h2 className="welcome-header">Welcome to ChillinBnb</h2>
       <form
         onSubmit={handleSubmit}
         className='form-container'
         >
+      <h2 className="welcome-header">Welcome to ChillinBnb</h2>
         <ul>
-          {errors.map((error, idx) => (
+          {errors.length > 0 ? errors.map((error, idx) => (
             <li key={idx}>{error}</li>
-            ))}
+            )) : null}
         </ul>
         <div className="label-tag-container">
         <label>

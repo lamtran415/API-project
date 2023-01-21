@@ -39,11 +39,18 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 25px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 500;
     border-bottom: solid rgb(204, 204, 204);
     border-width: 1px;
+    padding-bottom: 0.5em;
     margin-right: 1em;
+}
+
+.spot-price-div {
+    margin-left: auto;
+    margin-right: 1em;
+    font-size: 22px;
 }
 
 .edit-delete-button {

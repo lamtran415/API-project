@@ -59,9 +59,9 @@ const ReviewsForSpot = ({ spotById }) => {
               <i className="fas fa-user-circle fa-2x" />
             </div>
             <div className="review-with-delete">
-              <div>{review.User.firstName}</div>
-              <div>{new Date(review.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
-              {review.review}
+              <div className="review-user-firstname">{review.User.firstName}</div>
+              <div className="review-date">{new Date(review.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
+              <div>{review.review}</div>
             </div>
             <div>
               {sessionUser.user !== null &&
