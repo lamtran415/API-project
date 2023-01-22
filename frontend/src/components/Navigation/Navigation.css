@@ -4,14 +4,17 @@
 
 .navigation-bar {
     /* border: solid green; */
-    border-top: solid rgb(204, 204, 204);
     border-bottom: solid rgb(204, 204, 204);
     border-width: 1px;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
     padding-top: 15px;
+    padding-bottom: 15px;
+    position: fixed;
+    top: -16px;
+    width: 100%;
+    background-color: white;
 }
 
 .website-name {

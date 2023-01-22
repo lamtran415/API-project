@@ -58,7 +58,7 @@ const ReviewsForSpot = ({ spotById }) => {
         {reviewsArr.map((review) => (
           <div key={review.id} className="review-and-pic">
             <div className="above-review-comment">
-              <i className="fas fa-user-circle fa-2x" />
+              <i className="fas fa-user fa-2x" />
             </div>
             <div className="review-with-delete">
               <div className="review-user-firstname">{review.User.firstName}</div>
