@@ -19,7 +19,7 @@ const GetAllSpots = () => {
     return (
         <div className="spots-div-wrapper">
             <div className="spotsDiv">
-                {spotsArr ? spotsArr.map(spot => {
+                {spots ? spotsArr.map(spot => {
                     return (
                         <NavLink style={{textDecoration: 'none'}} className='spots' key={spot.id} to={`/spots/${spot.id}`}>
                             <img
