@@ -35,6 +35,11 @@
     margin-bottom: 1em;
 }
 
+.review-by-user {
+    width: 400px;
+    overflow-wrap: break-word;
+}
+
 .review-user-firstname {
     font-weight: bold;
 }
@@ -42,7 +47,6 @@
 .review-date {
     color: rgb(104, 104, 104);
 }
-
 .review-button {
     align-items: center;
     padding: 5px;
