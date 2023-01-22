@@ -52,7 +52,7 @@
     border-radius: 20px;
     border-width: thin;
     cursor: pointer;
-    margin-right: 5.5em;
+    margin-right: 9.5em;
     font-weight: bold;
 }
 
@@ -91,7 +91,7 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
     /* padding: 0.5em; */
     position: absolute;
-    right: 4%;
+    right: 6.5%;
     top: auto;
     width: 200px;
     margin-top: 10px;
