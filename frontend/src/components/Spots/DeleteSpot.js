@@ -13,10 +13,11 @@ const DeleteSpot = () => {
         history.push('/')
     }
 
+    
+
     return (
         <button onClick={handleClick}>Delete</button>
     )
 }
 
 export default DeleteSpot;
-

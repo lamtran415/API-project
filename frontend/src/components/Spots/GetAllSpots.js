@@ -7,14 +7,12 @@ import './GetAllSpots.css'
 
 const GetAllSpots = () => {
     const dispatch = useDispatch();
+    let spots = useSelector(state => state.spots);
+    let spotsArr = Object.values(spots);
 
     useEffect(() => {
         dispatch(thunkLoadAllSpots())
     }, [dispatch])
-
-    let spots = useSelector(state => state.spots);
-
-    let spotsArr = Object.values(spots);
 
     if(!spotsArr) return null;
 
