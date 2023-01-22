@@ -1,6 +1,7 @@
 .create-review-container {
     padding: 0em 1em 0em;
     height: 24em;
+    width: auto;
 }
 
 .create-review-header {
@@ -10,7 +11,7 @@
 }
 
 .create-review-header span {
-    margin-left: 35%;
+    margin: 0 auto;
     font-size: 20px;
 }
 
