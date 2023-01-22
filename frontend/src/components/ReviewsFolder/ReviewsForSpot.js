@@ -63,7 +63,7 @@ const ReviewsForSpot = ({ spotById }) => {
             <div className="review-with-delete">
               <div className="review-user-firstname">{review.User.firstName}</div>
               <div className="review-date">{new Date(review.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
-              <div>{review.review}</div>
+              <div className="review-by-user">{review.review}</div>
             </div>
             <div>
               {sessionUser.user !== null &&
