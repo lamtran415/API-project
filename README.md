@@ -37,17 +37,17 @@ Live Site: [ChillinBnb](https://chillin-bnb.onrender.com)
 ## Log In
 - Log in or click on Demo User to roam around the website and test the different features
 
-![image](https://user-images.githubusercontent.com/114116854/213938547-89b3392f-d362-4f4c-95a1-6eb1099263b3.png)
+![image](https://user-images.githubusercontent.com/114116854/213940933-feefade4-1d21-4138-afe8-c775c6afb2ca.png)
 
 ## Create a Spot
 - Once logged in, you are able to create a new spot that will redirect you to the spot's page and show up on the home page
 
-![image](https://user-images.githubusercontent.com/114116854/213938568-fa168e0f-32ed-4b94-8208-33dc65e8acdf.png)
+![image](https://user-images.githubusercontent.com/114116854/213940958-07f746a7-fb32-403c-927a-4f4e8f02416e.png)
 
 ## Create a Review
 - Users may also leave a review for other user's spot
 
-![image](https://user-images.githubusercontent.com/114116854/213938584-0f7aac62-57cd-4983-bc23-79d2f00f1108.png)
+![image](https://user-images.githubusercontent.com/114116854/213940973-60375f0b-eed9-4d34-a2cb-26dfeb3a7521.png)
 
 ## To Do List for Future Features
 - Edit Review
