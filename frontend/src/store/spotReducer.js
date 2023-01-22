@@ -118,10 +118,8 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
     })
 
     if(res.ok) {
-        await dispatch(deleteSpot(spotId));
+        dispatch(deleteSpot(spotId));
     }
-
-    return res
 }
 
 // // Reducer
