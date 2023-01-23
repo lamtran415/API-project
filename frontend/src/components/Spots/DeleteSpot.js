@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { thunkDeleteSpot } from "../../store/spotReducer";
-import { thunkLoadAllSpots } from "../../store/spotReducer";
+import { thunkLoadOneSpot } from "../../store/spotReducer";
 
 const DeleteSpot = () => {
     const dispatch = useDispatch();
@@ -10,8 +10,8 @@ const DeleteSpot = () => {
     const { spotId } = useParams();
 
     useEffect(() => {
-        dispatch(thunkLoadAllSpots)
-    },[])
+        dispatch(thunkLoadOneSpot(spotId))
+    },[dispatch, spotId])
 
     const handleClick = () => {
         dispatch(thunkDeleteSpot(spotId))
