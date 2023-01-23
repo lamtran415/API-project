@@ -8,12 +8,10 @@ const DeleteSpot = () => {
     const { spotId } = useParams();
 
 
-    const handleClick = async () => {
+    const handleClick = () => {
         dispatch(thunkDeleteSpot(spotId))
         history.push('/')
     }
-
-    
 
     return (
         <button onClick={handleClick}>Delete</button>

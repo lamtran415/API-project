@@ -29,7 +29,7 @@ const updateSpot = (spot) => ({
 
 const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
-    spots: spotId
+    spotId
 })
 
 // Thunks
@@ -151,7 +151,7 @@ const spotReducer = (state = initialState, action) => {
         }
         case DELETE_SPOT: {
             const removeSpot = {...state};
-            delete removeSpot[action.spots];
+            delete removeSpot[action.spotId];
             return removeSpot
         }
         default:
