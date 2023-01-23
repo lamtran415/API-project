@@ -47,27 +47,27 @@ const GetSpotById = () => {
         <>
         {isLoaded && (
             <div className="spot-id-wrapper">
-            <div className="spot-name">{spotById.name}</div>
+            <div className="spot-name">{spotById?.name}</div>
             <div className="description-for-spots">
                 <i className="fa fa-star fa-xs"></i>
-                <div className="avg-star-rating">{" "}{parseFloat(spotById.avgStarRating).toFixed(2)}{" "}</div>
+                <div className="avg-star-rating">{" "}{parseFloat(spotById?.avgStarRating).toFixed(2)}{" "}</div>
                 <div>&#x2022;</div>
-                <div className="spot-details">{" "}{`${spotById.numReviews} reviews`}{" "}</div>
+                <div className="spot-details">{" "}{`${spotById?.numReviews} reviews`}{" "}</div>
                 <div>&#x2022;</div>
-                <div className="spot-details">{" "}{`${spotById.city}, ${spotById.state}, ${spotById.country}`}{" "}</div>
+                <div className="spot-details">{" "}{`${spotById?.city}, ${spotById?.state}, ${spotById?.country}`}{" "}</div>
                 {session}
             </div>
-            {spotById.SpotImages ?<img
+            {spotById?.SpotImages ?<img
                 className="spot-images"
-                src={spotById.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
+                src={spotById?.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
                 alt=""
             /> : <img className="spot-images" alt=""/>}
             <div className="host-name">
-                <div >Entire home hosted by {spotById.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
-                <div className="spot-price-div">{`$ ${spotById.price} night`}</div>
+                <div >Entire home hosted by {spotById?.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
+                <div className="spot-price-div">{`$ ${spotById?.price} night`}</div>
                 <i className="fas fa-user-circle fa-2x" />
             </div>
-            <div className="spot-id-description">{spotById.description}</div>
+            <div className="spot-id-description">{spotById?.description}</div>
             <ReviewsForSpot spotById={spotById}/>
         </div>
         )}
