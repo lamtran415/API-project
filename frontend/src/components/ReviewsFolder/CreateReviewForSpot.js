@@ -29,7 +29,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
             }
         })
         setErrors(newErrors)
-    }, [reviews, copySessionUser.user.id, reviewsArr])
+    }, [])
 
 
     const handleSubmit = async (e) => {
