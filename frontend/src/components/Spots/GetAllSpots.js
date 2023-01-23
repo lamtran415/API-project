@@ -9,11 +9,10 @@ const GetAllSpots = () => {
     const dispatch = useDispatch();
     let spots = useSelector(state => state.spots);
     let spotsArr = Object.values(spots);
-    const spotsCount = spotsArr.length;
 
     useEffect(() => {
         dispatch(thunkLoadAllSpots())
-    }, [dispatch, spotsCount])
+    }, [dispatch])
 
     if(!spotsArr) return null;
 

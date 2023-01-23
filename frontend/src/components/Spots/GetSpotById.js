@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
 import OpenModalButton from "../OpenModalButton";
 import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
@@ -11,6 +11,7 @@ import "./GetSpotById.css"
 const GetSpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
