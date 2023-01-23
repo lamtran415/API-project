@@ -1,17 +1,16 @@
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { thunkDeleteSpot, thunkLoadAllSpots } from "../../store/spotReducer";
+import { thunkDeleteSpot } from "../../store/spotReducer";
 
 const DeleteSpot = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { spotId } = useParams();
 
-    const handleClick =  (e) => {
+    const handleClick =  async (e) => {
         e.preventDefault();
-        dispatch(thunkDeleteSpot(spotId))
-        dispatch(thunkLoadAllSpots())
-        history.push('/')
+        await dispatch(thunkDeleteSpot(spotId))
+        .then(() => history.push("/"))
     }
 
     return (
