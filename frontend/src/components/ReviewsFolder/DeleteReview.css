@@ -2,7 +2,8 @@
     align-items: center;
     height: 21px;
     width: 77px;
-    background-color: white;
+    background-color: rgb(255, 56, 92);
+    color: white;
     border-color: lightgray;
     border-radius: 20px;
     border-width: thin;
@@ -13,4 +14,5 @@
 
 .delete-review:hover {
     background-color: rgb(240, 240, 240);
+    color: black;
 }
