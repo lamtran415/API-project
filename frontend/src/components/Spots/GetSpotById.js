@@ -16,6 +16,7 @@ const GetSpotById = () => {
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
     const sessionUser = useSelector(state => state.session)
+    
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))

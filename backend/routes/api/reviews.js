@@ -135,6 +135,8 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
         }
     });
 
+    // let userReview = await Review.findByPk(reviewId)
+
     if (!userReview) {
         return res.status(404).json({
             message: "Review couldn't be found",
@@ -155,7 +157,6 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
     await userReview.save();
 
     return res.status(200).json(userReview);
-
 })
 
 // Delete a Review -------------------------------------- URL: /api/reviews/:reviewId

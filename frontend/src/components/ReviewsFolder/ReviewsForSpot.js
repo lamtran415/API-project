@@ -5,6 +5,7 @@ import { thunkLoadReviewsForSpot } from "../../store/reviewReducer";
 import CreateReviewForSpots from "./CreateReviewForSpot";
 import OpenModalButton from "../OpenModalButton";
 import DeleteReview from "./DeleteReview";
+import UpdateReviewForSpot from "./UpdateReviewForSpot";
 import "./ReviewsForSpot.css";
 
 const ReviewsForSpot = ({ spotById }) => {
@@ -56,16 +57,28 @@ const ReviewsForSpot = ({ spotById }) => {
       </div>
       <div className="lower-section-container">
         {reviewsArr.map((review) => (
-          <div key={review.id} className="review-and-pic">
+          <div key={review?.id} className="review-and-pic">
             <div className="above-review-comment">
               <i className="fas fa-user fa-2x" />
             </div>
             <div className="review-with-delete">
-              <div className="review-user-firstname">{review.User.firstName}</div>
-              <div className="review-date">{new Date(review.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
-              <div className="review-by-user">{review.review}</div>
+              <div className="review-user-firstname">{review?.User?.firstName}</div>
+              <div className="review-date">{new Date(review?.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
+              <div className="review-by-user">{review?.review}</div>
             </div>
             <div>
+            {sessionUser.user !== null &&
+            copySessionUser.user.id === review.userId ? (
+              <OpenModalButton
+                    className="delete-review"
+                    buttonText="Edit"
+                    modalComponent={
+                      <UpdateReviewForSpot
+                        review={review}
+                      />
+                    }
+                  />
+              ) : null}
               {sessionUser.user !== null &&
               copySessionUser.user.id === review.userId ? (
                 <DeleteReview
