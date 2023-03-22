@@ -4,6 +4,8 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { thunkLoadAllSpots } from "../../store/spotReducer";
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -33,8 +35,10 @@ function ProfileButton({ user }) {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
-    closeMenu();
+    return dispatch(sessionActions.logout())
+    .then(() => window.location.reload())
+    .then(closeMenu())
+
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

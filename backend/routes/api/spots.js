@@ -554,7 +554,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
             endDate
         })
 
-        return res.json(newBooking)
+        return res.status(201).json(newBooking)
     }
 
 })

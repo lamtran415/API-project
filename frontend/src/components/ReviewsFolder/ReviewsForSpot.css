@@ -21,12 +21,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
 }
 
 .review-and-pic {
     display: flex;
     flex-direction: row;
+    width: 15.5vw;
 }
+
 
 .review-with-delete {
     display: flex;
@@ -36,7 +39,7 @@
 }
 
 .review-by-user {
-    width: 400px;
+    width: 200px;
     overflow-wrap: break-word;
 }
 
@@ -64,4 +67,17 @@
 .review-button:hover {
     background-color: rgb(240, 240, 240);
     color: black;
+}
+
+.edit-review-div-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-review {
+    margin-bottom: 5px;
+}
+
+.number-review-header {
+    margin-right: 16vw;
 }

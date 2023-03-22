@@ -22,62 +22,62 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "https://a0.muscache.com/im/pictures/c4c92198-fb3a-4c4b-bbb6-3aa8af8f7e73.jpg?im_w=720",
+        url: "https://image.cnbcfm.com/api/v1/image/106806952-1607317368576-DJI_0206-HDR-Edit.jpeg?v=1607318553&w=1920&h=1080",
         preview: true
       },
       {
         spotId: 2,
-        url: "https://a0.muscache.com/im/pictures/e52fcdad-aa5c-4ae6-b1fe-ba03bf0864d5.jpg?im_w=720",
+        url: "https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2018/12/Airbnb-Goa-Homes-Feature.jpg",
         preview: true
       },
       {
         spotId: 3,
-        url: "https://a0.muscache.com/im/pictures/miso/Hosting-44666241/original/0591ad1e-13fb-4a92-9cbc-142ef84da392.jpeg?im_w=720",
+        url: "https://homes-and-villas.marriott.com/mybookingpal/pictures/hes/hes/2969239540/3562070101.jpg?src=0Vxhslotkh8Z9+Ec5OX9X2EhdKb6OTvAmPgjeesJOpxI=",
         preview: true
       },
       {
         spotId: 4,
-        url: "https://a0.muscache.com/im/pictures/63a21006-5525-4932-88bf-5d5e51d6eb9b.jpg?im_w=720",
+        url: "https://townsquare.media/site/463/files/2022/06/attachment-missouri-aquarium-house-feature.jpg",
         preview: true
       },
       {
         spotId: 5,
-        url: "https://a0.muscache.com/im/pictures/monet/Luxury-539689132812825418/original/bf858d88-c237-4901-8388-5b87859105ed?im_w=720",
+        url: "https://wallpaperaccess.com/full/1218437.jpg",
         preview: true
       },
       {
         spotId: 6,
-        url: "https://a0.muscache.com/im/pictures/443ca204-c46e-4a38-a7fa-60486a4c48a7.jpg?im_w=720",
+        url: "https://cdn.gobankingrates.com/wp-content/uploads/2022/09/Captivas-Luxury-Estate-2.png",
         preview: true
       },
       {
         spotId: 7,
-        url: "https://a0.muscache.com/im/pictures/15b61cc1-4d51-4e34-90f0-ffed225b9fd0.jpg?im_w=720",
+        url: "https://wintergardennew.com/dsc00588/",
         preview: true
       },
       {
         spotId: 8,
-        url: "https://a0.muscache.com/im/pictures/941307ca-7cde-44ad-b643-05bfdea3977b.jpg?im_w=720",
+        url: "https://3.bp.blogspot.com/-fM0CtiewQNE/XEV62TkF1zI/AAAAAAAAElU/octXjc8Apu0PV-a9Gh_drIClV7vg884EgCHMYCw/s1600/top-10-costliest-and-most-luxurious-houses-in-the-world-listontap.jpg",
         preview: true
       },
       {
         spotId: 9,
-        url: "https://a0.muscache.com/im/pictures/e4774bc0-2ef1-4746-8c4d-30872fdb8c41.jpg?im_w=720",
+        url: "https://wallpaperaccess.com/full/4430964.jpg",
         preview: true
       },
       {
         spotId: 10,
-        url: "https://a0.muscache.com/im/pictures/80e91eef-3c7c-4ab4-b501-91c3450e52a1.jpg?im_w=720",
+        url: "https://www.utopian-villas.com/wp-content/uploads/2021/06/The-Zion-Main-Photo.jpg",
         preview: true
       },
       {
         spotId: 11,
-        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-29671202/original/11bbd2ee-7cac-4218-878f-dc33ca33574c.jpeg?im_w=720",
+        url: "https://media.architecturaldigest.com/photos/609d20294f083a6a3932fa06/master/w_1920,h_1080,c_limit/DJI_0051.jpeg",
         preview: true
       },
       {
         spotId: 12,
-        url: "https://a0.muscache.com/im/pictures/3b8114cd-a1db-4122-bdb9-6fae6052b0c0.jpg?im_w=720",
+        url: "https://manorretreats.com/wp-content/uploads/2022/08/slider_camelback_manor.jpg",
         preview: true
       }
     ], {});

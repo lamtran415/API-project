@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { thunkLoadSpotBookings } from "../../store/bookingReducer";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
+import CreateBooking from "../Bookings/CreateBooking";
+import SpotBookings from "../Bookings/SpotBookings";
 import OpenModalButton from "../OpenModalButton";
 import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
 import UpdateSpot from "../SpotForm/UpdateSpot";
@@ -16,11 +19,16 @@ const GetSpotById = () => {
     let spotById = useSelector(state => state.spots[spotId])
     const copySpotDetails = {...spotById}
     const sessionUser = useSelector(state => state.session)
-    
+    const [shouldReloadBookings, setShouldReloadBookings] = useState(false);
+
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
-            .then(() => (setIsLoaded(true)))
+        .then(() => (setIsLoaded(true)))
+        if (sessionUser) {
+            dispatch(thunkLoadSpotBookings(spotId))
+            setShouldReloadBookings(true)
+        }
 
     }, [dispatch, spotId])
 
@@ -48,28 +56,41 @@ const GetSpotById = () => {
         <>
         {isLoaded && (
             <div className="spot-id-wrapper">
-            <div className="spot-name">{spotById?.name}</div>
-            <div className="description-for-spots">
-                <i className="fa fa-star fa-xs"></i>
-                <div className="avg-star-rating">{" "}{parseFloat(spotById?.avgStarRating).toFixed(2)}{" "}</div>
-                <div>&#x2022;</div>
-                <div className="spot-details">{" "}{`${spotById?.numReviews} reviews`}{" "}</div>
-                <div>&#x2022;</div>
-                <div className="spot-details">{" "}{`${spotById?.city}, ${spotById?.state}, ${spotById?.country}`}{" "}</div>
-                {session}
-            </div>
-            {spotById?.SpotImages ?<img
-                className="spot-images"
-                src={spotById?.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
-                alt=""
-            /> : <img className="spot-images" alt=""/>}
-            <div className="host-name">
-                <div >Entire home hosted by {spotById?.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
-                <div className="spot-price-div">{`$ ${spotById?.price} night`}</div>
-                <i className="fas fa-user-circle fa-2x" />
-            </div>
-            <div className="spot-id-description">{spotById?.description}</div>
-            <ReviewsForSpot spotById={spotById}/>
+                <div className="spot-name">{spotById?.name}</div>
+                <div className="description-for-spots">
+                    <i className="fa fa-star fa-xs"></i>
+                    <div className="avg-star-rating">{" "}{parseFloat(spotById?.avgStarRating).toFixed(2)}{" "}</div>
+                    <div>&#x2022;</div>
+                    <div className="spot-details">{" "}{`${spotById?.numReviews} reviews`}{" "}</div>
+                    <div>&#x2022;</div>
+                    <div className="spot-details">{" "}{`${spotById?.city}, ${spotById?.state}, ${spotById?.country}`}{" "}</div>
+                    {session}
+                </div>
+                {spotById?.SpotImages ?<img
+                    className="spot-images"
+                    src={spotById?.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
+                    alt=""
+                /> : <img className="spot-images" alt=""/>}
+                <div className="host-name">
+                    <div >Entire home hosted by {spotById?.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
+                    <div className="spot-price-div">{`$ ${spotById?.price} night`}</div>
+                    <i className="fas fa-user-circle fa-2x" />
+                </div>
+                <div className="spot-id-description">{spotById?.description}</div>
+                <div className="review-bookings-div">
+                    <div className="left-side-review-bookings">
+                        <ReviewsForSpot spotById={spotById}/>
+                    </div>
+                    <div className="right-side-review-bookings">
+                        { !sessionUser ? null :
+                        <>
+                            <SpotBookings spotById={spotById} shouldReload={shouldReloadBookings} />
+                            <CreateBooking spotById={spotById} sessionUser={sessionUser} />
+                        </>
+
+                        }
+                    </div>
+                </div>
         </div>
         )}
         </>

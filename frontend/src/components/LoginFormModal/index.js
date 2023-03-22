@@ -16,6 +16,7 @@ function LoginFormModal() {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
+      .then(window.location.reload())
       .then(closeModal)
       .catch(
         async (res) => {
