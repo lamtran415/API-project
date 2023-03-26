@@ -28,7 +28,7 @@ export const thunkLoadSpotBookings = (spotId) => async (dispatch) => {
 }
 
 export const thunkCreateSpotBooking = (spotId, bookingDetails) => async (dispatch) => {
-    const res = await fetch(`/api/spots/${spotId}/bookings`, {
+    const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
         method: 'POST',
         body: JSON.stringify(bookingDetails)
     })
@@ -49,7 +49,7 @@ const bookingReducer = (state = initialState, action) => {
         case GET_SPOTS_BOOKINGS: {
             const spotBookingsState = {}
             action.bookings.Bookings.forEach(booking => {
-                spotBookingsState[booking.startDate] = booking
+                spotBookingsState[booking.id] = booking
             })
             return spotBookingsState
         }

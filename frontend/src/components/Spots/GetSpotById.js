@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { thunkLoadSpotBookings } from "../../store/bookingReducer";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
 import CreateBooking from "../Bookings/CreateBooking";
-import SpotBookings from "../Bookings/SpotBookings";
 import OpenModalButton from "../OpenModalButton";
 import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
 import UpdateSpot from "../SpotForm/UpdateSpot";
@@ -16,19 +14,13 @@ const GetSpotById = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
-    let spotById = useSelector(state => state.spots[spotId])
-    const copySpotDetails = {...spotById}
-    const sessionUser = useSelector(state => state.session)
-    const [shouldReloadBookings, setShouldReloadBookings] = useState(false);
-
+    let spotById = useSelector(state => state.spots[spotId]);
+    const copySpotDetails = {...spotById};
+    const sessionUser = useSelector(state => state.session);
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
-        .then(() => (setIsLoaded(true)))
-        if (sessionUser) {
-            dispatch(thunkLoadSpotBookings(spotId))
-            setShouldReloadBookings(true)
-        }
+            .then(() => (setIsLoaded(true)))
 
     }, [dispatch, spotId])
 
@@ -45,8 +37,11 @@ const GetSpotById = () => {
                     : null
                 }
                 {sessionUser.user.id === copySpotDetails.ownerId ?
-                    <DeleteSpot />
-                    : null
+                    <OpenModalButton
+                    buttonText="Delete"
+                    modalComponent={<DeleteSpot spotId={spotId}/>}
+                />
+                : null
                 }
             </div>
         )
@@ -70,6 +65,7 @@ const GetSpotById = () => {
                     className="spot-images"
                     src={spotById?.SpotImages ? spotById.SpotImages.map(image => image.url) : `No Images`}
                     alt=""
+                    onError={e => { e.currentTarget.src = "https://wallpapercave.com/wp/wp1842933.jpg"; }}
                 /> : <img className="spot-images" alt=""/>}
                 <div className="host-name">
                     <div >Entire home hosted by {spotById?.Owner ? spotById.Owner.firstName : "Anonymous"}</div>
@@ -84,7 +80,7 @@ const GetSpotById = () => {
                     <div className="right-side-review-bookings">
                         { !sessionUser ? null :
                         <>
-                            <SpotBookings spotById={spotById} shouldReload={shouldReloadBookings} />
+                            {/* <SpotBookings spotById={spotById} shouldReload={shouldReloadBookings} /> */}
                             <CreateBooking spotById={spotById} sessionUser={sessionUser} />
                         </>
 

@@ -4,8 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { thunkLoadAllSpots } from "../../store/spotReducer";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     return dispatch(sessionActions.logout())
-    .then(() => window.location.reload())
     .then(closeMenu())
 
   };
@@ -53,8 +51,9 @@ function ProfileButton({ user }) {
         {user ? (
           <div className="user-menu-items">
             <li style={{cursor:'default'}}>{user.username}</li>
-            <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>
-            <li style={{cursor:'default'}}>{user.email}</li>
+            <li className="user-logout-button"><NavLink style={{textDecoration: 'none', color:"black"}} to="/spots/current">My Spots</NavLink></li>
+            {/* <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>
+            <li style={{cursor:'default'}}>{user.email}</li> */}
               <div
                 className="user-logout-button"
                 onClick={logout}

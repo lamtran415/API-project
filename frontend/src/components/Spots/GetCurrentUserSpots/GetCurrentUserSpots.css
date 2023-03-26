@@ -1,0 +1,35 @@
+.your-spots-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userImages {
+    height: 300px;
+    width: 320px;
+    border-radius: 5%;
+    object-fit: cover;
+}
+
+.user-edit-delete-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-edit-button {
+    padding: 3px;
+    width: 77px;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    border-color: lightgray;
+    border-radius: 5px;
+    border-width: thin;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.user-edit-button:hover{
+    background-color: rgb(240, 240, 240);
+    color: black;
+}

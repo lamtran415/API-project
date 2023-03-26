@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { Modal } from "../../../context/Modal";
 import { thunkCreateSpotBooking, thunkLoadSpotBookings } from "../../../store/bookingReducer";
 import LoginFormModal from "../../LoginFormModal";
+import OpenModalButton from "../../OpenModalButton";
 import "./CreateBooking.css"
 
 const CreateBooking = ({spotById}) => {
@@ -18,7 +18,6 @@ const CreateBooking = ({spotById}) => {
 
     tomorrow.setDate(today.getDate() + 1);
 
-    const [showModal, setShowModal] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [startDate, setStartDate] = useState('')
     const [validationErrors, setValidationErrors] = useState([])
@@ -34,11 +33,13 @@ const CreateBooking = ({spotById}) => {
 
 
     useEffect(() => {
-        const errors = []
+        const setErrors = []
 
-        if (startDate && endDate && startDate === endDate) errors.push('Must book spot for at least a day')
-        if (startDate && endDate && endDate < startDate) errors.push('Checkout date must be after check-in date')
-        if (!startDate || !endDate) errors.push('Please select check-in and checkout dates')
+        if (!sessionUser) return;
+
+        if (startDate && endDate && startDate === endDate) setErrors.push('Must book spot for at least a day');
+        if (startDate && endDate && endDate < startDate) setErrors.push('Checkout date must be after check-in date');
+        if (!startDate || !endDate) setErrors.push('Please select check-in and checkout dates');
 
         let conflictWithBooking = false
 
@@ -59,19 +60,14 @@ const CreateBooking = ({spotById}) => {
         });
 
         if (conflictWithBooking === true){
-            errors.push(`This spot is already booked for the specified dates`)
+            setErrors.push(`This spot is already booked for the specified dates`)
         }
 
-        return setValidationErrors(errors)
+        return setValidationErrors(setErrors)
     }, [startDate, endDate])
 
     const onSubmit = async (e) => {
         e.preventDefault()
-
-        if(!sessionUser){
-            return
-        }
-
 
         setIsSubmitted(true)
 
@@ -86,20 +82,28 @@ const CreateBooking = ({spotById}) => {
         await dispatch(thunkCreateSpotBooking(spotId, bookingDetails))
 
         alert(`Congratulations, you have booked ${spotById?.name} from ${startDate} - ${endDate}!`)
-        setIsSubmitted(false)
         setStartDate('')
         setEndDate('')
+        setIsSubmitted(false)
 
     }
 
     let session;
-    if (spotById?.ownerId === sessionUser?.user?.id || !sessionUser) {
+    if (spotById?.ownerId === sessionUser?.id) {
         session = (
-            <button className="booking-reserve-button disabled" type="submit">
+            <button className="booking-reserve-button disabled" type="submit" disabled>
               Reserve
             </button>
           )
-        } else {
+    } else if (!sessionUser) {
+        session = (
+          <OpenModalButton
+            className="booking-reserve-button"
+            buttonText="Please Log In"
+            modalComponent={<LoginFormModal />}
+          />
+        )
+    } else {
             session = (
                 <button className="booking-reserve-button" type="submit">
           Reserve
@@ -128,7 +132,7 @@ const CreateBooking = ({spotById}) => {
                 </div>
               <div className="booking-spot-star-container">
                 <i className="fa fa-star fa-s"></i>
-                    {Number(spotById?.avgStarRating).toFixed(2)} · {}
+                    {parseFloat(spotById?.avgStarRating).toFixed(2)} · {}
                 <span className="booking-review-span">
                     {spotById?.numReviews} {spotById?.numReviews !== 1 ? "reviews" : "review"}
                 </span>
@@ -145,6 +149,7 @@ const CreateBooking = ({spotById}) => {
                   min={isoDate}
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
+                  disabled={spotById?.ownerId === sessionUser?.id}
                 />
               </div>
               <div className="booking-check-out">
@@ -156,6 +161,7 @@ const CreateBooking = ({spotById}) => {
                   min={startDate ? dayAfterStart.toISOString().slice(0, 10) : isoDate}
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
+                  disabled={spotById?.ownerId === sessionUser?.id}
                 />
               </div>
             </div>

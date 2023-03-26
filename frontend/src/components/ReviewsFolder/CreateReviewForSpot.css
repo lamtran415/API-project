@@ -59,10 +59,10 @@
 
 input[type='button']:disabled, button:disabled
 {
-    background-color: rgb(141, 141, 141);
     color:rgb(172, 172, 172);
     text-decoration:underline;
-    cursor:default;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .cannot-submit-text {

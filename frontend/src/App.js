@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import GetAllSpots from "./components/Spots/GetAllSpots";
 import GetSpotById from "./components/Spots/GetSpotById";
 import Footer from "./components/Footer";
+import GetCurrentUserSpots from "./components/Spots/GetCurrentUserSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <GetAllSpots />
+          </Route>
+          <Route exact path ='/spots/current'>
+            <GetCurrentUserSpots />
           </Route>
           <Route exact path='/spots/:spotId'>
             <GetSpotById />
