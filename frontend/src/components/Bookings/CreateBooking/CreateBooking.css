@@ -1,0 +1,101 @@
+.spot-booking-container {
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(12, 12, 12, 0.3);
+    width: 20vw;
+    padding: 5px 20px;
+}
+
+.create-booking-div {
+    margin-top: 10px;
+}
+
+.booking-spot-price {
+    font-size: 25px;
+}
+
+.booking-spot-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.booking-review-span {
+    color: gray;
+    text-decoration: underline;
+}
+
+.booking-errors {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.booking-form-inputs {
+    margin-top: 10px;
+}
+
+.div-reserve-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.booking-reserve-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 100%;
+    cursor: pointer;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 5px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.booking-input-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.booking-check-in {
+    border: 1px solid gray;
+    width: 50%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px;
+}
+
+.booking-check-in input {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.booking-check-out {
+    border: 1px solid gray;
+    width: 50%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 5px;
+}
+
+.booking-check-out input {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}

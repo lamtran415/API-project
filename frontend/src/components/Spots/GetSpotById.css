@@ -5,6 +5,7 @@
     margin: 5em auto 0px auto;
     max-width: 65%;
     padding: 1em;
+    margin-bottom: 50px;
 }
 
 .spot-name {
@@ -83,7 +84,7 @@
     background-color: rgb(255, 56, 92);
     color: white;
     border-color: lightgray;
-    border-radius: 20px;
+    border-radius: 5px;
     border-width: thin;
     cursor: pointer;
     font-weight: bold;
@@ -96,4 +97,17 @@
 .edit-delete-button button:hover{
     background-color: rgb(240, 240, 240);
     color: black;
+}
+
+.review-bookings-div {
+    display: flex;
+}
+
+.left-side-review-bookings {
+    display: flex;
+    width: 100%;
+}
+
+.right-side-review-bookings {
+    width: 50%;
 }

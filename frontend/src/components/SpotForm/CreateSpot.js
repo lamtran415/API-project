@@ -135,6 +135,7 @@ const CreateNewSpot = () => {
                             placeholder="Enter a description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                            minLength={10}
                             required
                         />
                     </label>
@@ -143,7 +144,7 @@ const CreateNewSpot = () => {
                         <input
                             type='number'
                             name="price"
-                            min='0'
+                            min='1'
                             placeholder="Enter a price"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}

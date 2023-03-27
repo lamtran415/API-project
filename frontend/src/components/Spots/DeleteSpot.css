@@ -1,0 +1,60 @@
+.delete-modal-container {
+    height: 135px;
+    width: 600px;
+    padding: 20px;
+}
+
+.delete-header-close-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-header {
+    font-size: 18px;
+}
+
+.close-edit-button {
+    color: rgb(190, 190, 190);
+    /* font-weight: bold; */
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.delete-text-p-tag {
+    font-size: 13px;
+}
+
+.delete-form-container {
+    display: flex;
+    margin-left: 435px;
+}
+
+.delete-form-container button {
+    margin-top: 50px;
+}
+
+.cancel-button {
+    background-color: rgb(151, 151, 151);
+    border: none;
+    font-weight: bold;
+    color: white;
+    padding: 5px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: red;
+    border: none;
+    font-weight: bold;
+    color: white;
+    padding: 5px 18px;
+    border-radius: 4px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.spot-info-name {
+    font-weight: bold;
+}

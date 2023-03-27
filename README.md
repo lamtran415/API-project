@@ -11,13 +11,17 @@ Live Site: [ChillinBnb](https://chillin-bnb.onrender.com)
 - [Redux Store State Shape](https://github.com/lamtran415/ChillinBnb/wiki/ChillinBnb-Store-Shape)
 
 ### Project built with:
-- JavaScript
-- Sequelize
-- Express
-- React
-- Redux
-- HTML/CSS
-- PostgresSQL
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![HTML5](https://img.shields.io/badge/html-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite3-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
 ## How to set up repo to run project locally
 1) Clone [Chillinbnb's repo](https://github.com/lamtran415/ChillinBnb)
@@ -50,7 +54,9 @@ Live Site: [ChillinBnb](https://chillin-bnb.onrender.com)
 ![image](https://user-images.githubusercontent.com/114116854/213940973-60375f0b-eed9-4d34-a2cb-26dfeb3a7521.png)
 
 ## To Do List for Future Features
-- Edit Review
 - Bookings
+
+## Contact information
+Email: [austin415@ymail.com](mailto:austin415@ymail.com)
 
 
