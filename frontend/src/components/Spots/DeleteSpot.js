@@ -9,7 +9,6 @@ const DeleteSpot = ({spotId}) => {
     const history = useHistory();
     const { closeModal } = useModal();
     const spotInfo = useSelector(state => state.spots[spotId])
-    console.log("===============>", spotInfo)
 
     const handleClick =  async (e) => {
         e.preventDefault();
@@ -25,7 +24,7 @@ const DeleteSpot = ({spotId}) => {
                 <div className="delete-header">Delete Spot</div>
                 <span className="close-edit-button" onClick={() => closeModal()}><i className="fas fa-times"></i></span>
             </div>
-            <p className="delete-text-p-tag">Are you sure you want to delete <span className="spot-info-name">{spotInfo.name}</span>?</p>
+            <p className="delete-text-p-tag">Are you sure you want to delete <span className="spot-info-name">{spotInfo?.name}</span>?</p>
             <form className="delete-form-container" onSubmit={handleClick}>
                 <button className="cancel-button" onClick={() => closeModal()}>Cancel</button>
                 <button className="delete-button" type="submit">Delete</button>

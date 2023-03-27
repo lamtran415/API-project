@@ -52,10 +52,11 @@ function ProfileButton({ user }) {
           <div className="user-menu-items">
             <li style={{cursor:'default'}}>{user.username}</li>
             <li className="user-logout-button"><NavLink style={{textDecoration: 'none', color:"black"}} to="/spots/current">My Spots</NavLink></li>
+            <li className="user-logout-button"><NavLink style={{textDecoration: 'none', color:"black"}} to="/bookings/current">Trips</NavLink></li>
             {/* <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>
             <li style={{cursor:'default'}}>{user.email}</li> */}
               <div
-                className="user-logout-button"
+                className="user-logout-button logout-btn"
                 onClick={logout}
               >Log Out</div>
           </div>

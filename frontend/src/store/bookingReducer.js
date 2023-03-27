@@ -1,11 +1,17 @@
 import { csrfFetch } from "./csrf";
 
 const GET_SPOTS_BOOKINGS = 'bookings/GET_SPOTS_BOOKINGS';
+const GET_USER_BOOKINGS = 'bookings/GET_USER_BOOKINGS';
 const CREATE_SPOT_BOOKING = 'bookings/CREATE_SPOT_BOOKING';
 
 // Action Creators
 const loadSpotBookings = (bookings) => ({
     type: GET_SPOTS_BOOKINGS,
+    bookings
+})
+
+const loadUserBookings = (bookings) => ({
+    type: GET_USER_BOOKINGS,
     bookings
 })
 
@@ -27,6 +33,18 @@ export const thunkLoadSpotBookings = (spotId) => async (dispatch) => {
     }
 }
 
+// GET User's Bookings ---- /bookings/current
+export const thunkLoadUserBookings = () => async (dispatch) => {
+    const res = await fetch(`/api/bookings/current`);
+
+    if (res.ok) {
+        const userBookings = await res.json();
+        dispatch(loadUserBookings(userBookings))
+        return userBookings
+    }
+}
+
+// CREATE Spot's Booking ---- /spots/:spotId/bookings
 export const thunkCreateSpotBooking = (spotId, bookingDetails) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
         method: 'POST',
@@ -37,6 +55,13 @@ export const thunkCreateSpotBooking = (spotId, bookingDetails) => async (dispatc
         const newBooking = await res.json()
         dispatch(createSpotBooking(newBooking))
         return newBooking
+    }  else if (res.status < 500) {
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.'];
     }
 
     return res;
@@ -52,6 +77,13 @@ const bookingReducer = (state = initialState, action) => {
                 spotBookingsState[booking.id] = booking
             })
             return spotBookingsState
+        }
+        case GET_USER_BOOKINGS: {
+            const userBookingsState = {}
+            action.bookings.Bookings.forEach(booking => {
+                userBookingsState[booking.id] = booking
+            })
+            return userBookingsState
         }
         case CREATE_SPOT_BOOKING: {
             const createBookingState = {...state};

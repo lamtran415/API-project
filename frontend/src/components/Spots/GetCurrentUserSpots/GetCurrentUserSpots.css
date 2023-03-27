@@ -33,3 +33,33 @@
     background-color: rgb(240, 240, 240);
     color: black;
 }
+
+.not-hosting-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.not-hosting-home-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 5.4vh;
+    width: 21.8vw;
+    font-size: 1em;
+    border: solid rgb(151, 151, 151);
+    border-width: 1px;
+    border-radius: 12px;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+.not-hosting-home-btn:hover {
+    background-color: rgb(252, 89, 119);
+
+}

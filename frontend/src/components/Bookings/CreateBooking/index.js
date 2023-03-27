@@ -8,6 +8,7 @@ import "./CreateBooking.css"
 
 const CreateBooking = ({spotById}) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const bookingsArr = Object.values(useSelector(state => state.bookings))
     const { spotId } = useParams()
     const date = new Date();
@@ -59,7 +60,7 @@ const CreateBooking = ({spotById}) => {
 
         });
 
-        if (conflictWithBooking === true){
+        if (conflictWithBooking){
             setErrors.push(`This spot is already booked for the specified dates`)
         }
 
@@ -79,12 +80,19 @@ const CreateBooking = ({spotById}) => {
             endDate: endDate
         }
 
-        await dispatch(thunkCreateSpotBooking(spotId, bookingDetails))
+        const data = await dispatch(thunkCreateSpotBooking(spotId, bookingDetails))
 
-        alert(`Congratulations, you have booked ${spotById?.name} from ${startDate} - ${endDate}!`)
-        setStartDate('')
-        setEndDate('')
-        setIsSubmitted(false)
+        if (Array.isArray(data)) {
+          const errorMessages = Object.values(data);
+          const formattedErrorMessages = errorMessages.map(error => error.split(": ")[1]);
+          setValidationErrors(formattedErrorMessages);
+        } else {
+          alert(`Congratulations, you have booked ${spotById?.name} from ${startDate} - ${endDate}!`)
+          history.push('/bookings/current')
+          setStartDate('')
+          setEndDate('')
+          setIsSubmitted(false)
+        }
 
     }
 
@@ -149,7 +157,7 @@ const CreateBooking = ({spotById}) => {
                   min={isoDate}
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  disabled={spotById?.ownerId === sessionUser?.id}
+                  disabled={spotById?.ownerId === sessionUser?.id || !sessionUser}
                 />
               </div>
               <div className="booking-check-out">
@@ -161,7 +169,7 @@ const CreateBooking = ({spotById}) => {
                   min={startDate ? dayAfterStart.toISOString().slice(0, 10) : isoDate}
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  disabled={spotById?.ownerId === sessionUser?.id}
+                  disabled={spotById?.ownerId === sessionUser?.id || !sessionUser}
                 />
               </div>
             </div>

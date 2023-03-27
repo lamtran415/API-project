@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { thunkLoadUserSpots } from "../../../store/spotReducer";
 import OpenModalButton from "../../OpenModalButton";
 import UpdateSpot from "../../SpotForm/UpdateSpot";
@@ -9,14 +9,14 @@ import "./GetCurrentUserSpots.css"
 
 const GetCurrentUserSpots = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [ isLoaded, setIsLoaded ] = useState(false)
-
 
     useEffect(() => {
         dispatch(thunkLoadUserSpots())
         .then(() => (setIsLoaded(true)))
     }, [dispatch])
-    
+
     const sessionUser = useSelector(state => state.session.user)
     const userSpots = Object.values(useSelector(state => state.spots)).filter(spot => spot.ownerId === sessionUser?.id)
 
@@ -30,7 +30,7 @@ const GetCurrentUserSpots = () => {
                 <div className="spots-div-wrapper">
                     <h2 className="your-spots-title">Current Spots</h2>
                     <div className="spotsDiv">
-                        {userSpots ? userSpots.map(spot => {
+                        {userSpots.length ? userSpots.map(spot => {
                             return (
                                 <div key={spot.id}>
                                     <NavLink style={{textDecoration: 'none'}} className='spots' to={`/spots/${spot.id}`}>
@@ -71,7 +71,12 @@ const GetCurrentUserSpots = () => {
                                     </div>
                                 </div>
                             )
-                        }): "You currently do not have a spot"}
+                        }):
+                            <div className="not-hosting-div">
+                                <h2>You currently are not hosting a spot</h2>
+                                <button onClick={() => history.push('/')} className="not-hosting-home-btn">Home</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>)
