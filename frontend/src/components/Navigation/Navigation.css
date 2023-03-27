@@ -33,8 +33,8 @@
 }
 
 .user-logout-button {
-    padding: 10px 10px;
-    font-size: 14px;
+    padding: 8px 10px;
+    font-size: 15px;
     display: flex;
     color: black;
     border-radius: 4px;
@@ -99,8 +99,8 @@
 }
 
 .modal-menu-items li, .user-menu-items li{
-    padding: 10px 10px;
-    font-size: 14px;
+    padding: 8px 10px;
+    font-size: 15px;
 }
 
 .login-menu {

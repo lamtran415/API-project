@@ -8,6 +8,7 @@ import GetSpotById from "./components/Spots/GetSpotById";
 import Footer from "./components/Footer";
 import GetCurrentUserSpots from "./components/Spots/GetCurrentUserSpots";
 import UserBookings from "./components/Bookings/UserBookings";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route exact path = '/bookings/current'>
             <UserBookings />
+          </Route>
+          <Route>
+            <ErrorPage />
           </Route>
         </Switch>
       )}

@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div className="user-menu-items">
-            {/* <li style={{cursor:'default'}}>{user.username}</li> */}
+            <li style={{cursor:'default', color: "rgb(255, 56, 92)", fontWeight: "bold"}}>Hello, {user.firstName}!</li>
             <li className="user-logout-button" onClick={() => history.push('/spots/current')}>My Spots</li>
             <li className="user-logout-button" onClick={() => history.push('/bookings/current')}>Trips</li>
             {/* <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>

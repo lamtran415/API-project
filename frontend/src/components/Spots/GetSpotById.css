@@ -31,6 +31,13 @@
     font-weight: lighter;
 }
 
+.city-state-country {
+    width: 45vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .spot-images {
     margin-top: 20px;
     margin-bottom: px;
@@ -61,6 +68,9 @@
 
 .spot-id-description {
     margin-top: 1em;
+    word-wrap: break-word;
+    width: 65%;
+    margin-right: 15px;
 }
 
 .spot-price-div {
@@ -70,6 +80,8 @@
 }
 
 .edit-delete-button {
+    display: flex;
+    flex-wrap: nowrap;
     margin-left: auto;
 }
 
@@ -108,6 +120,7 @@
     width: 100%;
 }
 
-.right-side-review-bookings {
-    width: 50%;
+.description-booking-div {
+    display: flex;
+    justify-content: space-evenly;
 }

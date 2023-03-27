@@ -1,0 +1,25 @@
+.whole-error-page-container {
+    margin-top: 135px;
+    display: flex;
+    justify-content: center;
+}
+
+.cant-find-page-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-page-text {
+    font-size: 26px;
+    margin-bottom: 5%;
+}
+
+.error-home-btn {
+    margin-top: 5%;
+}
+
+.frown-class {
+    font-size: 30px;
+}

@@ -34,6 +34,13 @@
     align-items: space-around;
 }
 
+.city-state {
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .city-state, .pricing {
     flex-wrap: wrap;
     color: black;

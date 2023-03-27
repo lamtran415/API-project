@@ -142,7 +142,7 @@ const CreateBooking = ({spotById}) => {
                 <i className="fa fa-star fa-s"></i>
                     {parseFloat(spotById?.avgStarRating).toFixed(2)} · {}
                 <span className="booking-review-span">
-                    {spotById?.numReviews} {spotById?.numReviews !== 1 ? "reviews" : "review"}
+                    {spotById?.numReviews} {spotById?.numReviews > 1 ? "reviews" : "review"}
                 </span>
               </div>
           </div>
