@@ -21,8 +21,8 @@ const DeleteSpot = ({spotId}) => {
         <div className="delete-modal-container">
         <div className="delete-pop-up">
             <div className="delete-header-close-button">
-                <div className="delete-header">Delete Spot</div>
                 <span className="close-edit-button" onClick={() => closeModal()}><i className="fas fa-times"></i></span>
+                <div className="delete-header">Delete Spot</div>
             </div>
             <p className="delete-text-p-tag">Are you sure you want to delete <span className="spot-info-name">{spotInfo?.name}</span>?</p>
             <form className="delete-form-container" onSubmit={handleClick}>

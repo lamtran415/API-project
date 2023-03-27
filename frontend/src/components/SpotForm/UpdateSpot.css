@@ -59,3 +59,14 @@
 .update-input-container button:hover {
     background-color: rgb(252, 89, 119);
 }
+
+.spot-errors-map {
+    display: flex;
+    flex-wrap: wrap;
+    width: 77%;
+    margin-left: 7%;
+    list-style: none;
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+}

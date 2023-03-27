@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { thunkLoadUserBookings } from "../../../store/bookingReducer";
 import OpenModalButton from "../../OpenModalButton";
 import DeleteBooking from "../DeleteBooking";

@@ -30,7 +30,11 @@ const UpdateReviewForSpot = ({review}) => {
             .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
+                if (data && data.errors) {
+                    const errorMessages = Object.values(data.errors);
+                    const formattedErrorMessages = errorMessages.map(error => error.split(": ")[1]);
+                    setErrors(formattedErrorMessages);
+                }
             });
     }
 
@@ -42,12 +46,12 @@ const UpdateReviewForSpot = ({review}) => {
 
     return(
         <div className="create-review-container">
-            <h3 className="create-review-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Leave Review</span></h3>
+            <h3 className="create-review-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Edit Review</span></h3>
                 <form
                     className="review-form-container"
                     onSubmit={handleSubmit}
                 >
-                    <ul className="review-error-map">
+                    <ul className="errors-map">
                         {errors.map((error) => <li key={error}>{error}</li>)}
                     </ul>
                     <div className="review-input-container">

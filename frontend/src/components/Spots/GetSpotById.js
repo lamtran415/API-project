@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
 import CreateBooking from "../Bookings/CreateBooking";
+import ErrorPage from "../ErrorPage";
 import OpenModalButton from "../OpenModalButton";
 import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
 import UpdateSpot from "../SpotForm/UpdateSpot";
@@ -47,6 +48,10 @@ const GetSpotById = () => {
         )
     }
 
+    if (!spotById) {
+        return <ErrorPage />
+    }
+
     return (
         <>
         {isLoaded && (
@@ -56,9 +61,9 @@ const GetSpotById = () => {
                     <i className="fa fa-star fa-xs"></i>
                     <div className="avg-star-rating">{" "}{parseFloat(spotById?.avgStarRating).toFixed(2)}{" "}</div>
                     <div>&#x2022;</div>
-                    <div className="spot-details">{" "}{`${spotById?.numReviews} reviews`}{" "}</div>
+                    <div className="spot-details">{" "}{`${spotById?.numReviews} ${spotById?.numReviews > 1 ? "reviews" : "review"}`}{" "}</div>
                     <div>&#x2022;</div>
-                    <div className="spot-details">{" "}{`${spotById?.city}, ${spotById?.state}, ${spotById?.country}`}{" "}</div>
+                    <div className="spot-details city-state-country">{" "}{`${spotById?.city}, ${spotById?.state}, ${spotById?.country}`}{" "}</div>
                     {session}
                 </div>
                 {spotById?.SpotImages ?<img
@@ -72,10 +77,15 @@ const GetSpotById = () => {
                     <div className="spot-price-div">{`$ ${spotById?.price} night`}</div>
                     <i className="fas fa-user-circle fa-2x" />
                 </div>
-                <div className="spot-id-description">{spotById?.description}</div>
-                <div className="review-bookings-div">
-                    <div className="left-side-review-bookings">
-                        <ReviewsForSpot spotById={spotById}/>
+                <div className="description-booking-div">
+                    <div className="spot-id-description">
+                        {spotById?.description}
+                        <div className="review-bookings-div">
+                            <div className="left-side-review-bookings">
+                                <ReviewsForSpot spotById={spotById}/>
+                            </div>
+                        </div>
+
                     </div>
                     <div className="right-side-review-bookings">
                         { !sessionUser ? null :

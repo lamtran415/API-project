@@ -47,7 +47,11 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
             .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
+                if (data && data.errors) {
+                    const errorMessages = Object.values(data.errors);
+                    const formattedErrorMessages = errorMessages.map(error => error.split(": ")[1]);
+                    setErrors(formattedErrorMessages);
+                }
             });
 
     }
@@ -65,7 +69,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                     className="review-form-container"
                     onSubmit={handleSubmit}
                 >
-                    <ul className="review-error-map">
+                    <ul className="errors-map">
                         {errors.map((error) => <li key={error}>{error}</li>)}
                     </ul>
                     <div className="review-input-container">
@@ -78,6 +82,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                             placeholder='Enter a review'
                             onChange={(e) => setReview(e.target.value)}
                             required
+                            disabled={isButtonDisabled}
                         />
                     </label>
                     <label>
@@ -89,6 +94,7 @@ const CreateReviewForSpots = ({spotId, copySessionUser }) => {
                             max='5'
                             min='1'
                             required
+                            disabled={isButtonDisabled}
                         />
                     </label>
                     <button disabled={isButtonDisabled} type="submit">Submit</button>
