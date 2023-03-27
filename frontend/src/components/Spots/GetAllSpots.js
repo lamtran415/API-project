@@ -8,7 +8,7 @@ import './GetAllSpots.css'
 const GetAllSpots = () => {
     const dispatch = useDispatch();
     let spots = useSelector(state => state.spots);
-    let spotsArr = Object.values(spots);
+    let spotsArr = Object.values(spots).reverse()
 
     useEffect(() => {
         dispatch(thunkLoadAllSpots())
@@ -26,6 +26,7 @@ const GetAllSpots = () => {
                                 className="spotImages"
                                 src={spot.previewImage}
                                 alt=""
+                                onError={e => { e.currentTarget.src = "https://wallpapercave.com/wp/wp1842933.jpg"; }}
                             />
                             <div className="spot-description-wrapper">
                                 <div className="spot-description">

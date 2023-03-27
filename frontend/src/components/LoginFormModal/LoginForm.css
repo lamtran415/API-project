@@ -51,6 +51,10 @@
     cursor: pointer;
 }
 
+.log-in-demo-button:hover {
+    background-color: rgb(252, 89, 119);
+}
+
 .demo-button {
     background-color: white;
     color: black;

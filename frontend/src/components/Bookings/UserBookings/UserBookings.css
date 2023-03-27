@@ -1,0 +1,59 @@
+.whole-user-bookings-container {
+    margin-top: 5.5em;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.bookings-div-container {
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(12, 12, 12, 0.3);
+    padding: 5px 20px;
+    margin-bottom: 20px;
+    width: 50vw;
+    min-width: 575px;
+}
+
+.bookings-div-container:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.user-bookings-info {
+    display: flex;
+    padding: 20px;
+}
+
+.booking-image {
+    height: 250px;
+    width: 600px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.booking-spot-info-container {
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.user-booking-spot-name {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user-booking-spot-name:hover {
+    text-decoration: underline;
+    color: rgb(255, 56, 92);
+}
+
+.user-booking-city-country {
+    text-decoration: underline;
+    padding: 5px 0;
+}
+
+.booking-dates-div div{
+    color: rgb(87, 87, 87);
+    padding: 3px 0;
+}

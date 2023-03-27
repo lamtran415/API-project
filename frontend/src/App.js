@@ -5,6 +5,9 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetAllSpots from "./components/Spots/GetAllSpots";
 import GetSpotById from "./components/Spots/GetSpotById";
+import Footer from "./components/Footer";
+import GetCurrentUserSpots from "./components/Spots/GetCurrentUserSpots";
+import UserBookings from "./components/Bookings/UserBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,11 +27,18 @@ function App() {
           <Route exact path='/'>
             <GetAllSpots />
           </Route>
+          <Route exact path ='/spots/current'>
+            <GetCurrentUserSpots />
+          </Route>
           <Route exact path='/spots/:spotId'>
             <GetSpotById />
           </Route>
+          <Route exact path = '/bookings/current'>
+            <UserBookings />
+          </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

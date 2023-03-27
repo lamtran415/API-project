@@ -111,12 +111,16 @@
     margin-bottom: 5px;
 }
 
-.user-logout-button {
+.logout-btn {
     margin-bottom: 5px;
 }
 
 .modal-menu-items li:hover, .user-logout-button:hover, .host-spot-button:hover {
     background-color: rgb(240, 240, 240);
+}
+
+.host-spot-button:hover {
+    color: rgb(255, 56, 92);
 }
 
 .user-button:hover {

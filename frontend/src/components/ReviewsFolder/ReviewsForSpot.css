@@ -21,11 +21,17 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
 }
 
 .review-and-pic {
     display: flex;
     flex-direction: row;
+    width: 375px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(12, 12, 12, 0.3);
+    padding: 10px 7px;
+    min-width: 325px;
 }
 
 .review-with-delete {
@@ -36,7 +42,7 @@
 }
 
 .review-by-user {
-    width: 400px;
+    width: 200px;
     overflow-wrap: break-word;
 }
 
@@ -54,7 +60,7 @@
     background-color: rgb(255, 56, 92);
     color: white;
     border-color: lightgray;
-    border-radius: 20px;
+    border-radius: 5px;
     border-width: thin;
     cursor: pointer;
     /* margin-right: 1em; */
@@ -64,4 +70,18 @@
 .review-button:hover {
     background-color: rgb(240, 240, 240);
     color: black;
+}
+
+.edit-review-div-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+
+.delete-review {
+    margin-bottom: 5px;
+}
+
+.number-review-header {
+    margin-right: 16vw;
 }
