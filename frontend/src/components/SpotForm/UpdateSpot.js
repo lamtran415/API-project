@@ -43,7 +43,11 @@ const UpdateSpot = ({spotById}) => {
             .then(() => closeModal())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
+                if (data && data.errors) {
+                    const errorMessages = Object.values(data.errors);
+                    const formattedErrorMessages = errorMessages.map(error => error.split(": ")[1]);
+                    setErrors(formattedErrorMessages);
+                }
             });
     }
 
@@ -54,10 +58,11 @@ const UpdateSpot = ({spotById}) => {
             className="update-form-container"
             onSubmit={handleSubmit}
         >
-            <ul className="error-map">
+            {/* <ul className="errors-map">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            </ul> */}
             <div className="update-input-container">
+                {errors.includes("Address must be 100 characters or less") && <span className="spot-errors-map">Address must be 100 characters or less</span>}
                 <label>
                     {/* Address: */}
                     <input
@@ -69,6 +74,7 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("City must be 85 characters or less") && <span className="spot-errors-map">City must be 85 characters or less</span>}
                 <label>
                     {/* City: */}
                     <input
@@ -80,6 +86,7 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("State must be 20 characters or less") && <span className="spot-errors-map">State must be 20 characters or less</span>}
                 <label>
                     {/* State: */}
                     <input
@@ -91,6 +98,7 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("Country must be 60 characters or less") && <span className="spot-errors-map">Country must be 60 characters or less</span>}
                 <label>
                     {/* Country: */}
                     <input
@@ -102,6 +110,7 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("Name must be less than 50 characters") && <span className="spot-errors-map">Name must be less than 50 characters</span>}
                 <label>
                     {/* Name: */}
                     <input
@@ -113,6 +122,7 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("Description must be 500 characters or less") && <span className="spot-errors-map">Description must be 500 characters or less</span>}
                 <label>
                     {/* Description: */}
                     <input
@@ -124,13 +134,14 @@ const UpdateSpot = ({spotById}) => {
                         required
                     />
                 </label>
+                {errors.includes("Price must be an integer from 1 to 100000") && <span className="spot-errors-map">Price must be an integer from 1 to 100000</span>}
                 <label>
                     {/* Price: */}
                     <input
                         type='number'
                         name="price"
                         value={price}
-                        min='0'
+                        min='1'
                         placeholder="Enter a price"
                         onChange={(e) => setPrice(e.target.value)}
                         required

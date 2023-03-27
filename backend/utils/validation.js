@@ -74,18 +74,26 @@ const validateCreateSpot = [
   check("address")
       .exists({ checkFalsy: true })
       .withMessage("Street address is required")
+      .isLength({ max: 100 })
+      .withMessage("Address must be 100 characters or less")
   ,
   check("city")
       .exists({ checkFalsy: true })
       .withMessage("City is required")
+      .isLength({ max: 85 })
+      .withMessage("City must be 85 characters or less")
   ,
   check("state")
       .exists({ checkFalsy: true })
       .withMessage("State is required")
+      .isLength({ max: 20 })
+      .withMessage("State must be 20 characters or less")
   ,
   check("country")
       .exists({ checkFalsy: true })
       .withMessage("Country is required")
+      .isLength({ max: 60 })
+      .withMessage("Country must be 60 characters or less")
   ,
   check("lat")
       // .exists({ checkFalsy: true })
@@ -106,11 +114,15 @@ const validateCreateSpot = [
   check("description")
       .exists({ checkFalsy: true })
       .withMessage("Description is required")
+      .isLength({ max: 500 })
+      .withMessage("Description must be 500 characters or less")
   ,
   check("price")
       // .exists({ checkFalsy: true })
       .isFloat()
       .withMessage("Price per day is required")
+      .isFloat({ min: 1, max: 100000})
+      .withMessage("Price must be an integer from 1 to 100000")
   ,
   handleSpotValidationErrors
 ]
@@ -119,6 +131,8 @@ const validateReviews = [
   check("review")
       .exists({ checkFalsy: true })
       .withMessage("Review text is required")
+      .isLength({ max: 255 })
+      .withMessage("Review must be 255 characters or less")
   ,
   check("stars")
       // .exists({ checkFalsy: true })

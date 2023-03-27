@@ -54,7 +54,7 @@ const ReviewsForSpot = ({ spotById }) => {
           <i className="fa fa-star fa-s"></i>
           <h3 className="avg-star-rating">{parseFloat(spotById?.avgStarRating).toFixed(2)} </h3>
           <div>&#x2022;</div>
-          <h3 className="number-review-header">{`${spotById?.numReviews} reviews`} </h3>
+          <h3 className="number-review-header">{`${spotById?.numReviews} ${spotById?.numReviews > 1 ? "reviews" : "review"}`} </h3>
           {userLoggedIn}
         </div>
         <div className="lower-section-container">

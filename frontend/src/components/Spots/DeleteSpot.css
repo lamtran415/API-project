@@ -1,5 +1,5 @@
 .delete-modal-container {
-    height: 135px;
+    height: 145px;
     width: 600px;
     padding: 20px;
 }
@@ -25,7 +25,7 @@
 }
 
 .delete-text-p-tag {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .delete-form-container {
@@ -34,7 +34,7 @@
 }
 
 .delete-form-container button {
-    margin-top: 50px;
+    margin-top: 20%;
 }
 
 .cancel-button {
