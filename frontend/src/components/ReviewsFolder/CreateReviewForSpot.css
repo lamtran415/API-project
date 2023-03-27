@@ -57,6 +57,10 @@
     margin-bottom: 1em;
 }
 
+.review-input-container button:hover {
+    background-color: rgb(252, 89, 119);
+}
+
 input[type='button']:disabled, button:disabled
 {
     color:rgb(172, 172, 172);

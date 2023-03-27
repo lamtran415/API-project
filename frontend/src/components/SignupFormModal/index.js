@@ -31,7 +31,7 @@ function SignupFormModal() {
 
   return (
     <div className="whole-signup-container">
-      <h3 className="sign-up-header"><div className="x-button" onClick={closeModal}>X</div><span>Sign up</span></h3>
+      <h3 className="sign-up-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Sign up</span></h3>
       <form
         className="signup-form-container"
         onSubmit={handleSubmit}
