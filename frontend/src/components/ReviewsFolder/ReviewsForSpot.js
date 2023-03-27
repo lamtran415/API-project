@@ -84,9 +84,15 @@ const ReviewsForSpot = ({ spotById }) => {
                   ) : null}
                   {sessionUser.user !== null &&
                   copySessionUser.user.id === review.userId ? (
-                    <DeleteReview
-                      review={review}
-                      copySessionUser={copySessionUser}
+                    <OpenModalButton
+                      className="delete-review"
+                      buttonText="Delete"
+                      modalComponent={
+                        <DeleteReview
+                          review={review}
+                          copySessionUser={copySessionUser}
+                        />
+                      }
                     />
                   ) : null}
                   </div>
