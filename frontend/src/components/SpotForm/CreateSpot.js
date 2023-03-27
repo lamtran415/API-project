@@ -63,7 +63,7 @@ const CreateNewSpot = () => {
 
     return (
         <div className="create-spot-container">
-            <h3 className="create-spot-header"><div className="x-button" onClick={closeModal}>X</div><span>Host A Spot</span></h3>
+            <h3 className="create-spot-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Host A Spot</span></h3>
             <form
                 className="spot-form-container"
                 onSubmit={handleSubmit}

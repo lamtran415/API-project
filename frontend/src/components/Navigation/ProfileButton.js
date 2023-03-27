@@ -8,6 +8,7 @@ import { NavLink, useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -50,9 +51,9 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div className="user-menu-items">
-            <li style={{cursor:'default'}}>{user.username}</li>
-            <li className="user-logout-button"><NavLink style={{textDecoration: 'none', color:"black"}} to="/spots/current">My Spots</NavLink></li>
-            <li className="user-logout-button"><NavLink style={{textDecoration: 'none', color:"black"}} to="/bookings/current">Trips</NavLink></li>
+            {/* <li style={{cursor:'default'}}>{user.username}</li> */}
+            <li className="user-logout-button" onClick={() => history.push('/spots/current')}>My Spots</li>
+            <li className="user-logout-button" onClick={() => history.push('/bookings/current')}>Trips</li>
             {/* <li style={{cursor:'default'}}>{user.firstName} {user.lastName}</li>
             <li style={{cursor:'default'}}>{user.email}</li> */}
               <div

@@ -536,15 +536,15 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
         })
     }
 
-    if (new Date(startDate) < new Date()) {
-        return res.status(400).json({
-            message: "Validation error",
-            statusCode: res.statusCode,
-            errors: {
-                startDate: "startDate cannot be set in the past from today"
-            }
-        })
-    }
+    // if (new Date(startDate) < new Date()) {
+    //     return res.status(400).json({
+    //         message: "Validation error",
+    //         statusCode: res.statusCode,
+    //         errors: {
+    //             startDate: "startDate cannot be set in the past from today"
+    //         }
+    //     })
+    // }
 
     if (user.id !== findSpot.ownerId) {
         const newBooking = await Booking.create({

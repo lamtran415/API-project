@@ -27,8 +27,8 @@ const DeleteReview = ({review}) => {
         <div className="delete-modal-container">
         <div className="delete-pop-up">
             <div className="delete-header-close-button">
-                <div className="delete-header">Delete Review</div>
                 <span className="close-edit-button" onClick={() => closeModal()}><i className="fas fa-times"></i></span>
+                <div className="delete-header">Delete Review</div>
             </div>
             <p className="delete-text-p-tag">Are you sure you want to delete this review?</p>
             <form className="delete-form-container" onSubmit={handleClick}>

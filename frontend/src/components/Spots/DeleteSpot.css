@@ -6,12 +6,15 @@
 
 .delete-header-close-button {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
 .delete-header {
     font-size: 18px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .close-edit-button {
@@ -44,6 +47,11 @@
     cursor: pointer;
 }
 
+.cancel-button:hover {
+    background-color: rgb(179, 179, 179);
+
+}
+
 .delete-button {
     background-color: red;
     border: none;
@@ -53,6 +61,10 @@
     border-radius: 4px;
     margin-left: 12px;
     cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: rgb(252, 89, 119);
 }
 
 .spot-info-name {

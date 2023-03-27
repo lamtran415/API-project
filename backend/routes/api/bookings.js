@@ -94,23 +94,23 @@ router.put("/:bookingId", requireAuth, validateBookings, async (req, res, next) 
     };
 
 
-    const getCurrentBookings = await Booking.findAll({
-        where: {
-            spotId: findBooking.spotId,
-            [Op.and]: [ {startDate: {[Op.lte]: endDate}}, {endDate: {[Op.gte]: startDate}} ],
-        },
-    });
+    // const getCurrentBookings = await Booking.findAll({
+    //     where: {
+    //         spotId: findBooking.spotId,
+    //         [Op.and]: [ {startDate: {[Op.lt]: endDate}}, {endDate: {[Op.gt]: startDate}} ],
+    //     },
+    // });
 
-    if (getCurrentBookings.length) {
-        return res.status(403).json({
-            message: "Sorry, this spot is already booked for the specified dates",
-            statusCode: res.statusCode,
-            errors: {
-                startDate: "Start date conflicts with an existing booking",
-                endDate: "End date conflicts with an existing booking"
-            }
-        })
-    };
+    // if (getCurrentBookings.length) {
+    //     return res.status(403).json({
+    //         message: "Sorry, this spot is already booked for the specified dates",
+    //         statusCode: res.statusCode,
+    //         errors: {
+    //             startDate: "Start date conflicts with an existing booking",
+    //             endDate: "End date conflicts with an existing booking"
+    //         }
+    //     })
+    // };
 
     if (user.id === findBooking.userId) {
         findBooking.startDate = startDate;

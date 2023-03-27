@@ -62,3 +62,7 @@
     margin-bottom: 1.5em;
     margin-top: 0.5em;
 }
+
+.spot-form-container button:hover {
+    background-color: rgb(252, 89, 119);
+}
