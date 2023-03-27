@@ -42,7 +42,7 @@ const UpdateReviewForSpot = ({review}) => {
 
     return(
         <div className="create-review-container">
-            <h3 className="create-review-header"><div className="x-button" onClick={closeModal}>X</div><span>Leave Review</span></h3>
+            <h3 className="create-review-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Leave Review</span></h3>
                 <form
                     className="review-form-container"
                     onSubmit={handleSubmit}

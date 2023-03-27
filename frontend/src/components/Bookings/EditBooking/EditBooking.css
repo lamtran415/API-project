@@ -1,0 +1,37 @@
+.booking-edit-reserve-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 100%;
+    cursor: pointer;
+    background-color: rgb(255, 56, 92);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.booking-edit-reserve-button:hover {
+    background-color: rgb(252, 89, 119);
+}
+
+.booking-cancel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 100%;
+    cursor: pointer;
+    background-color: rgb(151, 151, 151);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 5px;
+}
+
+.booking-cancel-button:hover {
+    background-color: rgb(179, 179, 179);
+}

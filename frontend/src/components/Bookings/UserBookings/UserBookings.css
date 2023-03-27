@@ -13,7 +13,7 @@
     padding: 5px 20px;
     margin-bottom: 20px;
     width: 50vw;
-    min-width: 575px;
+    min-width: 675px;
 }
 
 .bookings-div-container:hover {
@@ -28,13 +28,14 @@
 .booking-image {
     height: 250px;
     width: 600px;
+    border-radius: 10px;
     object-fit: cover;
     cursor: pointer;
 }
 
 .booking-spot-info-container {
     padding: 5px;
-    margin-left: 10px;
+    margin-left: 5%;
 }
 
 .user-booking-spot-name {
@@ -54,6 +55,17 @@
 }
 
 .booking-dates-div div{
+    display: flex;
+    flex-wrap: wrap;
     color: rgb(87, 87, 87);
     padding: 3px 0;
+}
+
+.booking-edit-delete-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 150px;
+    margin-top: 20%;
+    /* border: 2px solid red; */
 }

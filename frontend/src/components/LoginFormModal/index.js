@@ -29,7 +29,7 @@ function LoginFormModal() {
 
   return (
     <div className="whole-login-container">
-      <h3 className="log-in-header"><div className="x-button" onClick={closeModal}>X</div><span>Log In</span></h3>
+      <h3 className="log-in-header"><div className="x-button" onClick={closeModal}><i className="fas fa-times"></i></div><span>Log In</span></h3>
       <form
         onSubmit={handleSubmit}
         className='form-container'

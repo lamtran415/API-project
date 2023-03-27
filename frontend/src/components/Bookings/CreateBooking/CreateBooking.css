@@ -37,6 +37,7 @@
 
 .div-reserve-button {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
@@ -55,6 +56,10 @@
     margin-bottom: 1em;
     border: none;
     border-radius: 5px;
+}
+
+.booking-reserve-button:hover {
+    background-color: rgb(252, 89, 119);
 }
 
 .disabled {
