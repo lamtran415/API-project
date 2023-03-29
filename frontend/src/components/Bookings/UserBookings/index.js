@@ -22,7 +22,7 @@ const UserBookings = () => {
 
     const now = new Date();
     const currentBookings = userBookings.filter(booking => new Date(booking.endDate) >= now).sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-    const pastBookings = userBookings.filter(booking => new Date(booking.endDate) < now).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+    const pastBookings = userBookings.filter(booking => new Date(booking.endDate) < now).sort((a, b) => new Date(a.startDate) - new Date(b.startDate)).reverse()
 
     if (!sessionUser) return <Redirect to="/"/>;
 
