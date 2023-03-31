@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { thunkLoadUserSpots } from "../../../store/spotReducer";
 import OpenModalButton from "../../OpenModalButton";
+import CreateNewSpot from "../../SpotForm/CreateSpot";
 import UpdateSpot from "../../SpotForm/UpdateSpot";
 import DeleteSpot from "../DeleteSpot";
 import "./GetCurrentUserSpots.css"
@@ -32,8 +33,8 @@ const GetCurrentUserSpots = () => {
                     <div className="spotsDiv">
                         {userSpots.length ? userSpots.map(spot => {
                             return (
-                                <div key={spot.id}>
-                                    <NavLink style={{textDecoration: 'none'}} className='spots' to={`/spots/${spot.id}`}>
+                                <div key={spot.id} className='spots'>
+                                    <NavLink style={{textDecoration: 'none'}} to={`/spots/${spot.id}`}>
                                         <img
                                             className="userImages"
                                             src={spot.previewImage}
@@ -73,8 +74,13 @@ const GetCurrentUserSpots = () => {
                             )
                         }):
                             <div className="not-hosting-div">
-                                <h2>You currently are not hosting a spot</h2>
+                                <h2>You're currently not hosting a spot</h2>
                                 <button onClick={() => history.push('/')} className="not-hosting-home-btn">Home</button>
+                                <OpenModalButton
+                                    className="not-hosting-home-btn"
+                                    buttonText={`ChillinBnb your home`}
+                                    modalComponent={<CreateNewSpot />}
+                                />
                             </div>
                         }
                     </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { thunkLoadOneSpot } from "../../store/spotReducer";
 import CreateBooking from "../Bookings/CreateBooking";
+import SpotBookings from "../Bookings/SpotBookings";
 import ErrorPage from "../ErrorPage";
 import OpenModalButton from "../OpenModalButton";
 import ReviewsForSpot from "../ReviewsFolder/ReviewsForSpot";
@@ -18,6 +19,7 @@ const GetSpotById = () => {
     let spotById = useSelector(state => state.spots[spotId]);
     const copySpotDetails = {...spotById};
     const sessionUser = useSelector(state => state.session);
+    const bookings = useSelector(state => state.bookings)
 
     useEffect(() => {
         dispatch(thunkLoadOneSpot(spotId))
@@ -92,7 +94,7 @@ const GetSpotById = () => {
                     <div className="right-side-review-bookings">
                         { !sessionUser ? null :
                         <>
-                            {/* <SpotBookings spotById={spotById} shouldReload={shouldReloadBookings} /> */}
+                            {/* <SpotBookings spotById={spotById} /> */}
                             <CreateBooking spotById={spotById} sessionUser={sessionUser} />
                         </>
 

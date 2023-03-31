@@ -21,8 +21,31 @@ const UserBookings = () => {
     const userBookings = Object.values(useSelector(state => state.bookings.userBookings))
 
     const now = new Date();
-    const currentBookings = userBookings.filter(booking => new Date(booking.endDate) >= now).sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-    const pastBookings = userBookings.filter(booking => new Date(booking.endDate) < now).sort((a, b) => new Date(a.startDate) - new Date(b.startDate)).reverse()
+    const currentBookings = userBookings
+        .filter(booking => new Date(booking.endDate) >= now)
+        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+        .map((booking) => {
+            const formattedStartDate = formatDate(booking.startDate);
+            const formattedEndDate = formatDate(booking.endDate);
+            return { ...booking, formattedStartDate: formattedStartDate, formattedEndDate: formattedEndDate };
+        });
+
+
+    const pastBookings = userBookings
+        .filter(booking => new Date(booking.endDate) < now)
+        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate)).reverse()
+        .map((booking) => {
+            const formattedStartDate = formatDate(booking.startDate);
+            const formattedEndDate = formatDate(booking.endDate);
+            return { ...booking, formattedStartDate: formattedStartDate, formattedEndDate: formattedEndDate };
+        });
+
+    function formatDate(dateString) {
+        const year = dateString.slice(0, 4);
+        const month = dateString.slice(5, 7);
+        const day = dateString.slice(8, 10);
+        return `${month}-${day}-${year}`;
+    }
 
     if (!sessionUser) return <Redirect to="/"/>;
 
@@ -53,8 +76,8 @@ const UserBookings = () => {
                                     </div>
                                     <div className="booking-dates-div">
                                         {/* <div>Check In: {new Date(booking?.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div> */}
-                                        <div>Check In: {booking?.startDate}</div>
-                                        <div>Check Out: {booking?.endDate}</div>
+                                        <div>Check In: {booking?.formattedStartDate}</div>
+                                        <div>Check Out: {booking?.formattedEndDate}</div>
                                         {/* <div>Check Out: {new Date(booking?.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div> */}
                                     </div>
                                     <div className="booking-edit-delete-btn">
@@ -117,8 +140,8 @@ const UserBookings = () => {
                                         <span>night</span>
                                     </div>
                                     <div className="booking-dates-div">
-                                        <div>Check In: {booking?.startDate}</div>
-                                        <div>Check Out: {booking?.endDate}</div>
+                                        <div>Check In: {booking?.formattedStartDate}</div>
+                                        <div>Check Out: {booking?.formattedEndDate}</div>
                                     </div>
                                     <div>
                                         {new Date(booking.startDate) > new Date() ?
