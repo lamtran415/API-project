@@ -4,7 +4,6 @@
     top: 0;
     width: 20vw;
     padding: 5px 20px;
-    margin-left: 10vw;
 }
 
 .booking-title {
@@ -26,4 +25,6 @@
 
 .spot-name-no-bookings {
     text-align: center;
+    word-wrap: break-word;
+    max-width: 90%;
 }

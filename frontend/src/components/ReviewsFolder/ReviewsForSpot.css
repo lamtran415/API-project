@@ -37,21 +37,37 @@
 .review-and-pic {
     display: flex;
     flex-direction: row;
-    padding: 10px 7px;
+    padding: 10px 0;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(12, 12, 12, 0.3);
+    width: 100%;
+    /* box-shadow: 2px 2px 10px rgba(12, 12, 12, 0.3); */
 }
 
 .review-with-delete {
     display: flex;
     flex-direction: column;
-    padding-left: 1em;
     margin-bottom: 1em;
 }
 
+.name-date-buttons-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.pic-name-date-div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.name-and-date-div {
+    margin-left: 15px;
+}
+
 .review-by-user {
-    width: 200px;
-    overflow-wrap: break-word;
+    line-height: 20px;
+    width: 95%;
 }
 
 .review-user-firstname {
@@ -83,7 +99,10 @@
 .edit-review-div-container {
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
+    justify-content: flex-end;
+    align-items: center;
+    /* padding-left: 50px; */
+    margin-left: auto;
 }
 
 .delete-review {

@@ -1,10 +1,10 @@
 // frontend/src/components/LoginFormModal/index.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ function LoginFormModal() {
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
+      .then(() => history.push(`/spots/current`))
       .catch(
         async (res) => {
           const data = await res.json();

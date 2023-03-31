@@ -8,13 +8,15 @@ import "./EditBooking.css";
 const EditBooking = ({booking}) => {
     const dispatch = useDispatch();
     const history =  useHistory();
-    const bookingsArr = Object.values(useSelector(state => state.bookings))
+    const bookingsArr = Object.values(useSelector(state => state.bookings.spotBookings))
     const date = new Date();
     const isoDate = date.toISOString().slice(0, 10);
     const today = new Date();
     const tomorrow = new Date();
     const sessionUser = useSelector(state => state.session.user)
     const { closeModal } = useModal();
+
+    const filteredBookingsArr = bookingsArr.filter((b) => b.startDate !== booking.startDate);
 
     tomorrow.setDate(today.getDate() + 1);
 
@@ -44,7 +46,7 @@ const EditBooking = ({booking}) => {
         let conflictWithBooking = false
 
 
-        bookingsArr.forEach((booking) => {
+        filteredBookingsArr.forEach((booking) => {
           let startDateParse = Date.parse(startDate);
           let endDateParse = Date.parse(endDate);
           let startBookingExist = Date.parse(booking.startDate);
