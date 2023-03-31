@@ -64,7 +64,7 @@ const UpdateSpot = ({spotById}) => {
             <div className="update-input-container">
                 {errors.includes("Address must be 100 characters or less") && <span className="spot-errors-map">Address must be 100 characters or less</span>}
                 <label>
-                    {/* Address: */}
+                    <span className="label-span">Address:</span>
                     <input
                         type='text'
                         name="address"
@@ -76,7 +76,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("City must be 85 characters or less") && <span className="spot-errors-map">City must be 85 characters or less</span>}
                 <label>
-                    {/* City: */}
+                    <span className="label-span">City:</span>
                     <input
                         type='text'
                         name="city"
@@ -88,7 +88,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("State must be 20 characters or less") && <span className="spot-errors-map">State must be 20 characters or less</span>}
                 <label>
-                    {/* State: */}
+                    <span className="label-span">State:</span>
                     <input
                         type='text'
                         name="state"
@@ -100,7 +100,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("Country must be 60 characters or less") && <span className="spot-errors-map">Country must be 60 characters or less</span>}
                 <label>
-                    {/* Country: */}
+                    <span className="label-span">Country:</span>
                     <input
                         type='text'
                         name="country"
@@ -112,7 +112,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("Name must be less than 50 characters") && <span className="spot-errors-map">Name must be less than 50 characters</span>}
                 <label>
-                    {/* Name: */}
+                    <span className="label-span">Name:</span>
                     <input
                         type='text'
                         name="name"
@@ -124,7 +124,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("Description must be 500 characters or less") && <span className="spot-errors-map">Description must be 500 characters or less</span>}
                 <label>
-                    {/* Description: */}
+                    <span className="label-span">Description:</span>
                     <input
                         type='text'
                         name="description"
@@ -136,7 +136,7 @@ const UpdateSpot = ({spotById}) => {
                 </label>
                 {errors.includes("Price must be an integer from 1 to 100000") && <span className="spot-errors-map">Price must be an integer from 1 to 100000</span>}
                 <label>
-                    {/* Price: */}
+                    <span className="label-span">Price:</span>
                     <input
                         type='number'
                         name="price"
@@ -145,7 +145,7 @@ const UpdateSpot = ({spotById}) => {
                         placeholder="Enter a price"
                         onChange={(e) => setPrice(e.target.value)}
                         required
-                    />
+                        />
                 </label>
                 <button type="submit">Submit</button>
             </div>

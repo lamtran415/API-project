@@ -79,7 +79,9 @@ const GetSpotById = () => {
                 </div>
                 <div className="description-booking-div">
                     <div className="spot-id-description">
-                        {spotById?.description}
+                        <div className="description-each-spot">
+                            {spotById?.description}
+                        </div>
                         <div className="review-bookings-div">
                             <div className="left-side-review-bookings">
                                 <ReviewsForSpot spotById={spotById}/>

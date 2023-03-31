@@ -60,42 +60,45 @@ const ReviewsForSpot = ({ spotById }) => {
         <div className="lower-section-container">
           {reviewsArr.map((review) => (
             <div key={review?.id} className="review-and-pic">
-              <div className="above-review-comment">
-                <i className="fas fa-user fa-2x" />
-              </div>
               <div className="review-with-delete">
-                <div className="review-user-firstname">{review?.User?.firstName}</div>
-                <div className="review-date">{new Date(review?.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
-                <div className="review-by-user">{review?.review}</div>
-              </div>
-              <div>
-                <div className="edit-review-div-container">
-                {sessionUser.user !== null &&
-                copySessionUser.user.id === review.userId ? (
-                  <OpenModalButton
-                        className="delete-review"
-                        buttonText="Edit"
-                        modalComponent={
-                          <UpdateReviewForSpot
-                            review={review}
+                <div className="pic-name-date-div">
+                  <i className="fas fa-user fa-2x" />
+                  <div className="name-date-buttons-container">
+                    <div className="name-and-date-div">
+                      <div className="review-user-firstname">{review?.User?.firstName}</div>
+                      <div className="review-date">{new Date(review?.createdAt).toLocaleString('en-US',{ month: 'long'})}{" "}{new Date(review.createdAt).getFullYear()}</div>
+                    </div>
+
+                    <div className="edit-review-div-container">
+                    {sessionUser.user !== null &&
+                    copySessionUser.user.id === review.userId ? (
+                      <OpenModalButton
+                            className="delete-review"
+                            buttonText="Edit"
+                            modalComponent={
+                              <UpdateReviewForSpot
+                                review={review}
+                              />
+                            }
                           />
-                        }
-                      />
-                  ) : null}
-                  {sessionUser.user !== null &&
-                  copySessionUser.user.id === review.userId ? (
-                    <OpenModalButton
-                      className="delete-review"
-                      buttonText="Delete"
-                      modalComponent={
-                        <DeleteReview
-                          review={review}
-                          copySessionUser={copySessionUser}
+                      ) : null}
+                      {sessionUser.user !== null &&
+                      copySessionUser.user.id === review.userId ? (
+                        <OpenModalButton
+                          className="delete-review"
+                          buttonText="Delete"
+                          modalComponent={
+                            <DeleteReview
+                              review={review}
+                              copySessionUser={copySessionUser}
+                            />
+                          }
                         />
-                      }
-                    />
-                  ) : null}
+                      ) : null}
+                      </div>
                   </div>
+                </div>
+                <div className="review-by-user">{review?.review}</div>
               </div>
             </div>
           ))}
