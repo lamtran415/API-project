@@ -5,7 +5,7 @@ import { thunkLoadSpotBookings } from "../../../store/bookingReducer";
 import { thunkLoadOneSpot } from "../../../store/spotReducer";
 import "./SpotBookings.css"
 
-const SpotBookings = ({spotById, shouldReload}) => {
+const SpotBookings = ({spotById}) => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const [ isLoaded, setIsLoaded ] = useState(false)
@@ -14,10 +14,9 @@ const SpotBookings = ({spotById, shouldReload}) => {
     useEffect(() => {
         dispatch(thunkLoadSpotBookings(spotId))
         .then(() => (setIsLoaded(true)))
-    }, [dispatch, spotId, shouldReload])
+    }, [dispatch, spotId])
 
     const bookingsArr = Object.values(useSelector(state => state.bookings))
-    console.log(bookingsArr)
     const sessionUser = useSelector(state => state.session.user)
 
     let spotBookings;

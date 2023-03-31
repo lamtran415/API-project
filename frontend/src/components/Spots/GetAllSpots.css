@@ -1,7 +1,7 @@
 .spots-div-wrapper {
     margin-top: 6.5em;
     width: auto;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .spotsDiv {
@@ -47,9 +47,14 @@
     font-weight: bold;
 }
 
-.avg-rating-wrapper, .spot-price{
+.avg-rating-wrapper {
     color: black;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.spot-price {
+    color: black;
+    margin-bottom: 5px;
 }
 
 .avg-rating-wrapper {
@@ -58,5 +63,13 @@
 }
 
 .average-rating {
-    margin-left: 3px;
+    /* margin-left: 3px; */
+}
+
+.get-all-spots:hover {
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px 3px rgba(255, 56, 92, 0.8);
+    /* width: 20vw; */
+    padding: 5px 5px 0px 8px;
+    /* min-width: 230px */
 }
