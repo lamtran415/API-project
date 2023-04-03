@@ -51,6 +51,10 @@
     color: rgb(255, 56, 92);
 }
 
+.booking-spot-address-div {
+    margin-top: 2px;
+}
+
 .user-booking-city-country {
     text-decoration: underline;
     padding: 5px 0;
