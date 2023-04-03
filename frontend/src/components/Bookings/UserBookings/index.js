@@ -69,6 +69,7 @@ const UserBookings = () => {
                                         onClick={() => history.push(`/spots/${booking.Spot.id}`)}>
                                         {booking.Spot?.name}
                                     </div>
+                                    <div className="booking-spot-address-div">{booking.Spot.address}</div>
                                     <div className="user-booking-city-country">{booking.Spot?.city}, {booking.Spot?.state}</div>
                                     <div className="spot-price">
                                         <span className="pricing">{`$${booking.Spot?.price} `}</span>
@@ -134,6 +135,7 @@ const UserBookings = () => {
                                         onClick={() => history.push(`/spots/${booking.Spot.id}`)}>
                                         {booking.Spot?.name}
                                     </div>
+                                    <div className="booking-spot-address-div">{booking.Spot?.address}</div>
                                     <div className="user-booking-city-country">{booking.Spot?.city}, {booking.Spot?.state}</div>
                                     <div className="spot-price">
                                         <span className="pricing">{`$${booking.Spot?.price} `}</span>
